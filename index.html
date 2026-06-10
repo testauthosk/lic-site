@@ -10,141 +10,123 @@
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz@1,6..72&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
   theme: { extend: {
     colors: {
-      ink:   { DEFAULT:'#0B1F2A', 700:'#102A38', 600:'#16384B' },
-      navy:  { DEFAULT:'#0E2A3A' },
-      clay:  { DEFAULT:'#C45A3B', soft:'#E08A63', deep:'#9E4329' },
-      sand:  { DEFAULT:'#E7B864' },
-      cream: { DEFAULT:'#F6F1E7', 200:'#EFE7D6' },
-      paper: '#FBF8F2'
+      paper:'#F5F0E6',
+      ivory:'#ECE4D2',
+      pine: { DEFAULT:'#16352A', 800:'#10271F', 900:'#0B1B15' },
+      moss: '#2C4A3C',
+      brass:{ DEFAULT:'#AE8A43', soft:'#C9A55C', deep:'#8F6F33' },
+      inkt: '#1C2922'
     },
     fontFamily: {
-      display:['Fraunces','Georgia','serif'],
+      display:['"Libre Caslon Display"','Georgia','serif'],
       quote:['Newsreader','Georgia','serif'],
       sans:['Inter','system-ui','sans-serif']
     },
     boxShadow: {
-      soft:'0 30px 70px -28px rgba(11,31,42,.45)',
-      card:'0 18px 50px -24px rgba(11,31,42,.28)',
-      lift:'0 36px 80px -30px rgba(11,31,42,.55)'
+      card:'0 22px 55px -28px rgba(11,27,21,.35)',
+      lift:'0 34px 70px -30px rgba(11,27,21,.5)'
     }
   }}
 }
 </script>
 <style>
-  :root{ --ease:cubic-bezier(.19,1,.22,1); --ease-soft:cubic-bezier(.22,.61,.36,1); }
-  body{font-family:'Inter',sans-serif;color:#15303d;background:#FBF8F2;-webkit-font-smoothing:antialiased}
-  .display{font-family:'Fraunces',Georgia,serif;font-optical-sizing:auto;letter-spacing:-.018em}
+  :root{ --ease:cubic-bezier(.22,.61,.36,1); }
+  body{font-family:'Inter',sans-serif;color:#1C2922;background:#F5F0E6;-webkit-font-smoothing:antialiased}
+  .display{font-family:'Libre Caslon Display',Georgia,serif;letter-spacing:-.01em}
   .quote{font-family:'Newsreader',Georgia,serif;font-style:italic}
-  /* fine grain texture for craft / depth */
-  .grain::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
-  .eyebrow{font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;font-weight:600}
+  .eyebrow{font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;font-weight:600}
+  @media (max-width:480px){.eyebrow{font-size:.6rem;letter-spacing:.18em}}
 
-  /* ===== SCROLL REVEAL — varied entrances driven by data-anim ===== */
-  .reveal{opacity:0;transform:translateY(26px);
-    transition:opacity 1s var(--ease),transform 1.1s var(--ease),filter 1.1s var(--ease);
-    will-change:opacity,transform}
-  .reveal.in{opacity:1;transform:none;filter:none}
-  /* entrance variants */
-  .reveal[data-anim="left"]   {transform:translateX(-46px)}
-  .reveal[data-anim="right"]  {transform:translateX(46px)}
-  .reveal[data-anim="scale"]  {transform:scale(.92);transform-origin:center}
-  .reveal[data-anim="blur"]   {transform:translateY(20px);filter:blur(14px)}
-  .reveal[data-anim="rise"]   {transform:translateY(46px)}
-  .reveal[data-anim="fade"]   {transform:none}
-  /* stagger steps — applied to children via .stagger > * or explicit data-d */
-  .reveal[data-d="1"]{transition-delay:.09s}.reveal[data-d="2"]{transition-delay:.18s}.reveal[data-d="3"]{transition-delay:.27s}
-  .reveal[data-d="4"]{transition-delay:.36s}.reveal[data-d="5"]{transition-delay:.45s}.reveal[data-d="6"]{transition-delay:.54s}
-  /* auto-stagger: container marks children, JS assigns --i */
-  .stagger > *{opacity:0;transform:translateY(28px);
-    transition:opacity .9s var(--ease),transform 1s var(--ease);
-    transition-delay:calc(var(--i,0) * .085s);will-change:opacity,transform}
+  /* fine grain on dark bands only — opacity inline-safe */
+  .grain{position:relative}
+  .grain::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.06;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  /* ===== motion: short, crisp, no blur ===== */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .65s var(--ease),transform .7s var(--ease);will-change:opacity,transform}
+  .reveal.in{opacity:1;transform:none}
+  .reveal[data-d="1"]{transition-delay:.08s}.reveal[data-d="2"]{transition-delay:.16s}
+  .reveal[data-d="3"]{transition-delay:.24s}.reveal[data-d="4"]{transition-delay:.32s}
+
+  .stagger > *{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .65s var(--ease);transition-delay:calc(var(--i,0)*.07s)}
   .stagger.in > *{opacity:1;transform:none}
 
-  /* headline clip-wipe */
-  .clip{clip-path:inset(0 -.1em 110% 0);transition:clip-path 1.1s var(--ease)}
-  .clip.in{clip-path:inset(0 -.1em -.15em 0)}
+  /* headline line-mask: each line rises out of its own clip.
+     padding-bottom keeps descenders/italic overshoot inside the clip window */
+  .line{display:block;overflow:hidden;padding-bottom:.12em;margin-bottom:-.12em}
+  .line > span{display:block;transform:translateY(118%);transition:transform .85s var(--ease)}
+  .lines.in .line > span{transform:none}
+  .lines.in .line:nth-child(2) > span{transition-delay:.1s}
+  .lines.in .line:nth-child(3) > span{transition-delay:.2s}
 
-  /* image mask reveal — a clip-path curtain that lifts as the figure enters */
-  .mask-img{clip-path:inset(0 0 100% 0);transition:clip-path 1.25s var(--ease)}
+  /* image curtain reveal */
+  .mask-img{clip-path:inset(0 0 100% 0);transition:clip-path .9s var(--ease)}
   .mask-img.in{clip-path:inset(0 0 0 0)}
-  .mask-img img{transform:scale(1.12);transition:transform 1.6s var(--ease)}
+  .mask-img img{transform:scale(1.07);transition:transform 1.2s var(--ease)}
   .mask-img.in img{transform:scale(1)}
 
-  /* image hover ken-burns */
-  .kb img{transition:transform 1.4s var(--ease)}
-  .kb:hover img{transform:scale(1.06)}
+  /* duotone photo treatment — photos always sit on pine, tinted to palette */
+  .duo{background:#16352A}
+  .duo img{filter:grayscale(1) contrast(1.04) brightness(.94);mix-blend-mode:luminosity;opacity:.92}
+  .duo::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(160deg,rgba(22,53,42,.38),rgba(174,138,67,.16) 65%,rgba(11,27,21,.42))}
 
-  /* card lift + shadow */
-  .lift{transition:transform .55s var(--ease),box-shadow .55s var(--ease)}
-  .lift:hover{transform:translateY(-8px);box-shadow:0 36px 80px -30px rgba(11,31,42,.55)}
+  /* arch frame — signature shape */
+  .arch{border-radius:999px 999px 1.4rem 1.4rem}
 
-  /* underline-grow links + arrow nudge on hover */
+  .lift{transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+  .lift:hover{transform:translateY(-7px);box-shadow:0 34px 70px -30px rgba(11,27,21,.5)}
+
   .ulink{position:relative}
   .ulink::after{content:"";position:absolute;left:0;bottom:-2px;height:1.5px;width:100%;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
   .ulink:hover::after{transform:scaleX(1)}
-  .nudge svg,.nudge .arrow{transition:transform .45s var(--ease)}
-  .nudge:hover svg,.nudge:hover .arrow{transform:translateX(5px)}
+  .nudge svg{transition:transform .4s var(--ease)}
+  .nudge:hover svg{transform:translateX(5px)}
 
-  /* buttons — soft press + sheen sweep */
-  .btn-clay{background:#C45A3B;color:#FBF8F2;position:relative;overflow:hidden;transition:background .35s var(--ease),transform .35s var(--ease),box-shadow .45s var(--ease)}
-  .btn-clay:hover{background:#9E4329}
-  .btn-fx{position:relative;overflow:hidden;transition:transform .35s var(--ease),box-shadow .45s var(--ease),filter .35s var(--ease),background-color .35s var(--ease)}
-  .btn-fx:hover{transform:translateY(-2px)}
-  .btn-fx:active{transform:translateY(0)}
-  .btn-fx::before{content:"";position:absolute;top:0;left:-130%;width:60%;height:100%;
-    background:linear-gradient(100deg,transparent,rgba(255,255,255,.32),transparent);
-    transform:skewX(-18deg);transition:left .7s var(--ease);pointer-events:none}
-  .btn-fx:hover::before{left:140%}
+  .btn{transition:transform .35s var(--ease),box-shadow .4s var(--ease),background-color .35s var(--ease),color .35s var(--ease)}
+  .btn:hover{transform:translateY(-2px)}
+  .btn:active{transform:translateY(0)}
+  .btn-pine{background:#16352A;color:#F5F0E6}
+  .btn-pine:hover{background:#10271F}
+  .btn-brass{background:#AE8A43;color:#0B1B15}
+  .btn-brass:hover{background:#8F6F33;color:#F5F0E6}
 
-  @keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-  .drift{animation:drift 8s ease-in-out infinite}
-  /* soft scroll cue in hero */
-  @keyframes cue{0%{transform:translateY(0);opacity:.55}50%{transform:translateY(7px);opacity:1}100%{transform:translateY(0);opacity:.55}}
-  .cue{animation:cue 2.4s var(--ease-soft) infinite}
+  .rule{height:1px;background:linear-gradient(90deg,rgba(174,138,67,.55),rgba(174,138,67,0))}
+  .diamond{display:inline-block;width:5px;height:5px;transform:rotate(45deg);background:#AE8A43}
 
   details summary::-webkit-details-marker{display:none}
-  /* FAQ answer slide-open */
   details .faq-body{overflow:hidden}
-  details[open] summary ~ .faq-body{animation:faqIn .55s var(--ease)}
+  details[open] summary ~ .faq-body{animation:faqIn .5s var(--ease)}
   @keyframes faqIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 
-  .num-index{font-variant-numeric:tabular-nums}
-  .count{font-variant-numeric:tabular-nums}
+  .count,.num-index{font-variant-numeric:tabular-nums}
 
-  /* sticky-pin depth moment on the impact band: inner content settles in as it owns the viewport */
-  [data-pin-inner]{transition:transform 1.1s var(--ease),opacity 1.1s var(--ease)}
-  [data-pin]:not(.pin-active) [data-pin-inner]{transform:translateY(14px) scale(.992);opacity:.9}
-  [data-pin].pin-active [data-pin-inner]{transform:none;opacity:1}
-
-  /* reduced-motion: show everything, kill all motion */
   @media (prefers-reduced-motion:reduce){
-    .reveal,.clip,.mask-img,.mask-img img,.stagger>*,[data-pin-inner]{transition:none!important;opacity:1!important;transform:none!important;clip-path:none!important;filter:none!important}
-    .drift,.cue{animation:none!important}
+    .reveal,.stagger>*,.mask-img,.mask-img img,.line>span{transition:none!important;opacity:1!important;transform:none!important;clip-path:none!important}
     html{scroll-behavior:auto}
   }
 </style>
 </head>
 <body class="bg-paper">
 
-<!-- ===== NAV ===== -->
-<header id="nav" class="fixed top-0 inset-x-0 z-50 transition-all duration-500">
-  <div class="mx-auto max-w-[88rem] px-5 lg:px-10">
-    <div class="flex h-[72px] items-center justify-between">
-      <a href="#top" class="flex items-center gap-3 group">
-        <span class="grid h-10 w-10 place-items-center rounded-full border border-current/20 bg-ink text-cream display text-lg font-600 leading-none">L</span>
+<!-- ===== NAV — dark text always (hero is light), ivory veil on scroll ===== -->
+<header id="nav" class="fixed top-0 inset-x-0 z-50 text-inkt transition-all duration-500">
+  <div class="mx-auto max-w-[86rem] px-5 lg:px-10">
+    <div class="flex h-[74px] items-center justify-between">
+      <a href="#top" class="flex items-center gap-3">
+        <span class="grid h-10 w-10 place-items-center arch border border-pine/25 bg-pine text-paper display text-lg leading-none pt-0.5">L</span>
         <span class="leading-tight">
-          <span class="block display text-[15px] font-600 tracking-tight nav-text">Liberty Immigration Council</span>
-          <span class="block text-[10px] eyebrow opacity-60 nav-text">Justice · Dignity · Belonging</span>
+          <span class="block display text-[15.5px] tracking-tight">Liberty Immigration Council</span>
+          <span class="block text-[9.5px] eyebrow text-brass-deep">Justice · Dignity · Belonging</span>
         </span>
       </a>
-      <nav class="hidden lg:flex items-center gap-9 text-[13.5px] font-500 nav-text">
+      <nav class="hidden lg:flex items-center gap-9 text-[13.5px] font-500">
         <a href="#programs" class="ulink">Programs</a>
         <a href="#stories" class="ulink">Stories</a>
         <a href="#attorney" class="ulink">Our Attorney</a>
@@ -152,60 +134,56 @@ tailwind.config = {
         <a href="#faq" class="ulink">FAQ</a>
       </nav>
       <div class="flex items-center gap-3">
-        <a href="#help" class="hidden sm:inline-flex rounded-full border border-current/25 px-5 py-2 text-[13.5px] font-600 nav-text hover:bg-current/5 transition">Get Help</a>
-        <a href="#donate" class="inline-flex rounded-full btn-clay px-5 py-2 text-[13.5px] font-600 shadow-sm transition">Donate</a>
+        <a href="#help" class="hidden sm:inline-flex btn rounded-full border border-pine/30 px-5 py-2 text-[13.5px] font-600 hover:bg-pine hover:text-paper">Get Help</a>
+        <a href="#donate" class="inline-flex btn btn-brass rounded-full px-5 py-2 text-[13.5px] font-600">Donate</a>
       </div>
     </div>
   </div>
 </header>
 
-<!-- ===== HERO ===== full-bleed editorial photo + oversized overlaid headline -->
-<section id="top" class="relative h-[760px] sm:h-[820px] lg:h-[880px] flex items-end overflow-hidden grain bg-ink text-cream">
-  <!-- photo layer -->
-  <div class="absolute inset-0">
-    <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1900&q=80"
-         alt="A multigenerational immigrant family standing together outdoors" id="heroImg"
-         class="h-full w-full object-cover object-center will-change-transform">
-  </div>
-  <!-- gradient + tone -->
-  <div class="absolute inset-0 bg-ink/55"></div>
-  <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(11,31,42,.78) 0%,rgba(11,31,42,.18) 38%,rgba(11,31,42,.55) 78%,rgba(11,31,42,.92) 100%)"></div>
-  <div class="absolute -top-32 -right-24 h-[40rem] w-[40rem] rounded-full blur-3xl opacity-40 will-change-transform" id="heroGlow" style="background:radial-gradient(circle,#C45A3B 0%,transparent 60%)"></div>
-
-  <!-- soft scroll cue -->
-  <div class="reveal absolute bottom-6 left-1/2 -translate-x-1/2 z-10 hidden sm:flex flex-col items-center gap-1 text-cream/60" data-anim="fade" data-d="4" aria-hidden="true">
-    <span class="eyebrow text-[10px]">Scroll</span>
-    <svg class="cue h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7-7-7"/></svg>
-  </div>
-
-  <div class="relative mx-auto max-w-[88rem] w-full px-5 lg:px-10 pb-16 lg:pb-20 pt-32">
-    <div class="grid lg:grid-cols-12 gap-10 items-end">
-      <div class="lg:col-span-8">
-        <span class="reveal eyebrow text-sand">A 501(c)(3) nonprofit · Led by a licensed attorney</span>
-        <h1 class="mt-6 display font-400 leading-[.97] text-[12vw] sm:text-[8.5vw] lg:text-[6.4rem]">
-          <span class="block clip">Trusted help for</span>
-          <span class="block clip" style="transition-delay:.12s">the families who</span>
-          <span class="block clip italic font-300 text-sand" style="transition-delay:.24s">need it most.</span>
+<!-- ===== HERO — split editorial: text on ivory, photo in arch. No text over photo, ever. ===== -->
+<section id="top" class="relative overflow-hidden bg-paper">
+  <!-- soft brass wash, decorative only -->
+  <div class="absolute -top-44 -left-40 h-[34rem] w-[34rem] rounded-full opacity-30" style="background:radial-gradient(circle,rgba(174,138,67,.5) 0%,transparent 65%)"></div>
+  <div class="relative mx-auto max-w-[86rem] px-5 lg:px-10 pt-36 lg:pt-44 pb-16 lg:pb-24">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      <div class="lg:col-span-7">
+        <div class="reveal flex items-center gap-3 text-brass-deep">
+          <span class="diamond shrink-0"></span>
+          <span class="eyebrow min-w-0 flex-1">A 501(c)(3) nonprofit · Led by a licensed attorney</span>
+        </div>
+        <h1 class="lines mt-7 display leading-[1.08] text-[8.5vw] sm:text-[7vw] lg:text-[5.6rem] text-pine-900">
+          <span class="line"><span>Help, dignity, and</span></span>
+          <span class="line"><span>a <em class="quote text-brass-deep font-500">lawful path</em> forward</span></span>
+          <span class="line"><span>for every family.</span></span>
         </h1>
-        <p class="reveal mt-8 max-w-xl text-[17px] leading-relaxed text-cream/80" data-anim="rise" data-d="2">
+        <p class="reveal mt-8 max-w-xl text-[17px] leading-relaxed text-inkt/75" data-d="2">
           Affordable immigration legal services, Know Your Rights education, and compassionate,
           trauma-informed support — for low-income immigrant families navigating an impossible system.
         </p>
-        <div class="reveal mt-9 flex flex-wrap gap-3.5" data-anim="rise" data-d="3">
-          <a href="#help" class="btn-fx rounded-full btn-clay px-7 py-4 font-600 shadow-soft">Get Legal Help</a>
-          <a href="#donate" class="btn-fx rounded-full border border-cream/35 px-7 py-4 font-500 text-cream hover:bg-cream/10">Support the Mission</a>
+        <div class="reveal mt-9 flex flex-wrap gap-3.5" data-d="3">
+          <a href="#help" class="btn btn-pine rounded-full px-7 py-4 font-600 shadow-card">Get Legal Help</a>
+          <a href="#donate" class="btn rounded-full border border-pine/30 px-7 py-4 font-600 text-pine-900 hover:bg-pine hover:text-paper">Support the Mission</a>
+        </div>
+        <div class="reveal mt-10 flex flex-wrap items-center gap-x-7 gap-y-3 text-[12px] eyebrow text-inkt/55" data-d="4">
+          <span>Confidential intake</span><span class="diamond"></span>
+          <span>English · Español · Русский</span><span class="diamond"></span>
+          <span>Sliding-scale &amp; pro bono</span>
         </div>
       </div>
-      <!-- offset trust micro-panel, breaks symmetry -->
-      <div class="reveal lg:col-span-4 lg:justify-self-end w-full max-w-sm" data-anim="scale" data-d="4">
-        <div class="rounded-2xl bg-cream/10 backdrop-blur-md ring-1 ring-cream/20 p-6">
-          <div class="flex items-center gap-2 text-sand text-sm font-600">
-            <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            Confidential &amp; secure intake
+      <div class="lg:col-span-5">
+        <div class="relative max-w-[26rem] mx-auto lg:ml-auto">
+          <div class="mask-img duo arch relative overflow-hidden shadow-lift aspect-[4/5.1]">
+            <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1100&q=80"
+                 alt="A multigenerational immigrant family standing together outdoors" id="heroImg" class="h-full w-full object-cover will-change-transform">
           </div>
-          <p class="mt-2 text-sm text-cream/70 leading-relaxed">Your information is never shared with immigration authorities. We respond within 1–2 business days.</p>
-          <div class="mt-4 flex items-center gap-3 text-[11px] eyebrow text-cream/60">
-            <span>English</span><span class="h-1 w-1 rounded-full bg-cream/40"></span><span>Español</span><span class="h-1 w-1 rounded-full bg-cream/40"></span><span>Русский</span>
+          <!-- caption card sits on paper, not on the photo -->
+          <div class="reveal absolute -bottom-7 -left-4 sm:-left-10 w-[15.5rem] rounded-2xl bg-paper ring-1 ring-pine/15 shadow-card p-5" data-d="3">
+            <div class="flex items-center gap-2 text-pine font-600 text-sm">
+              <svg class="h-4 w-4 text-brass-deep" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              Confidential &amp; secure
+            </div>
+            <p class="mt-1.5 text-[12.5px] text-inkt/65 leading-relaxed">Your information is never shared with immigration authorities. We respond within 1–2 business days.</p>
           </div>
         </div>
       </div>
@@ -213,192 +191,185 @@ tailwind.config = {
   </div>
 </section>
 
-<!-- ===== TRUST MARQUEE STRIP ===== -->
-<section class="bg-ink text-cream/70 border-t border-cream/10">
-  <div class="reveal stagger mx-auto max-w-[88rem] px-5 lg:px-10 py-5 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-[12.5px] eyebrow" data-anim="fade">
-    <span>Trusted by immigrant families</span><span class="text-clay-soft">/</span>
-    <span>501(c)(3) Nonprofit</span><span class="text-clay-soft">/</span>
-    <span>Member, AILA</span><span class="text-clay-soft">/</span>
-    <span>15+ Years of Practice</span><span class="text-clay-soft">/</span>
+<!-- ===== TRUST STRIP ===== -->
+<section class="border-y border-pine/15 bg-ivory">
+  <div class="reveal stagger mx-auto max-w-[86rem] px-5 lg:px-10 py-5 flex flex-wrap items-center justify-center gap-x-9 gap-y-3 text-[12px] eyebrow text-inkt/60">
+    <span>Trusted by immigrant families</span><span class="diamond"></span>
+    <span>501(c)(3) Nonprofit</span><span class="diamond"></span>
+    <span>Member, AILA</span><span class="diamond"></span>
+    <span>15+ Years of Practice</span><span class="diamond"></span>
     <span>Confidential Intake</span>
   </div>
 </section>
 
-<!-- ===== MISSION / INTRO — asymmetric: huge serif statement + side note ===== -->
+<!-- ===== PURPOSE — big serif statement + side note ===== -->
 <section class="bg-paper">
-  <div class="mx-auto max-w-[88rem] px-5 lg:px-10 py-24 lg:py-32">
+  <div class="mx-auto max-w-[86rem] px-5 lg:px-10 py-24 lg:py-32">
     <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
       <div class="lg:col-span-7">
-        <span class="reveal eyebrow text-clay" data-anim="left">Our purpose</span>
-        <p class="reveal display font-300 text-[2rem] sm:text-[2.6rem] lg:text-[3.1rem] leading-[1.08] text-ink mt-6" data-anim="blur" data-d="1">
+        <div class="reveal flex items-center gap-3 text-brass-deep"><span class="diamond"></span><span class="eyebrow">Our purpose</span></div>
+        <p class="reveal display text-[1.9rem] sm:text-[2.5rem] lg:text-[3rem] leading-[1.12] text-pine-900 mt-6" data-d="1">
           No one should have to face immigration uncertainty
-          <span class="italic text-clay">alone</span> — without a guide, a language they understand, or someone who treats them with dignity.
+          <em class="quote text-brass-deep">alone</em> — without a guide, a language they understand, or someone who treats them with dignity.
         </p>
       </div>
-      <div class="lg:col-span-5 lg:pt-3">
-        <p class="reveal text-[17px] leading-relaxed text-ink/70" data-anim="right" data-d="2">
+      <div class="lg:col-span-5 lg:pt-4">
+        <div class="reveal rule w-24 mb-7" data-d="1"></div>
+        <p class="reveal text-[16.5px] leading-relaxed text-inkt/70" data-d="2">
           Liberty Immigration Council was built for the families the system overlooks — the mother separated
           from her child, the worker facing removal after decades of contribution, the young person who has
           known no other home.
         </p>
-        <p class="reveal text-[17px] leading-relaxed text-ink/70 mt-4" data-anim="right" data-d="3">
+        <p class="reveal text-[16.5px] leading-relaxed text-inkt/70 mt-4" data-d="3">
           We stand beside them when the law feels insurmountable, explain their rights in plain language,
           and help them find the best path forward.
         </p>
-        <a href="#programs" class="reveal nudge inline-flex items-center gap-2 mt-7 font-600 text-clay ulink" data-anim="right" data-d="4">
+        <a href="#programs" class="reveal nudge inline-flex items-center gap-2 mt-7 font-600 text-pine ulink" data-d="4">
           See how we help
-          <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg>
+          <svg class="h-4 w-4 text-brass-deep" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg>
         </a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== PROGRAMS — editorial numbered list with image, NOT 3 identical icon cards ===== -->
-<section id="programs" class="bg-cream relative grain overflow-hidden">
-  <div class="mx-auto max-w-[88rem] px-5 lg:px-10 py-24 lg:py-32">
+<!-- ===== PROGRAMS — numbered editorial rows + arch image ===== -->
+<section id="programs" class="bg-ivory border-y border-pine/10">
+  <div class="mx-auto max-w-[86rem] px-5 lg:px-10 py-24 lg:py-32">
     <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
-      <h2 class="reveal display font-400 text-[2.4rem] sm:text-[3rem] lg:text-[3.6rem] leading-[1.02] text-ink max-w-xl" data-anim="left">
+      <h2 class="reveal display text-[2.2rem] sm:text-[2.8rem] lg:text-[3.4rem] leading-[1.05] text-pine-900 max-w-xl">
         What we do, and<br>who it&rsquo;s for
       </h2>
-      <p class="reveal text-ink/65 max-w-sm text-[15.5px] leading-relaxed" data-anim="right" data-d="1">
+      <p class="reveal text-inkt/65 max-w-sm text-[15.5px] leading-relaxed" data-d="1">
         Practical legal help, community education, and family support — delivered with clarity and care.
       </p>
     </div>
 
     <div class="mt-16 grid lg:grid-cols-12 gap-y-12 lg:gap-x-14">
-      <!-- big feature image, spans left -->
       <div class="lg:col-span-5 lg:row-span-3 self-stretch">
-        <div class="kb mask-img overflow-hidden rounded-[1.6rem] h-full min-h-[22rem] shadow-card">
+        <div class="mask-img duo arch relative overflow-hidden h-full min-h-[24rem] shadow-card">
           <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1100&q=80"
                alt="A reassuring handshake during an immigration consultation" class="h-full w-full object-cover">
         </div>
       </div>
-      <!-- program 1 -->
-      <div class="reveal lg:col-span-7 group" data-anim="right">
-        <div class="flex items-start gap-6 border-t border-ink/15 pt-7">
-          <span class="num-index display text-clay text-2xl font-500 leading-none mt-1">01</span>
+      <div class="reveal lg:col-span-7">
+        <div class="flex items-start gap-6 border-t border-pine/20 pt-7">
+          <span class="num-index display text-brass-deep text-2xl leading-none mt-1">01</span>
           <div>
-            <h3 class="display text-[1.6rem] font-500 text-ink leading-tight">Immigration Legal Services</h3>
-            <p class="mt-2.5 text-ink/65 leading-relaxed max-w-lg">Consultations, case assessment, and representation for family immigration, green cards, status adjustment, citizenship, deportation defense, and humanitarian relief.</p>
+            <h3 class="display text-[1.55rem] text-pine-900 leading-tight">Immigration Legal Services</h3>
+            <p class="mt-2.5 text-inkt/65 leading-relaxed max-w-lg">Consultations, case assessment, and representation for family immigration, green cards, status adjustment, citizenship, deportation defense, and humanitarian relief.</p>
           </div>
         </div>
       </div>
-      <!-- program 2 -->
-      <div class="reveal lg:col-span-7 group" data-anim="right" data-d="1">
-        <div class="flex items-start gap-6 border-t border-ink/15 pt-7">
-          <span class="num-index display text-clay text-2xl font-500 leading-none mt-1">02</span>
+      <div class="reveal lg:col-span-7" data-d="1">
+        <div class="flex items-start gap-6 border-t border-pine/20 pt-7">
+          <span class="num-index display text-brass-deep text-2xl leading-none mt-1">02</span>
           <div>
-            <h3 class="display text-[1.6rem] font-500 text-ink leading-tight">Community Legal Education</h3>
-            <p class="mt-2.5 text-ink/65 leading-relaxed max-w-lg">Know Your Rights workshops, multilingual resources, and outreach — so families understand their options before they ever face the system alone.</p>
+            <h3 class="display text-[1.55rem] text-pine-900 leading-tight">Community Legal Education</h3>
+            <p class="mt-2.5 text-inkt/65 leading-relaxed max-w-lg">Know Your Rights workshops, multilingual resources, and outreach — so families understand their options before they ever face the system alone.</p>
           </div>
         </div>
       </div>
-      <!-- program 3 -->
-      <div class="reveal lg:col-span-7 group" data-anim="right" data-d="2">
-        <div class="flex items-start gap-6 border-t border-ink/15 pt-7">
-          <span class="num-index display text-clay text-2xl font-500 leading-none mt-1">03</span>
+      <div class="reveal lg:col-span-7" data-d="2">
+        <div class="flex items-start gap-6 border-t border-pine/20 pt-7">
+          <span class="num-index display text-brass-deep text-2xl leading-none mt-1">03</span>
           <div>
-            <h3 class="display text-[1.6rem] font-500 text-ink leading-tight">Family &amp; Citizenship Support</h3>
-            <p class="mt-2.5 text-ink/65 leading-relaxed max-w-lg">Guidance on naturalization, family reunification, document preparation, and the lawful pathways that keep families together.</p>
+            <h3 class="display text-[1.55rem] text-pine-900 leading-tight">Family &amp; Citizenship Support</h3>
+            <p class="mt-2.5 text-inkt/65 leading-relaxed max-w-lg">Guidance on naturalization, family reunification, document preparation, and the lawful pathways that keep families together.</p>
           </div>
         </div>
       </div>
     </div>
-    <p class="reveal mt-12 text-xs text-ink/45 max-w-2xl" data-anim="fade" data-d="1">The information on this site is general and not legal advice. Submitting a form does not create an attorney–client relationship.</p>
+    <p class="reveal mt-12 text-xs text-inkt/45 max-w-2xl" data-d="1">The information on this site is general and not legal advice. Submitting a form does not create an attorney–client relationship.</p>
   </div>
 </section>
 
-<!-- ===== IMPACT BAND — full-bleed dark, large editorial numerals, labeled as targets ===== -->
-<section class="relative bg-ink text-cream grain overflow-hidden" data-pin>
-  <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1900&q=80"
-       alt="A crowd of people from many backgrounds" id="impactImg" class="absolute inset-0 h-[118%] -top-[9%] w-full object-cover opacity-15 will-change-transform">
-  <div class="absolute inset-0" style="background:linear-gradient(120deg,rgba(11,31,42,.96),rgba(22,56,75,.82))"></div>
-  <div class="relative mx-auto max-w-[88rem] px-5 lg:px-10 py-24 lg:py-32" data-pin-inner>
-    <span class="reveal eyebrow text-sand" data-anim="left">Our first year, honestly stated</span>
-    <h2 class="reveal display font-300 text-[2.2rem] sm:text-[2.8rem] lg:text-[3.2rem] leading-[1.06] mt-5 max-w-3xl" data-anim="blur" data-d="1">
+<!-- ===== IMPACT — solid pine band, brass numerals. No photo behind text. ===== -->
+<section class="relative bg-pine-800 text-paper grain overflow-hidden">
+  <div class="absolute -top-40 -right-32 h-[34rem] w-[34rem] rounded-full opacity-25" style="background:radial-gradient(circle,rgba(174,138,67,.55) 0%,transparent 62%)"></div>
+  <div class="relative mx-auto max-w-[86rem] px-5 lg:px-10 py-24 lg:py-32">
+    <div class="reveal flex items-center gap-3 text-brass-soft"><span class="diamond"></span><span class="eyebrow">Our first year, honestly stated</span></div>
+    <h2 class="reveal display text-[2rem] sm:text-[2.6rem] lg:text-[3rem] leading-[1.1] mt-5 max-w-3xl" data-d="1">
       We measure what matters and report it transparently — no inflated counters, just real targets.
     </h2>
-    <div class="mt-16 grid sm:grid-cols-3 gap-x-10 gap-y-12">
-      <div class="reveal" data-anim="rise">
-        <div class="display text-[4.2rem] lg:text-[5rem] font-300 leading-none text-sand"><span class="count" data-count="650" data-suffix="">650</span><span class="text-clay-soft">+</span></div>
-        <div class="mt-3 text-cream/75">Families we aim to serve in year one</div>
-        <span class="mt-3 inline-block rounded-full bg-cream/10 ring-1 ring-cream/15 px-3 py-1 text-[11px] eyebrow text-cream/70">First-year target</span>
+    <div class="mt-16 grid sm:grid-cols-3 gap-x-10 gap-y-12" id="impact">
+      <div class="reveal">
+        <div class="display text-[4rem] lg:text-[4.8rem] leading-none text-brass-soft"><span class="count" data-count="650">0</span>+</div>
+        <div class="mt-3 text-paper/75">Families we aim to serve in year one</div>
+        <span class="mt-3 inline-block rounded-full border border-paper/20 px-3 py-1 text-[10.5px] eyebrow text-paper/65">First-year target</span>
       </div>
-      <div class="reveal" data-anim="rise" data-d="1">
-        <div class="display text-[4.2rem] lg:text-[5rem] font-300 leading-none text-sand"><span class="count" data-count="15">15</span><span class="text-clay-soft">+</span></div>
-        <div class="mt-3 text-cream/75">Years of licensed immigration practice on our legal team</div>
-        <span class="mt-3 inline-block rounded-full bg-cream/10 ring-1 ring-cream/15 px-3 py-1 text-[11px] eyebrow text-cream/70">Verified</span>
+      <div class="reveal" data-d="1">
+        <div class="display text-[4rem] lg:text-[4.8rem] leading-none text-brass-soft"><span class="count" data-count="15">0</span>+</div>
+        <div class="mt-3 text-paper/75">Years of licensed immigration practice on our legal team</div>
+        <span class="mt-3 inline-block rounded-full border border-paper/20 px-3 py-1 text-[10.5px] eyebrow text-paper/65">Verified</span>
       </div>
-      <div class="reveal" data-anim="rise" data-d="2">
-        <div class="display text-[4.2rem] lg:text-[5rem] font-300 leading-none text-sand">$<span class="count" data-count="50">50</span><span class="text-[2.2rem] align-top">k</span></div>
-        <div class="mt-3 text-cream/75">Estimated community value created per immigration legal case</div>
-        <span class="mt-3 inline-block rounded-full bg-cream/10 ring-1 ring-cream/15 px-3 py-1 text-[11px] eyebrow text-cream/70">Sector research estimate</span>
+      <div class="reveal" data-d="2">
+        <div class="display text-[4rem] lg:text-[4.8rem] leading-none text-brass-soft">$<span class="count" data-count="50">0</span><span class="text-[2rem] align-top">k</span></div>
+        <div class="mt-3 text-paper/75">Estimated community value created per immigration legal case</div>
+        <span class="mt-3 inline-block rounded-full border border-paper/20 px-3 py-1 text-[10.5px] eyebrow text-paper/65">Sector research estimate</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== SUCCESS STORIES — magazine: one large lead story + two stacked, pull-quote ===== -->
+<!-- ===== STORIES — lead quote + two cards ===== -->
 <section id="stories" class="bg-paper">
-  <div class="mx-auto max-w-[88rem] px-5 lg:px-10 py-24 lg:py-32">
+  <div class="mx-auto max-w-[86rem] px-5 lg:px-10 py-24 lg:py-32">
     <div class="max-w-2xl">
-      <span class="reveal eyebrow text-clay" data-anim="left">Real families. Real results. Real hope.</span>
-      <h2 class="reveal display font-400 text-[2.4rem] sm:text-[3rem] lg:text-[3.6rem] leading-[1.03] text-ink mt-5" data-anim="rise" data-d="1">Stories, shared with consent</h2>
-      <p class="reveal text-ink/65 mt-4 text-[16px] leading-relaxed" data-anim="rise" data-d="2">Names and identifying details are changed to protect client privacy. Each story is shared only with explicit written consent.</p>
+      <div class="reveal flex items-center gap-3 text-brass-deep"><span class="diamond"></span><span class="eyebrow">Real families. Real results. Real hope.</span></div>
+      <h2 class="reveal display text-[2.2rem] sm:text-[2.8rem] lg:text-[3.4rem] leading-[1.05] text-pine-900 mt-5" data-d="1">Stories, shared with consent</h2>
+      <p class="reveal text-inkt/65 mt-4 text-[16px] leading-relaxed" data-d="2">Names and identifying details are changed to protect client privacy. Each story is shared only with explicit written consent.</p>
     </div>
 
     <div class="mt-16 grid lg:grid-cols-12 gap-8">
-      <!-- lead story with image + pull quote -->
-      <figure class="reveal lg:col-span-7" data-anim="left">
-        <div class="kb mask-img overflow-hidden rounded-[1.6rem] shadow-card aspect-[16/10]">
+      <figure class="lg:col-span-7">
+        <div class="mask-img duo relative overflow-hidden rounded-[1.5rem] shadow-card aspect-[16/10]">
           <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1300&q=80"
                alt="A reunited family embracing" class="h-full w-full object-cover">
         </div>
-        <figcaption class="mt-6">
-          <span class="eyebrow text-clay">Family reunification</span>
-          <blockquote class="quote text-[1.7rem] lg:text-[2rem] leading-[1.25] text-ink mt-3">
+        <figcaption class="reveal mt-6" data-d="1">
+          <span class="eyebrow text-brass-deep">Family reunification</span>
+          <blockquote class="quote text-[1.6rem] lg:text-[1.9rem] leading-[1.3] text-pine-900 mt-3">
             &ldquo;After years apart from my daughter, they helped me understand my right to petition, prepared the documents, and made our reunion possible.&rdquo;
           </blockquote>
-          <div class="mt-4 text-sm font-600 text-ink/70">&mdash; &ldquo;Maria&rdquo;, family immigration client</div>
+          <div class="mt-4 text-sm font-600 text-inkt/70">&mdash; &ldquo;Maria&rdquo;, family immigration client</div>
         </figcaption>
       </figure>
 
       <div class="lg:col-span-5 flex flex-col gap-8">
-        <figure class="reveal lift rounded-[1.4rem] bg-ink text-cream p-8 flex-1" data-anim="right" data-d="1">
-          <span class="eyebrow text-sand">Citizenship</span>
-          <blockquote class="quote text-[1.35rem] leading-snug mt-3 text-cream/95">
+        <figure class="reveal lift rounded-[1.4rem] bg-pine-800 text-paper p-8 flex-1" data-d="1">
+          <span class="eyebrow text-brass-soft">Citizenship</span>
+          <blockquote class="quote text-[1.3rem] leading-snug mt-3 text-paper/95">
             &ldquo;I&rsquo;d been a permanent resident for 12 years without knowing I could naturalize. I took the oath — the most important day of my life.&rdquo;
           </blockquote>
-          <div class="mt-5 text-sm font-600 text-cream/70">&mdash; &ldquo;Carlos&rdquo;, naturalization client</div>
+          <div class="mt-5 text-sm font-600 text-paper/70">&mdash; &ldquo;Carlos&rdquo;, naturalization client</div>
         </figure>
-        <figure class="reveal lift rounded-[1.4rem] bg-cream-200 ring-1 ring-ink/10 p-8 flex-1" data-anim="right" data-d="2">
-          <span class="eyebrow text-clay">Deportation defense</span>
-          <blockquote class="quote text-[1.35rem] leading-snug mt-3 text-ink">
+        <figure class="reveal lift rounded-[1.4rem] bg-ivory ring-1 ring-pine/15 p-8 flex-1" data-d="2">
+          <span class="eyebrow text-brass-deep">Deportation defense</span>
+          <blockquote class="quote text-[1.3rem] leading-snug mt-3 text-pine-900">
             &ldquo;I received a notice to appear and didn&rsquo;t know what to do. Their team found possible defenses and connected me to a qualified attorney.&rdquo;
           </blockquote>
-          <div class="mt-5 text-sm font-600 text-ink/70">&mdash; &ldquo;Sofia&rdquo;, removal defense client</div>
+          <div class="mt-5 text-sm font-600 text-inkt/70">&mdash; &ldquo;Sofia&rdquo;, removal defense client</div>
         </figure>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== ATTORNEY — editorial split, portrait + drop-cap bio ===== -->
-<section id="attorney" class="bg-cream relative grain overflow-hidden">
-  <div class="mx-auto max-w-[88rem] px-5 lg:px-10 py-24 lg:py-32 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-    <div class="reveal lg:col-span-5" data-anim="left">
-      <div class="relative">
-        <div class="kb mask-img overflow-hidden rounded-[1.8rem] shadow-soft aspect-[4/5]">
+<!-- ===== ATTORNEY — arch portrait + credential card ===== -->
+<section id="attorney" class="bg-ivory border-y border-pine/10">
+  <div class="mx-auto max-w-[86rem] px-5 lg:px-10 py-24 lg:py-32 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+    <div class="lg:col-span-5">
+      <div class="relative max-w-[24rem]">
+        <div class="mask-img duo arch relative overflow-hidden shadow-card aspect-[4/5]">
           <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1000&q=80"
                alt="Portrait of attorney Ekaterina Mouratova" class="h-full w-full object-cover">
         </div>
-        <!-- overlapping credential card -->
-        <div class="reveal absolute -bottom-6 -right-3 sm:-right-6 w-[15rem] rounded-2xl bg-ink text-cream p-5 shadow-lift" data-anim="scale" data-d="3">
-          <div class="display text-lg font-500">Ekaterina Mouratova, <span class="italic">Esq.</span></div>
-          <div class="eyebrow text-sand mt-1 text-[10px]">Head of Legal Programs</div>
-          <div class="mt-3 h-px bg-cream/15"></div>
-          <ul class="mt-3 space-y-1.5 text-[12.5px] text-cream/75">
+        <div class="reveal absolute -bottom-7 -right-3 sm:-right-8 w-[15rem] rounded-2xl bg-pine-900 text-paper p-5 shadow-lift" data-d="2">
+          <div class="display text-lg">Ekaterina Mouratova, <em class="quote text-brass-soft">Esq.</em></div>
+          <div class="eyebrow text-brass-soft mt-1 text-[9.5px]">Head of Legal Programs</div>
+          <div class="mt-3 rule"></div>
+          <ul class="mt-3 space-y-1.5 text-[12.5px] text-paper/75">
             <li>15+ years U.S. immigration practice</li>
             <li>Member, AILA</li>
             <li>English &middot; Russian</li>
@@ -407,21 +378,20 @@ tailwind.config = {
       </div>
     </div>
     <div class="lg:col-span-7 lg:pl-6">
-      <span class="reveal eyebrow text-clay" data-anim="right">Led by a licensed attorney</span>
-      <h2 class="reveal display font-400 text-[2.3rem] sm:text-[2.9rem] lg:text-[3.3rem] leading-[1.04] text-ink mt-5" data-anim="right" data-d="1">
+      <div class="reveal flex items-center gap-3 text-brass-deep"><span class="diamond"></span><span class="eyebrow">Led by a licensed attorney</span></div>
+      <h2 class="reveal display text-[2.1rem] sm:text-[2.7rem] lg:text-[3.1rem] leading-[1.08] text-pine-900 mt-5" data-d="1">
         Experience you can trust,<br>care you can feel
       </h2>
-      <p class="reveal mt-7 text-[17px] leading-relaxed text-ink/75" data-anim="rise" data-d="2">
-        <span class="float-left display text-clay text-[4.2rem] leading-[.7] mr-3 mt-2 font-500">O</span>ur
-        legal program is led by a licensed immigration attorney with more than 15 years of practice — helping
+      <p class="reveal mt-7 text-[17px] leading-relaxed text-inkt/75" data-d="2">
+        Our legal program is led by a licensed immigration attorney with more than 15 years of practice — helping
         individuals, families, entrepreneurs, and investors navigate the complex U.S. immigration system with
         professional excellence and genuine cultural understanding.
       </p>
-      <p class="reveal mt-4 text-[16px] leading-relaxed text-ink/65" data-anim="rise" data-d="3">
+      <p class="reveal mt-4 text-[16px] leading-relaxed text-inkt/65" data-d="3">
         From family petitions and adjustment of status to naturalization, work and investor visas, deportation
         defense, and humanitarian relief — every client is met with dignity, clarity, and care.
       </p>
-      <a href="#help" class="reveal nudge btn-fx inline-flex items-center gap-2 mt-8 rounded-full bg-ink text-cream px-7 py-4 font-600 hover:bg-ink-600" data-anim="rise" data-d="4">
+      <a href="#help" class="reveal nudge btn btn-pine inline-flex items-center gap-2 mt-8 rounded-full px-7 py-4 font-600" data-d="4">
         Book a consultation
         <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg>
       </a>
@@ -429,213 +399,212 @@ tailwind.config = {
   </div>
 </section>
 
-<!-- ===== GET HELP — form on warm panel, asymmetric ===== -->
+<!-- ===== GET HELP — steps + form on pine panel ===== -->
 <section id="help" class="bg-paper">
-  <div class="mx-auto max-w-[88rem] px-5 lg:px-10 py-24 lg:py-32">
+  <div class="mx-auto max-w-[86rem] px-5 lg:px-10 py-24 lg:py-32">
     <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
       <div class="lg:col-span-5">
-        <span class="reveal eyebrow text-clay" data-anim="left">Get help</span>
-        <h2 class="reveal display font-400 text-[2.4rem] sm:text-[3rem] lg:text-[3.4rem] leading-[1.03] text-ink mt-5" data-anim="left" data-d="1">A clear, confidential path forward</h2>
-        <p class="reveal mt-5 text-[16.5px] text-ink/70 leading-relaxed" data-anim="left" data-d="2">Tell us a little about your situation. We respond within 1–2 business days and explain your next steps in plain language.</p>
-        <div class="reveal stagger mt-9 space-y-6" data-anim="fade" data-d="2">
-          <div class="flex gap-5"><span class="display text-clay text-xl font-500 num-index">01</span><div><div class="font-600 text-ink">Submit the secure form</div><p class="text-sm text-ink/55 mt-0.5">Just the basics — no case numbers or documents yet.</p></div></div>
-          <div class="flex gap-5"><span class="display text-clay text-xl font-500 num-index">02</span><div><div class="font-600 text-ink">We review your situation</div><p class="text-sm text-ink/55 mt-0.5">A team member assesses how we can help.</p></div></div>
-          <div class="flex gap-5"><span class="display text-clay text-xl font-500 num-index">03</span><div><div class="font-600 text-ink">We explain next steps</div><p class="text-sm text-ink/55 mt-0.5">By email or phone — a consultation or a trusted referral.</p></div></div>
+        <div class="reveal flex items-center gap-3 text-brass-deep"><span class="diamond"></span><span class="eyebrow">Get help</span></div>
+        <h2 class="reveal display text-[2.2rem] sm:text-[2.8rem] lg:text-[3.2rem] leading-[1.06] text-pine-900 mt-5" data-d="1">A clear, confidential path forward</h2>
+        <p class="reveal mt-5 text-[16.5px] text-inkt/70 leading-relaxed" data-d="2">Tell us a little about your situation. We respond within 1–2 business days and explain your next steps in plain language.</p>
+        <div class="reveal stagger mt-9 space-y-6" data-d="2">
+          <div class="flex gap-5"><span class="display text-brass-deep text-xl num-index">01</span><div><div class="font-600 text-pine-900">Submit the secure form</div><p class="text-sm text-inkt/55 mt-0.5">Just the basics — no case numbers or documents yet.</p></div></div>
+          <div class="flex gap-5"><span class="display text-brass-deep text-xl num-index">02</span><div><div class="font-600 text-pine-900">We review your situation</div><p class="text-sm text-inkt/55 mt-0.5">A team member assesses how we can help.</p></div></div>
+          <div class="flex gap-5"><span class="display text-brass-deep text-xl num-index">03</span><div><div class="font-600 text-pine-900">We explain next steps</div><p class="text-sm text-inkt/55 mt-0.5">By email or phone — a consultation or a trusted referral.</p></div></div>
         </div>
-        <p class="reveal mt-9 rounded-2xl bg-cream-200 ring-1 ring-ink/10 px-5 py-4 text-sm text-ink/70 leading-relaxed" data-anim="rise" data-d="3">
-          <strong class="text-ink">Confidential.</strong> We never share your information with immigration authorities, law enforcement, or third parties without your explicit written consent.
+        <p class="reveal mt-9 rounded-2xl bg-ivory ring-1 ring-pine/15 px-5 py-4 text-sm text-inkt/70 leading-relaxed" data-d="3">
+          <strong class="text-pine-900">Confidential.</strong> We never share your information with immigration authorities, law enforcement, or third parties without your explicit written consent.
         </p>
       </div>
-      <div class="reveal lg:col-span-7" data-anim="scale" data-d="1">
-        <form class="rounded-[1.8rem] bg-ink text-cream p-7 lg:p-10 shadow-soft" onsubmit="event.preventDefault();this.querySelector('[data-ok]').classList.remove('hidden');this.reset();">
+      <div class="reveal lg:col-span-7" data-d="1">
+        <form class="rounded-[1.8rem] bg-pine-800 text-paper p-7 lg:p-10 shadow-card" onsubmit="event.preventDefault();this.querySelector('[data-ok]').classList.remove('hidden');this.reset();">
           <div class="grid sm:grid-cols-2 gap-5">
-            <label class="block"><span class="text-[13px] font-600 text-cream/80">Full name</span><input required class="mt-2 w-full rounded-xl bg-cream/5 border border-cream/20 px-4 py-3 text-cream placeholder-cream/40 outline-none focus:border-sand transition" placeholder="Your name"></label>
-            <label class="block"><span class="text-[13px] font-600 text-cream/80">Email</span><input required type="email" class="mt-2 w-full rounded-xl bg-cream/5 border border-cream/20 px-4 py-3 text-cream placeholder-cream/40 outline-none focus:border-sand transition" placeholder="you@email.com"></label>
-            <label class="block"><span class="text-[13px] font-600 text-cream/80">Preferred language</span><select class="mt-2 w-full rounded-xl bg-cream/5 border border-cream/20 px-4 py-3 text-cream outline-none focus:border-sand transition"><option class="text-ink">English</option><option class="text-ink">Español</option><option class="text-ink">Русский</option><option class="text-ink">Other</option></select></label>
-            <label class="block"><span class="text-[13px] font-600 text-cream/80">Urgency</span><select class="mt-2 w-full rounded-xl bg-cream/5 border border-cream/20 px-4 py-3 text-cream outline-none focus:border-sand transition"><option class="text-ink">General question</option><option class="text-ink">Time-sensitive</option><option class="text-ink">Urgent — detention / court date</option></select></label>
+            <label class="block"><span class="text-[13px] font-600 text-paper/80">Full name</span><input required class="mt-2 w-full rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper placeholder-paper/40 outline-none focus:border-brass-soft transition" placeholder="Your name"></label>
+            <label class="block"><span class="text-[13px] font-600 text-paper/80">Email</span><input required type="email" class="mt-2 w-full rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper placeholder-paper/40 outline-none focus:border-brass-soft transition" placeholder="you@email.com"></label>
+            <label class="block"><span class="text-[13px] font-600 text-paper/80">Preferred language</span><select class="mt-2 w-full rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper outline-none focus:border-brass-soft transition"><option class="text-inkt">English</option><option class="text-inkt">Español</option><option class="text-inkt">Русский</option><option class="text-inkt">Other</option></select></label>
+            <label class="block"><span class="text-[13px] font-600 text-paper/80">Urgency</span><select class="mt-2 w-full rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper outline-none focus:border-brass-soft transition"><option class="text-inkt">General question</option><option class="text-inkt">Time-sensitive</option><option class="text-inkt">Urgent — detention / court date</option></select></label>
           </div>
-          <label class="block mt-5"><span class="text-[13px] font-600 text-cream/80">Briefly, how can we help?</span><textarea rows="4" class="mt-2 w-full rounded-xl bg-cream/5 border border-cream/20 px-4 py-3 text-cream placeholder-cream/40 outline-none focus:border-sand transition" placeholder="A few sentences about your situation"></textarea></label>
-          <button class="btn-fx mt-6 w-full rounded-full btn-clay px-6 py-4 font-600">Request confidential help</button>
-          <div data-ok class="hidden mt-4 rounded-xl bg-sand/15 border border-sand/40 px-4 py-3 text-sm text-sand">Thank you — we received your request and will respond within 1–2 business days.</div>
-          <p class="mt-4 text-[11.5px] text-cream/45 leading-relaxed">This form is a starting point and does not create an attorney–client relationship. The information on this site is not legal advice.</p>
+          <label class="block mt-5"><span class="text-[13px] font-600 text-paper/80">Briefly, how can we help?</span><textarea rows="4" class="mt-2 w-full rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper placeholder-paper/40 outline-none focus:border-brass-soft transition" placeholder="A few sentences about your situation"></textarea></label>
+          <button class="btn btn-brass mt-6 w-full rounded-full px-6 py-4 font-600">Request confidential help</button>
+          <div data-ok class="hidden mt-4 rounded-xl border border-brass-soft/50 px-4 py-3 text-sm text-brass-soft" style="background:rgba(201,165,92,.12)">Thank you — we received your request and will respond within 1–2 business days.</div>
+          <p class="mt-4 text-[11.5px] text-paper/45 leading-relaxed">This form is a starting point and does not create an attorney–client relationship. The information on this site is not legal advice.</p>
         </form>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== DONATE — tiers with toggle + impact + progress ===== -->
-<section id="donate" class="relative bg-ink text-cream grain overflow-hidden">
-  <div class="absolute -top-40 -left-32 h-[36rem] w-[36rem] rounded-full blur-3xl opacity-40" style="background:radial-gradient(circle,#C45A3B 0%,transparent 60%)"></div>
-  <div class="relative mx-auto max-w-[88rem] px-5 lg:px-10 py-24 lg:py-32">
+<!-- ===== DONATE — pine band, tiers, toggle, progress ===== -->
+<section id="donate" class="relative bg-pine-900 text-paper grain overflow-hidden">
+  <div class="absolute -top-40 -left-32 h-[34rem] w-[34rem] rounded-full opacity-25" style="background:radial-gradient(circle,rgba(174,138,67,.55) 0%,transparent 62%)"></div>
+  <div class="relative mx-auto max-w-[86rem] px-5 lg:px-10 py-24 lg:py-32">
     <div class="grid lg:grid-cols-12 gap-12 items-end">
       <div class="lg:col-span-7">
-        <span class="reveal eyebrow text-sand" data-anim="left">Support the mission</span>
-        <h2 class="reveal display font-400 text-[2.4rem] sm:text-[3rem] lg:text-[3.7rem] leading-[1.02] mt-5" data-anim="blur" data-d="1">Your gift keeps a family from facing the system alone</h2>
-        <p class="reveal mt-5 max-w-xl text-[16.5px] text-cream/75 leading-relaxed" data-anim="rise" data-d="2">As a 501(c)(3) nonprofit, every contribution is tax-deductible to the extent allowed by law. Here&rsquo;s exactly what your support makes possible.</p>
+        <div class="reveal flex items-center gap-3 text-brass-soft"><span class="diamond"></span><span class="eyebrow">Support the mission</span></div>
+        <h2 class="reveal display text-[2.2rem] sm:text-[2.8rem] lg:text-[3.4rem] leading-[1.06] mt-5" data-d="1">Your gift keeps a family from facing the system alone</h2>
+        <p class="reveal mt-5 max-w-xl text-[16.5px] text-paper/75 leading-relaxed" data-d="2">As a 501(c)(3) nonprofit, every contribution is tax-deductible to the extent allowed by law. Here&rsquo;s exactly what your support makes possible.</p>
       </div>
-      <div class="reveal lg:col-span-5 lg:justify-self-end" data-anim="scale" data-d="2">
+      <div class="reveal lg:col-span-5 lg:justify-self-end" data-d="2">
         <div class="flex items-center gap-3">
-          <span class="text-sm text-cream/70">Give</span>
-          <div class="inline-flex rounded-full bg-cream/10 ring-1 ring-cream/15 p-1 text-sm font-600">
-            <button id="onceBtn" class="rounded-full px-5 py-2 btn-clay transition">One-time</button>
-            <button id="monthBtn" class="rounded-full px-5 py-2 text-cream transition">Monthly</button>
+          <span class="text-sm text-paper/70">Give</span>
+          <div class="inline-flex rounded-full border border-paper/20 p-1 text-sm font-600" style="background:rgba(245,240,230,.08)">
+            <button id="onceBtn" class="rounded-full px-5 py-2 btn-brass transition">One-time</button>
+            <button id="monthBtn" class="rounded-full px-5 py-2 text-paper transition">Monthly</button>
           </div>
         </div>
-        <p class="mt-3 text-xs text-cream/55">Monthly supporters sustain our work year-round.</p>
+        <p class="mt-3 text-xs text-paper/55">Monthly supporters sustain our work year-round.</p>
       </div>
     </div>
 
-    <div class="reveal stagger mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-5" data-anim="fade">
-      <div class="lift rounded-2xl bg-cream/[.06] ring-1 ring-cream/15 p-7"><div class="display text-3xl font-500 text-sand amt" data-base="25">$25</div><p class="mt-2 text-sm text-cream/70 leading-relaxed">Know Your Rights materials for one family</p></div>
-      <div class="lift rounded-2xl bg-cream/[.06] ring-1 ring-cream/15 p-7"><div class="display text-3xl font-500 text-sand amt" data-base="50">$50</div><p class="mt-2 text-sm text-cream/70 leading-relaxed">Language support and one intake processed</p></div>
-      <div class="lift rounded-2xl bg-cream/[.06] ring-1 ring-cream/15 p-7"><div class="display text-3xl font-500 text-sand amt" data-base="100">$100</div><p class="mt-2 text-sm text-cream/70 leading-relaxed">A full immigration consultation</p></div>
-      <div class="lift rounded-2xl bg-cream/[.06] ring-1 ring-cream/15 p-7"><div class="display text-3xl font-500 text-sand amt" data-base="250">$250</div><p class="mt-2 text-sm text-cream/70 leading-relaxed">Document review and case assessment for a family</p></div>
-      <div class="lift rounded-2xl bg-cream/[.06] ring-1 ring-cream/15 p-7"><div class="display text-3xl font-500 text-sand amt" data-base="500">$500</div><p class="mt-2 text-sm text-cream/70 leading-relaxed">Partial support of one complex case</p></div>
-      <div class="lift rounded-2xl btn-clay p-7 ring-1 ring-clay-deep"><div class="display text-3xl font-500 amt" data-base="1000">$1,000</div><p class="mt-2 text-sm text-cream/90 leading-relaxed">Sponsor a full Know Your Rights workshop</p></div>
+    <div class="reveal stagger mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="lift rounded-2xl border border-paper/15 p-7" style="background:rgba(245,240,230,.05)"><div class="display text-3xl text-brass-soft amt" data-base="25">$25</div><p class="mt-2 text-sm text-paper/70 leading-relaxed">Know Your Rights materials for one family</p></div>
+      <div class="lift rounded-2xl border border-paper/15 p-7" style="background:rgba(245,240,230,.05)"><div class="display text-3xl text-brass-soft amt" data-base="50">$50</div><p class="mt-2 text-sm text-paper/70 leading-relaxed">Language support and one intake processed</p></div>
+      <div class="lift rounded-2xl border border-paper/15 p-7" style="background:rgba(245,240,230,.05)"><div class="display text-3xl text-brass-soft amt" data-base="100">$100</div><p class="mt-2 text-sm text-paper/70 leading-relaxed">A full immigration consultation</p></div>
+      <div class="lift rounded-2xl border border-paper/15 p-7" style="background:rgba(245,240,230,.05)"><div class="display text-3xl text-brass-soft amt" data-base="250">$250</div><p class="mt-2 text-sm text-paper/70 leading-relaxed">Document review and case assessment for a family</p></div>
+      <div class="lift rounded-2xl border border-paper/15 p-7" style="background:rgba(245,240,230,.05)"><div class="display text-3xl text-brass-soft amt" data-base="500">$500</div><p class="mt-2 text-sm text-paper/70 leading-relaxed">Partial support of one complex case</p></div>
+      <div class="lift rounded-2xl btn-brass p-7"><div class="display text-3xl amt" data-base="1000">$1,000</div><p class="mt-2 text-sm leading-relaxed" style="color:rgba(11,27,21,.8)">Sponsor a full Know Your Rights workshop</p></div>
     </div>
 
-    <!-- progress bar -->
-    <div class="reveal mt-12 max-w-2xl" data-anim="rise" data-d="1">
-      <div class="flex justify-between text-xs eyebrow text-cream/60"><span>Year-one fund</span><span>62% to goal</span></div>
-      <div class="mt-2 h-2.5 rounded-full bg-cream/10 overflow-hidden"><div id="progress" class="h-full rounded-full bg-sand" style="width:0%;transition:width 1.6s var(--ease)"></div></div>
+    <div class="reveal mt-12 max-w-2xl" data-d="1">
+      <div class="flex justify-between text-xs eyebrow text-paper/60"><span>Year-one fund</span><span>62% to goal</span></div>
+      <div class="mt-2 h-2.5 rounded-full overflow-hidden" style="background:rgba(245,240,230,.12)"><div id="progress" class="h-full rounded-full bg-brass-soft" style="width:0%;transition:width 1.4s var(--ease)"></div></div>
     </div>
 
-    <div class="reveal mt-9 flex flex-wrap items-center gap-5" data-anim="rise" data-d="1">
-      <a href="#" class="btn-fx rounded-full bg-sand text-ink px-8 py-4 font-700 hover:brightness-95">Donate securely</a>
-      <span class="text-sm text-cream/55 leading-relaxed">501(c)(3) · EIN: <span class="font-600 text-cream/85">[EIN pending]</span> · Secure payment · Tax-deductible · We never sell or share your information.</span>
+    <div class="reveal mt-9 flex flex-wrap items-center gap-5" data-d="1">
+      <a href="#" class="btn btn-brass rounded-full px-8 py-4 font-700">Donate securely</a>
+      <span class="text-sm text-paper/55 leading-relaxed">501(c)(3) · EIN: <span class="font-600 text-paper/85">[EIN pending]</span> · Secure payment · Tax-deductible · We never sell or share your information.</span>
     </div>
   </div>
 </section>
 
-<!-- ===== VOLUNTEER + NEWSLETTER — split with image on volunteer ===== -->
+<!-- ===== VOLUNTEER + NEWSLETTER ===== -->
 <section class="bg-paper">
-  <div class="mx-auto max-w-[88rem] px-5 lg:px-10 py-24 lg:py-32 grid lg:grid-cols-2 gap-8">
-    <div class="reveal kb relative overflow-hidden rounded-[1.6rem] shadow-card" data-anim="left">
+  <div class="mx-auto max-w-[86rem] px-5 lg:px-10 py-24 lg:py-32 grid lg:grid-cols-2 gap-8">
+    <div class="reveal relative overflow-hidden rounded-[1.5rem] bg-pine-800 text-paper shadow-card">
+      <!-- photo as quiet texture: fixed low opacity inline, text always on pine -->
       <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=1100&q=80"
-           alt="Volunteers working together at a community table" class="absolute inset-0 h-full w-full object-cover">
-      <div class="absolute inset-0 bg-ink/72"></div>
-      <div class="relative p-9 lg:p-11 text-cream h-full flex flex-col">
-        <span class="eyebrow text-sand">Volunteer</span>
-        <h3 class="display text-[1.9rem] lg:text-[2.2rem] font-400 mt-3 leading-tight">Lend your skills to the cause</h3>
-        <p class="mt-3 text-cream/80 leading-relaxed max-w-md">Attorneys, paralegals, interpreters, students, and community advocates make our work possible. Even 2–4 hours a month helps a family find a path forward.</p>
-        <a href="#help" class="nudge mt-auto pt-7 inline-flex w-max items-center gap-2 rounded-full border border-cream/35 px-6 py-3 font-600 hover:bg-cream/10 transition">
+           alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-cover" style="opacity:.14;filter:grayscale(1)">
+      <div class="relative p-9 lg:p-11 h-full flex flex-col">
+        <div class="flex items-center gap-3 text-brass-soft"><span class="diamond"></span><span class="eyebrow">Volunteer</span></div>
+        <h3 class="display text-[1.8rem] lg:text-[2.1rem] mt-3 leading-tight">Lend your skills to the cause</h3>
+        <p class="mt-3 text-paper/80 leading-relaxed max-w-md">Attorneys, paralegals, interpreters, students, and community advocates make our work possible. Even 2–4 hours a month helps a family find a path forward.</p>
+        <a href="#help" class="nudge btn mt-auto pt-0 inline-flex w-max items-center gap-2 rounded-full border border-paper/35 px-6 py-3 font-600 hover:bg-paper hover:text-pine-900" style="margin-top:auto">
           Apply to volunteer
           <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg>
         </a>
       </div>
     </div>
-    <div class="reveal rounded-[1.6rem] bg-cream-200 ring-1 ring-ink/10 p-9 lg:p-11 flex flex-col justify-center" data-anim="right" data-d="1">
-      <span class="eyebrow text-clay">Stay informed</span>
-      <h3 class="display text-[1.9rem] lg:text-[2.2rem] font-400 mt-3 leading-tight text-ink">Know your rights.<br>Protect your future.</h3>
-      <p class="mt-3 text-ink/65 leading-relaxed max-w-md">Immigration news, Know Your Rights updates, and community resources — in English and Spanish. We email rarely, only when it matters.</p>
+    <div class="reveal rounded-[1.5rem] bg-ivory ring-1 ring-pine/15 p-9 lg:p-11 flex flex-col justify-center" data-d="1">
+      <div class="flex items-center gap-3 text-brass-deep"><span class="diamond"></span><span class="eyebrow">Stay informed</span></div>
+      <h3 class="display text-[1.8rem] lg:text-[2.1rem] mt-3 leading-tight text-pine-900">Know your rights.<br>Protect your future.</h3>
+      <p class="mt-3 text-inkt/65 leading-relaxed max-w-md">Immigration news, Know Your Rights updates, and community resources — in English and Spanish. We email rarely, only when it matters.</p>
       <form class="mt-7 flex flex-col sm:flex-row gap-3" onsubmit="event.preventDefault();this.querySelector('[data-ok]').classList.remove('hidden');this.reset();">
-        <input required type="email" placeholder="you@email.com" class="flex-1 rounded-full bg-white border border-ink/15 px-5 py-3.5 outline-none focus:border-clay transition">
-        <button class="btn-fx rounded-full bg-ink text-cream px-7 py-3.5 font-600 hover:bg-ink-600">Subscribe</button>
+        <input required type="email" placeholder="you@email.com" class="flex-1 rounded-full bg-paper border border-pine/20 px-5 py-3.5 outline-none focus:border-brass transition">
+        <button class="btn btn-pine rounded-full px-7 py-3.5 font-600">Subscribe</button>
       </form>
-      <span data-ok class="hidden mt-3 text-sm text-clay-deep font-600">Subscribed — thank you!</span>
+      <span data-ok class="hidden mt-3 text-sm text-brass-deep font-600">Subscribed — thank you!</span>
     </div>
   </div>
 </section>
 
-<!-- ===== FOUNDATIONS / GRANTMAKERS ===== -->
-<section id="foundations" class="bg-cream relative grain overflow-hidden">
-  <div class="mx-auto max-w-[88rem] px-5 lg:px-10 py-24 lg:py-32 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+<!-- ===== FOUNDATIONS ===== -->
+<section id="foundations" class="bg-ivory border-y border-pine/10">
+  <div class="mx-auto max-w-[86rem] px-5 lg:px-10 py-24 lg:py-32 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
     <div class="lg:col-span-6">
-      <span class="reveal eyebrow text-clay" data-anim="left">For foundations &amp; grantmakers</span>
-      <h2 class="reveal display font-400 text-[2.3rem] sm:text-[2.9rem] lg:text-[3.3rem] leading-[1.04] text-ink mt-5" data-anim="left" data-d="1">Partner with us to expand access to justice</h2>
-      <p class="reveal mt-5 text-[16.5px] text-ink/70 leading-relaxed max-w-xl" data-anim="rise" data-d="2">
+      <div class="reveal flex items-center gap-3 text-brass-deep"><span class="diamond"></span><span class="eyebrow">For foundations &amp; grantmakers</span></div>
+      <h2 class="reveal display text-[2.1rem] sm:text-[2.7rem] lg:text-[3.1rem] leading-[1.08] text-pine-900 mt-5" data-d="1">Partner with us to expand access to justice</h2>
+      <p class="reveal mt-5 text-[16.5px] text-inkt/70 leading-relaxed max-w-xl" data-d="2">
         Liberty Immigration Council is a federally recognized 501(c)(3) nonprofit providing immigration legal services,
         community legal education, and family support for low-income and vulnerable families. We welcome foundation
         grants, government funding, and corporate philanthropy.
       </p>
-      <a href="#help" class="reveal nudge btn-fx inline-flex items-center gap-2 mt-8 rounded-full btn-clay px-7 py-4 font-600" data-anim="rise" data-d="3">
+      <a href="#help" class="reveal nudge btn btn-pine inline-flex items-center gap-2 mt-8 rounded-full px-7 py-4 font-600" data-d="3">
         Submit a grant inquiry
         <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg>
       </a>
     </div>
-    <div class="reveal stagger lg:col-span-6 lg:pl-8" data-anim="right" data-d="1">
-      <dl class="divide-y divide-ink/12 rounded-2xl bg-paper ring-1 ring-ink/10 px-7">
-        <div class="flex items-center justify-between py-5"><dt class="text-sm eyebrow text-ink/55">EIN</dt><dd class="font-600 text-ink">[EIN pending]</dd></div>
-        <div class="flex items-center justify-between py-5"><dt class="text-sm eyebrow text-ink/55">IRS determination letter</dt><dd class="font-600 text-ink">Available on request</dd></div>
-        <div class="flex items-center justify-between py-5"><dt class="text-sm eyebrow text-ink/55">Form 990</dt><dd class="font-600 text-ink">Published after first filing</dd></div>
-        <div class="flex items-center justify-between py-5"><dt class="text-sm eyebrow text-ink/55">Fiscal year</dt><dd class="font-600 text-ink">Jan 1 – Dec 31</dd></div>
-        <div class="flex items-center justify-between py-5"><dt class="text-sm eyebrow text-ink/55">Grants contact</dt><dd class="font-600 text-clay">grants@libertyimmigrationcouncil.org</dd></div>
+    <div class="reveal stagger lg:col-span-6 lg:pl-8" data-d="1">
+      <dl class="divide-y divide-pine/15 rounded-2xl bg-paper ring-1 ring-pine/15 px-7">
+        <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-5"><dt class="text-sm eyebrow text-inkt/55">EIN</dt><dd class="font-600 text-pine-900">[EIN pending]</dd></div>
+        <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-5"><dt class="text-sm eyebrow text-inkt/55">IRS determination letter</dt><dd class="font-600 text-pine-900">Available on request</dd></div>
+        <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-5"><dt class="text-sm eyebrow text-inkt/55">Form 990</dt><dd class="font-600 text-pine-900">Published after first filing</dd></div>
+        <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-5"><dt class="text-sm eyebrow text-inkt/55">Fiscal year</dt><dd class="font-600 text-pine-900">Jan 1 – Dec 31</dd></div>
+        <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-5"><dt class="text-sm eyebrow text-inkt/55">Grants contact</dt><dd class="font-600 text-brass-deep min-w-0 break-all">grants@libertyimmigrationcouncil.org</dd></div>
       </dl>
     </div>
   </div>
 </section>
 
-<!-- ===== FAQ — accordion ===== -->
+<!-- ===== FAQ ===== -->
 <section id="faq" class="bg-paper">
-  <div class="mx-auto max-w-[88rem] px-5 lg:px-10 py-24 lg:py-32 grid lg:grid-cols-12 gap-12">
+  <div class="mx-auto max-w-[86rem] px-5 lg:px-10 py-24 lg:py-32 grid lg:grid-cols-12 gap-12">
     <div class="lg:col-span-4">
-      <span class="reveal eyebrow text-clay" data-anim="left">Answers</span>
-      <h2 class="reveal display font-400 text-[2.4rem] sm:text-[3rem] lg:text-[3.4rem] leading-[1.02] text-ink mt-5" data-anim="left" data-d="1">Frequently asked questions</h2>
-      <p class="reveal mt-5 text-ink/60 text-[15.5px] leading-relaxed" data-anim="left" data-d="2">Still unsure? Submit the confidential intake form and we&rsquo;ll point you in the right direction.</p>
+      <div class="reveal flex items-center gap-3 text-brass-deep"><span class="diamond"></span><span class="eyebrow">Answers</span></div>
+      <h2 class="reveal display text-[2.2rem] sm:text-[2.8rem] lg:text-[3.2rem] leading-[1.05] text-pine-900 mt-5" data-d="1">Frequently asked questions</h2>
+      <p class="reveal mt-5 text-inkt/60 text-[15.5px] leading-relaxed" data-d="2">Still unsure? Submit the confidential intake form and we&rsquo;ll point you in the right direction.</p>
     </div>
     <div class="lg:col-span-8">
-      <div class="reveal stagger divide-y divide-ink/12 border-t border-ink/12" data-anim="fade">
-        <details class="group py-6"><summary class="flex cursor-pointer items-start justify-between gap-4 font-600 text-ink text-[17px]">Is my information confidential?<span class="display text-clay text-2xl leading-none transition group-open:rotate-45">+</span></summary><p class="faq-body mt-4 text-ink/65 leading-relaxed max-w-2xl">Yes. Everything you share is confidential. We never share your information with immigration authorities, law enforcement, or third parties without your explicit written consent.</p></details>
-        <details class="group py-6"><summary class="flex cursor-pointer items-start justify-between gap-4 font-600 text-ink text-[17px]">How much do services cost?<span class="display text-clay text-2xl leading-none transition group-open:rotate-45">+</span></summary><p class="faq-body mt-4 text-ink/65 leading-relaxed max-w-2xl">As a nonprofit, we focus on affordability for low-income families — including sliding-scale and pro bono support depending on your situation. We&rsquo;ll be clear about any costs before you commit.</p></details>
-        <details class="group py-6"><summary class="flex cursor-pointer items-start justify-between gap-4 font-600 text-ink text-[17px]">What kinds of cases do you help with?<span class="display text-clay text-2xl leading-none transition group-open:rotate-45">+</span></summary><p class="faq-body mt-4 text-ink/65 leading-relaxed max-w-2xl">Family immigration, green cards, adjustment of status, citizenship and naturalization, deportation defense, and humanitarian relief. If we&rsquo;re not the right fit, we&rsquo;ll refer you to a trusted partner.</p></details>
-        <details class="group py-6"><summary class="flex cursor-pointer items-start justify-between gap-4 font-600 text-ink text-[17px]">What happens after I submit the form?<span class="display text-clay text-2xl leading-none transition group-open:rotate-45">+</span></summary><p class="faq-body mt-4 text-ink/65 leading-relaxed max-w-2xl">You&rsquo;ll receive an automatic confirmation, and our team reviews your request within 1–2 business days. We then contact you to explain next steps — a consultation or a referral.</p></details>
-        <details class="group py-6"><summary class="flex cursor-pointer items-start justify-between gap-4 font-600 text-ink text-[17px]">Is this legal advice?<span class="display text-clay text-2xl leading-none transition group-open:rotate-45">+</span></summary><p class="faq-body mt-4 text-ink/65 leading-relaxed max-w-2xl">The information on this site is general and not legal advice. An attorney–client relationship is formed only after a formal consultation and written agreement.</p></details>
+      <div class="reveal stagger divide-y divide-pine/15 border-t border-pine/15">
+        <details class="group py-6"><summary class="flex cursor-pointer items-start justify-between gap-4 font-600 text-pine-900 text-[17px]">Is my information confidential?<span class="display text-brass-deep text-2xl leading-none transition group-open:rotate-45">+</span></summary><p class="faq-body mt-4 text-inkt/65 leading-relaxed max-w-2xl">Yes. Everything you share is confidential. We never share your information with immigration authorities, law enforcement, or third parties without your explicit written consent.</p></details>
+        <details class="group py-6"><summary class="flex cursor-pointer items-start justify-between gap-4 font-600 text-pine-900 text-[17px]">How much do services cost?<span class="display text-brass-deep text-2xl leading-none transition group-open:rotate-45">+</span></summary><p class="faq-body mt-4 text-inkt/65 leading-relaxed max-w-2xl">As a nonprofit, we focus on affordability for low-income families — including sliding-scale and pro bono support depending on your situation. We&rsquo;ll be clear about any costs before you commit.</p></details>
+        <details class="group py-6"><summary class="flex cursor-pointer items-start justify-between gap-4 font-600 text-pine-900 text-[17px]">What kinds of cases do you help with?<span class="display text-brass-deep text-2xl leading-none transition group-open:rotate-45">+</span></summary><p class="faq-body mt-4 text-inkt/65 leading-relaxed max-w-2xl">Family immigration, green cards, adjustment of status, citizenship and naturalization, deportation defense, and humanitarian relief. If we&rsquo;re not the right fit, we&rsquo;ll refer you to a trusted partner.</p></details>
+        <details class="group py-6"><summary class="flex cursor-pointer items-start justify-between gap-4 font-600 text-pine-900 text-[17px]">What happens after I submit the form?<span class="display text-brass-deep text-2xl leading-none transition group-open:rotate-45">+</span></summary><p class="faq-body mt-4 text-inkt/65 leading-relaxed max-w-2xl">You&rsquo;ll receive an automatic confirmation, and our team reviews your request within 1–2 business days. We then contact you to explain next steps — a consultation or a referral.</p></details>
+        <details class="group py-6"><summary class="flex cursor-pointer items-start justify-between gap-4 font-600 text-pine-900 text-[17px]">Is this legal advice?<span class="display text-brass-deep text-2xl leading-none transition group-open:rotate-45">+</span></summary><p class="faq-body mt-4 text-inkt/65 leading-relaxed max-w-2xl">The information on this site is general and not legal advice. An attorney–client relationship is formed only after a formal consultation and written agreement.</p></details>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== CLOSING CTA — full-bleed photo ===== -->
-<section class="relative overflow-hidden grain text-cream">
-  <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1900&q=80"
-       alt="People gathered in solidarity" id="closingImg" class="absolute inset-0 h-[120%] -top-[10%] w-full object-cover will-change-transform">
-  <div class="absolute inset-0 bg-ink/82"></div>
+<!-- ===== CLOSING CTA — solid pine, arch ornament. No photo, contrast guaranteed. ===== -->
+<section class="relative bg-pine-900 text-paper grain overflow-hidden">
+  <!-- decorative arch outlines -->
+  <div class="absolute left-1/2 -translate-x-1/2 -top-24 h-[34rem] w-[26rem] arch border border-paper/10 pointer-events-none"></div>
+  <div class="absolute left-1/2 -translate-x-1/2 -top-36 h-[38rem] w-[31rem] arch border border-paper/5 pointer-events-none"></div>
   <div class="relative mx-auto max-w-4xl px-5 lg:px-10 py-28 lg:py-36 text-center">
-    <span class="reveal eyebrow text-sand" data-anim="fade">Justice · Dignity · Belonging</span>
-    <h2 class="reveal display font-300 text-[2.6rem] sm:text-[3.6rem] lg:text-[4.4rem] leading-[1.02] mt-6" data-anim="blur" data-d="1">Together, we expand<br>access to <span class="italic text-sand">justice</span></h2>
-    <p class="reveal mt-6 text-[17px] text-cream/75" data-anim="rise" data-d="2">Whether you need help, want to give, or want to volunteer — you have a place here.</p>
-    <div class="reveal mt-10 flex flex-wrap justify-center gap-3.5" data-anim="rise" data-d="3">
-      <a href="#help" class="btn-fx rounded-full btn-clay px-8 py-4 font-600">Get Legal Help</a>
-      <a href="#donate" class="btn-fx rounded-full border border-cream/35 px-8 py-4 font-500 text-cream hover:bg-cream/10">Support the Mission</a>
+    <div class="reveal flex items-center justify-center gap-3 text-brass-soft"><span class="diamond"></span><span class="eyebrow">Justice · Dignity · Belonging</span><span class="diamond"></span></div>
+    <h2 class="reveal display text-[2.4rem] sm:text-[3.2rem] lg:text-[4rem] leading-[1.05] mt-6" data-d="1">Together, we expand<br>access to <em class="quote text-brass-soft">justice</em></h2>
+    <p class="reveal mt-6 text-[17px] text-paper/75" data-d="2">Whether you need help, want to give, or want to volunteer — you have a place here.</p>
+    <div class="reveal mt-10 flex flex-wrap justify-center gap-3.5" data-d="3">
+      <a href="#help" class="btn btn-brass rounded-full px-8 py-4 font-600">Get Legal Help</a>
+      <a href="#donate" class="btn rounded-full border border-paper/35 px-8 py-4 font-500 text-paper hover:bg-paper hover:text-pine-900">Support the Mission</a>
     </div>
   </div>
 </section>
 
 <!-- ===== FOOTER ===== -->
-<footer class="bg-ink-700 text-cream/65">
-  <div class="mx-auto max-w-[88rem] px-5 lg:px-10 py-16 grid md:grid-cols-12 gap-12">
+<footer class="bg-pine-900 text-paper/65 border-t border-paper/10">
+  <div class="mx-auto max-w-[86rem] px-5 lg:px-10 py-16 grid md:grid-cols-12 gap-12">
     <div class="md:col-span-5">
-      <div class="flex items-center gap-3 text-cream">
-        <span class="grid h-10 w-10 place-items-center rounded-full border border-cream/20 bg-cream/5 text-cream display font-600">L</span>
-        <span class="display text-lg font-500">Liberty Immigration Council</span>
+      <div class="flex items-center gap-3 text-paper">
+        <span class="grid h-10 w-10 place-items-center arch border border-paper/20 text-paper display pt-0.5" style="background:rgba(245,240,230,.06)">L</span>
+        <span class="display text-lg">Liberty Immigration Council</span>
       </div>
-      <p class="mt-5 max-w-md text-sm leading-relaxed text-cream/60">A 501(c)(3) nonprofit providing affordable immigration legal services, Know Your Rights education, and compassionate support for low-income immigrant families.</p>
-      <p class="mt-5 max-w-md text-[12px] leading-relaxed text-cream/40">Liberty Immigration Council provides services without discrimination on the basis of race, religion, national origin, sex, or other protected status. <strong class="text-cream/55">The information on this site is not legal advice.</strong></p>
+      <p class="mt-5 max-w-md text-sm leading-relaxed text-paper/60">A 501(c)(3) nonprofit providing affordable immigration legal services, Know Your Rights education, and compassionate support for low-income immigrant families.</p>
+      <p class="mt-5 max-w-md text-[12px] leading-relaxed text-paper/40">Liberty Immigration Council provides services without discrimination on the basis of race, religion, national origin, sex, or other protected status. <strong class="text-paper/55">The information on this site is not legal advice.</strong></p>
     </div>
     <div class="md:col-span-3">
-      <div class="eyebrow text-cream/80 text-[11px]">Explore</div>
+      <div class="eyebrow text-paper/80 text-[11px]">Explore</div>
       <ul class="mt-5 space-y-3 text-sm">
-        <li><a href="#programs" class="ulink hover:text-cream">Programs</a></li>
-        <li><a href="#stories" class="ulink hover:text-cream">Success Stories</a></li>
-        <li><a href="#attorney" class="ulink hover:text-cream">Our Attorney</a></li>
-        <li><a href="#foundations" class="ulink hover:text-cream">For Foundations</a></li>
-        <li><a href="#donate" class="ulink hover:text-cream">Donate</a></li>
+        <li><a href="#programs" class="ulink hover:text-paper">Programs</a></li>
+        <li><a href="#stories" class="ulink hover:text-paper">Success Stories</a></li>
+        <li><a href="#attorney" class="ulink hover:text-paper">Our Attorney</a></li>
+        <li><a href="#foundations" class="ulink hover:text-paper">For Foundations</a></li>
+        <li><a href="#donate" class="ulink hover:text-paper">Donate</a></li>
       </ul>
     </div>
     <div class="md:col-span-4">
-      <div class="eyebrow text-cream/80 text-[11px]">Contact</div>
+      <div class="eyebrow text-paper/80 text-[11px]">Contact</div>
       <ul class="mt-5 space-y-3 text-sm">
-        <li><a href="mailto:info@libertyimmigrationcouncil.org" class="ulink hover:text-cream">info@libertyimmigrationcouncil.org</a></li>
+        <li><a href="mailto:info@libertyimmigrationcouncil.org" class="ulink hover:text-paper">info@libertyimmigrationcouncil.org</a></li>
         <li>501(c)(3) &middot; EIN: [EIN pending]</li>
-        <li class="text-cream/45">English &middot; Español &middot; Русский</li>
+        <li class="text-paper/45">English &middot; Español &middot; Русский</li>
       </ul>
     </div>
   </div>
-  <div class="border-t border-cream/10">
-    <div class="mx-auto max-w-[88rem] px-5 lg:px-10 py-5 text-[12px] text-cream/40 flex flex-col sm:flex-row gap-2 justify-between">
+  <div class="border-t border-paper/10">
+    <div class="mx-auto max-w-[86rem] px-5 lg:px-10 py-5 text-[12px] text-paper/40 flex flex-col sm:flex-row gap-2 justify-between">
       <span>© 2026 Liberty Immigration Council. All rights reserved.</span>
-      <span class="flex gap-4"><a href="#" class="hover:text-cream/70">Privacy Policy</a><a href="#" class="hover:text-cream/70">Accessibility</a><a href="#foundations" class="hover:text-cream/70">Transparency</a></span>
+      <span class="flex gap-4"><a href="#" class="hover:text-paper/70">Privacy Policy</a><a href="#" class="hover:text-paper/70">Accessibility</a><a href="#foundations" class="hover:text-paper/70">Transparency</a></span>
     </div>
   </div>
 </footer>
@@ -645,153 +614,86 @@ tailwind.config = {
   'use strict';
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-  /* ===== auto-stagger: index children so CSS delay cascades ===== */
   document.querySelectorAll('.stagger').forEach(function(group){
     var kids = group.children;
     for(var i=0;i<kids.length;i++){ kids[i].style.setProperty('--i', i); }
   });
 
-  /* ===== collect everything that reveals ===== */
-  var revealEls = document.querySelectorAll('.reveal, .clip, .mask-img, .stagger');
-
+  var revealEls = document.querySelectorAll('.reveal, .stagger, .mask-img, .lines');
   function show(el){ el.classList.add('in'); }
 
   if(reduce){
-    /* reduced motion: just show everything, run count-up to final, skip the rest */
     revealEls.forEach(show);
-    document.querySelectorAll('.count').forEach(function(c){ c.textContent = c.getAttribute('data-count'); });
+    document.querySelectorAll('.count').forEach(function(c){ c.textContent = (+c.getAttribute('data-count')).toLocaleString(); });
   } else {
-    /* ===== IntersectionObserver-driven reveal ===== */
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
-        if(e.isIntersecting){
-          show(e.target);
-          io.unobserve(e.target);
-        }
+        if(e.isIntersecting){ show(e.target); io.unobserve(e.target); }
       });
-    }, { threshold:.16, rootMargin:'0px 0px -8% 0px' });
+    }, { threshold:.15, rootMargin:'0px 0px -6% 0px' });
     revealEls.forEach(function(el){ io.observe(el); });
 
-    /* reveal anything already in the first viewport on load (no jump) */
     function revealInView(){
       var vh = window.innerHeight || 880;
       revealEls.forEach(function(el){
         var r = el.getBoundingClientRect();
-        if(r.top < vh * 0.94) show(el);
+        if(r.top < vh * 0.95) show(el);
       });
     }
     revealInView();
     window.addEventListener('load', revealInView);
-
-    /* SAFETY NET: never leave anything permanently hidden */
-    setTimeout(function(){ revealEls.forEach(show); }, 2800);
+    /* safety net: nothing stays hidden, ever */
+    setTimeout(function(){ revealEls.forEach(show); }, 2000);
   }
 
-  /* ===== COUNT-UP for impact numerals (eased, once) ===== */
+  /* count-up */
   function easeOutExpo(t){ return t===1 ? 1 : 1 - Math.pow(2, -10*t); }
   function runCount(host){
-    var nums = host.querySelectorAll('.count');
-    nums.forEach(function(el){
+    host.querySelectorAll('.count').forEach(function(el){
       if(el.dataset.done) return;
       el.dataset.done = '1';
       var target = parseFloat(el.getAttribute('data-count')) || 0;
-      var dur = 1500, start = null;
+      var dur = 1300, start = null;
       function step(ts){
         if(start===null) start = ts;
         var p = Math.min((ts - start) / dur, 1);
-        var val = Math.round(easeOutExpo(p) * target);
-        el.textContent = val.toLocaleString();
+        el.textContent = Math.round(easeOutExpo(p) * target).toLocaleString();
         if(p < 1) requestAnimationFrame(step); else el.textContent = target.toLocaleString();
       }
       requestAnimationFrame(step);
     });
   }
-  /* trigger count-up when the impact band enters view (separate observer = reliable) */
-  if(!reduce){
-    var impact = document.querySelector('[data-pin]');
-    if(impact){
+  var impact = document.getElementById('impact');
+  if(impact){
+    if(reduce){ runCount(impact); }
+    else {
       var cObs = new IntersectionObserver(function(es){
         es.forEach(function(e){ if(e.isIntersecting){ runCount(impact); cObs.disconnect(); } });
-      }, { threshold:.35 });
+      }, { threshold:.3 });
       cObs.observe(impact);
-    }
-  } else {
-    document.querySelectorAll('.count').forEach(function(c){ c.textContent = c.getAttribute('data-count'); });
-  }
-
-  /* ===== rAF-batched scroll engine: parallax + nav + pin tint ===== */
-  var heroImg   = document.getElementById('heroImg');
-  var heroGlow  = document.getElementById('heroGlow');
-  var impactImg = document.getElementById('impactImg');
-  var closingImg= document.getElementById('closingImg');
-  var pinSec    = document.querySelector('[data-pin]');
-  var nav       = document.getElementById('nav');
-  var navTexts  = document.querySelectorAll('.nav-text');
-  var navDark   = false;
-  var ticking   = false;
-
-  function setNav(dark){
-    if(dark === navDark) return;
-    navDark = dark;
-    if(dark){
-      nav.classList.add('bg-paper/90','backdrop-blur-md','shadow-[0_10px_40px_-24px_rgba(11,31,42,.4)]','text-ink');
-      nav.classList.remove('text-cream');
-      navTexts.forEach(function(t){ t.classList.add('text-ink'); t.classList.remove('text-cream'); });
-    } else {
-      nav.classList.remove('bg-paper/90','backdrop-blur-md','shadow-[0_10px_40px_-24px_rgba(11,31,42,.4)]','text-ink');
-      nav.classList.add('text-cream');
-      navTexts.forEach(function(t){ t.classList.remove('text-ink'); t.classList.add('text-cream'); });
+      /* count safety net too */
+      setTimeout(function(){ runCount(impact); }, 4000);
     }
   }
 
+  /* nav veil on scroll — hero is light, so text stays dark; only the backdrop changes */
+  var nav = document.getElementById('nav');
+  var heroImg = document.getElementById('heroImg');
+  var ticking = false;
   function onFrame(){
     ticking = false;
     var y = window.pageYOffset;
-    var vh = window.innerHeight || 880;
-
-    /* nav theme swap */
-    setNav(y > 60);
-
-    if(reduce) return;
-
-    /* hero multi-layer parallax (transform/opacity only) */
-    if(heroImg && y < vh*1.2){
-      heroImg.style.transform = 'translate3d(0,'+(y*0.18)+'px,0) scale(1.06)';
+    if(y > 50){ nav.classList.add('bg-paper/90','backdrop-blur-md','shadow-[0_10px_36px_-22px_rgba(11,27,21,.4)]'); }
+    else { nav.classList.remove('bg-paper/90','backdrop-blur-md','shadow-[0_10px_36px_-22px_rgba(11,27,21,.4)]'); }
+    if(!reduce && heroImg && y < 900){
+      heroImg.style.transform = 'translate3d(0,'+(y*0.08)+'px,0)';
     }
-    if(heroGlow && y < vh*1.2){
-      heroGlow.style.transform = 'translate3d('+(y*0.05)+'px,'+(y*0.09)+'px,0)';
-    }
-
-    /* mid-page band parallax — image drifts opposite to scroll within its frame */
-    [impactImg, closingImg].forEach(function(img){
-      if(!img) return;
-      var r = img.parentElement.getBoundingClientRect();
-      if(r.bottom < -100 || r.top > vh + 100) return;        /* skip offscreen */
-      var prog = (vh - r.top) / (vh + r.height);             /* 0..1 across viewport */
-      var shift = (prog - 0.5) * 60;                          /* +/-30px */
-      img.style.transform = 'translate3d(0,'+ shift.toFixed(2) +'px,0)';
-    });
   }
-
   function requestFrame(){ if(!ticking){ ticking = true; requestAnimationFrame(onFrame); } }
   window.addEventListener('scroll', requestFrame, { passive:true });
-  window.addEventListener('resize', requestFrame, { passive:true });
   onFrame();
 
-  /* ===== sticky-pin tint moment on the impact band ===== */
-  /* as the dark band scrolls through, a subtle scale on its bg image adds depth (handled above);
-     here we add a tasteful headline "settle" by toggling a class while it owns the viewport */
-  if(!reduce && pinSec){
-    var pinObs = new IntersectionObserver(function(es){
-      es.forEach(function(e){
-        if(e.intersectionRatio > 0.55) pinSec.classList.add('pin-active');
-        else pinSec.classList.remove('pin-active');
-      });
-    }, { threshold:[0,0.55,1] });
-    pinObs.observe(pinSec);
-  }
-
-  /* ===== donate progress bar fills when in view ===== */
+  /* donate progress */
   var prog = document.getElementById('progress');
   if(prog){
     if(reduce){ prog.style.width = '62%'; }
@@ -800,17 +702,18 @@ tailwind.config = {
         es.forEach(function(e){ if(e.isIntersecting){ prog.style.width = '62%'; pObs.disconnect(); } });
       }, { threshold:.4 });
       pObs.observe(prog);
+      setTimeout(function(){ prog.style.width = '62%'; }, 4000);
     }
   }
 
-  /* ===== donate monthly toggle ===== */
+  /* donate toggle */
   var once = document.getElementById('onceBtn'), month = document.getElementById('monthBtn');
   function setMode(m){
     document.querySelectorAll('.amt').forEach(function(a){
       var b = +a.dataset.base; a.textContent = '$' + b.toLocaleString() + (m ? '/mo' : '');
     });
-    if(m){ month.classList.add('btn-clay'); month.classList.remove('text-cream'); once.classList.remove('btn-clay'); once.classList.add('text-cream'); }
-    else { once.classList.add('btn-clay'); once.classList.remove('text-cream'); month.classList.remove('btn-clay'); month.classList.add('text-cream'); }
+    if(m){ month.classList.add('btn-brass'); month.classList.remove('text-paper'); once.classList.remove('btn-brass'); once.classList.add('text-paper'); }
+    else { once.classList.add('btn-brass'); once.classList.remove('text-paper'); month.classList.remove('btn-brass'); month.classList.add('text-paper'); }
   }
   if(once && month){ once.onclick = function(){ setMode(false); }; month.onclick = function(){ setMode(true); }; }
 })();
