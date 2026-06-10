@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accessibility Statement | Liberty Immigration Council</title>
+<meta name="description" content="Liberty Immigration Council's commitment to digital accessibility for all visitors.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: {
+      paper:'#F5F0E6', ivory:'#ECE4D2',
+      pine: { DEFAULT:'#16352A', 800:'#10271F', 900:'#0B1B15' },
+      brass:{ DEFAULT:'#AE8A43', soft:'#C9A55C', deep:'#8F6F33' },
+      inkt: '#1C2922'
+    },
+    fontFamily: {
+      display:['"Libre Caslon Display"','Georgia','serif'],
+      sans:['Inter','system-ui','sans-serif']
+    }
+  }}
+}
+</script>
+<style>
+  body{font-family:'Inter',sans-serif;color:#1C2922;background:#F5F0E6;-webkit-font-smoothing:antialiased}
+  .display{font-family:'Libre Caslon Display',Georgia,serif;letter-spacing:-.01em}
+  .eyebrow{font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;font-weight:600}
+  .arch{border-radius:999px 999px 1.4rem 1.4rem}
+  .diamond{display:inline-block;width:5px;height:5px;transform:rotate(45deg);background:#AE8A43}
+  .prose-lic h2{font-family:'Libre Caslon Display',Georgia,serif;color:#0B1B15;font-size:1.5rem;margin-top:2.5rem;line-height:1.2}
+  .prose-lic p, .prose-lic li{color:rgba(28,41,34,.72);line-height:1.75;margin-top:.9rem;font-size:15.5px}
+  .prose-lic ul{list-style:disc;padding-left:1.4rem}
+  .prose-lic strong{color:#0B1B15}
+  .prose-lic a{color:#8F6F33;text-decoration:underline}
+</style>
+</head>
+<body class="bg-paper">
+
+<header class="border-b border-pine/10">
+  <div class="mx-auto max-w-[86rem] px-5 lg:px-10">
+    <div class="flex h-[74px] items-center justify-between">
+      <a href="./" class="flex items-center gap-3 text-inkt">
+        <span class="grid h-10 w-10 place-items-center arch border border-pine/25 bg-pine text-paper display text-lg leading-none pt-0.5">L</span>
+        <span class="leading-tight">
+          <span class="block display text-[15.5px] tracking-tight">Liberty Immigration Council</span>
+          <span class="block text-[9.5px] eyebrow text-brass-deep">Justice · Dignity · Belonging</span>
+        </span>
+      </a>
+      <a href="./" class="inline-flex rounded-full border border-pine/30 px-5 py-2 text-[13.5px] font-600 text-inkt hover:bg-pine hover:text-paper transition">&larr; Back to site</a>
+    </div>
+  </div>
+</header>
+
+<main class="mx-auto max-w-3xl px-5 lg:px-10 py-16 lg:py-24">
+  <div class="flex items-center gap-3 text-brass-deep"><span class="diamond"></span><span class="eyebrow">Commitment</span></div>
+  <h1 class="display text-[2.4rem] sm:text-[3rem] leading-[1.08] text-pine-900 mt-5">Accessibility Statement</h1>
+  <p class="mt-3 text-sm text-inkt/55">Last updated: June 10, 2026</p>
+
+  <div class="prose-lic mt-6">
+    <p>Liberty Immigration Council serves families from many backgrounds, languages, and circumstances — including people who rely on assistive technology. We want every visitor to be able to learn about their rights, ask for help, and support our mission without barriers.</p>
+
+    <h2>Our standard</h2>
+    <p>We aim to conform to the <strong>Web Content Accessibility Guidelines (WCAG) 2.1, Level AA</strong>. Accessibility is treated as an ongoing practice, not a one-time checkbox: we review the site as we add content and features.</p>
+
+    <h2>What we&rsquo;ve done</h2>
+    <ul>
+      <li>Semantic HTML structure with proper headings, landmarks, and labels on every form field.</li>
+      <li>Color palette checked for sufficient text contrast on light and dark backgrounds.</li>
+      <li>Full keyboard operability — navigation, forms, FAQ accordions, and the donation toggle work without a mouse.</li>
+      <li>Descriptive alternative text for meaningful images; decorative images are hidden from screen readers.</li>
+      <li><strong>Reduced motion support</strong> — if your device requests reduced motion, animations and smooth-scrolling effects are disabled automatically.</li>
+      <li>Responsive layout that supports zoom up to 200% and small-screen devices.</li>
+      <li>Content written in plain language, available in English, with Spanish and Russian assistance offered through our services.</li>
+    </ul>
+
+    <h2>Known limitations</h2>
+    <p>Some third-party content — such as the embedded donation processor — is controlled by external providers, and its accessibility may vary. If you have difficulty completing a donation or form, contact us and we will help you directly.</p>
+
+    <h2>Feedback and assistance</h2>
+    <p>If you encounter an accessibility barrier on this site, or need this information in another format or language, please email <a href="mailto:info@libertyimmigrationcouncil.org">info@libertyimmigrationcouncil.org</a>. We aim to respond within 2 business days and to fix verified issues promptly.</p>
+  </div>
+</main>
+
+<footer class="bg-pine-900 text-paper/65">
+  <div class="mx-auto max-w-[86rem] px-5 lg:px-10 py-8 text-[12px] text-paper/40 flex flex-col sm:flex-row gap-2 justify-between">
+    <span>© 2026 Liberty Immigration Council. All rights reserved.</span>
+    <span class="flex gap-4"><a href="./" class="hover:text-paper/70">Home</a><a href="privacy.html" class="hover:text-paper/70">Privacy Policy</a><a href="accessibility.html" class="hover:text-paper/70">Accessibility</a></span>
+  </div>
+</footer>
+</body>
+</html>
