@@ -455,9 +455,10 @@ tailwind.config = {
       <div class="reveal lg:col-span-5 lg:justify-self-end" data-d="2">
         <div class="flex items-center gap-3">
           <span class="text-sm text-paper/70">Give</span>
-          <div class="inline-flex rounded-full border border-paper/20 p-1 text-sm font-600" style="background:rgba(245,240,230,.08)">
-            <button id="onceBtn" class="rounded-full px-5 py-2 btn-brass transition">One-time</button>
-            <button id="monthBtn" class="rounded-full px-5 py-2 text-paper transition">Monthly</button>
+          <div id="giveToggle" class="relative inline-flex rounded-full border border-paper/20 p-1 text-sm font-600" style="background:rgba(245,240,230,.08)">
+            <span id="giveThumb" class="absolute top-1 bottom-1 rounded-full bg-brass" style="left:4px;width:0;transition:left .45s var(--ease),width .45s var(--ease)" aria-hidden="true"></span>
+            <button id="onceBtn" class="relative z-10 rounded-full px-5 py-2" style="color:#0B1B15;transition:color .35s var(--ease)">One-time</button>
+            <button id="monthBtn" class="relative z-10 rounded-full px-5 py-2 text-paper" style="transition:color .35s var(--ease)">Monthly</button>
           </div>
         </div>
         <p class="mt-3 text-xs text-paper/55">Monthly supporters sustain our work year-round.</p>
@@ -714,16 +715,26 @@ function initFallbackMotion(){
     }
   }
 
-  /* donate toggle */
-  var once = document.getElementById('onceBtn'), month = document.getElementById('monthBtn');
+  /* donate toggle (thumb slides via its inline CSS transition) */
+  var once = document.getElementById('onceBtn'), month = document.getElementById('monthBtn'), thumb = document.getElementById('giveThumb');
+  function moveThumb(btn){
+    if(!thumb || !btn) return;
+    thumb.style.left = btn.offsetLeft + 'px';
+    thumb.style.width = btn.offsetWidth + 'px';
+  }
   function setMode(m){
     document.querySelectorAll('.amt').forEach(function(a){
       var b = +a.dataset.base; a.textContent = '$' + b.toLocaleString() + (m ? '/mo' : '');
     });
-    if(m){ month.classList.add('btn-brass'); month.classList.remove('text-paper'); once.classList.remove('btn-brass'); once.classList.add('text-paper'); }
-    else { once.classList.add('btn-brass'); once.classList.remove('text-paper'); month.classList.remove('btn-brass'); month.classList.add('text-paper'); }
+    moveThumb(m ? month : once);
+    once.style.color = m ? '#F5F0E6' : '#0B1B15';
+    month.style.color = m ? '#0B1B15' : '#F5F0E6';
   }
-  if(once && month){ once.onclick = function(){ setMode(false); }; month.onclick = function(){ setMode(true); }; }
+  if(once && month){
+    moveThumb(once);
+    once.onclick = function(){ setMode(false); };
+    month.onclick = function(){ setMode(true); };
+  }
 }
 </script>
 
@@ -897,17 +908,33 @@ function initFallbackMotion(){
     ScrollTrigger.create({ trigger:prog, start:'top 88%', once:true, onEnter:function(){ prog.style.width='62%'; } });
     setTimeout(function(){ prog.style.width='62%'; }, 6000);
   }
-  var once_ = document.getElementById('onceBtn'), month = document.getElementById('monthBtn');
-  function setMode(m){
-    document.querySelectorAll('.amt').forEach(function(a){
-      var b = +a.dataset.base; a.textContent = '$' + b.toLocaleString() + (m ? '/mo' : '');
-    });
-    if(m){ month.classList.add('btn-brass'); month.classList.remove('text-paper'); once_.classList.remove('btn-brass'); once_.classList.add('text-paper'); }
-    else { once_.classList.add('btn-brass'); once_.classList.remove('text-paper'); month.classList.remove('btn-brass'); month.classList.add('text-paper'); }
+  var once_ = document.getElementById('onceBtn'), month = document.getElementById('monthBtn'), thumb = document.getElementById('giveThumb');
+  function moveThumb(btn, instant){
+    if(!thumb || !btn) return;
+    if(instant){ thumb.style.transition = 'none'; }
+    thumb.style.left = btn.offsetLeft + 'px';
+    thumb.style.width = btn.offsetWidth + 'px';
+    if(instant){ void thumb.offsetWidth; thumb.style.transition = ''; }
   }
-  if(once_ && month){ once_.onclick = function(){ setMode(false); }; month.onclick = function(){ setMode(true); }; }
+  function setMode(m){
+    var amts = document.querySelectorAll('.amt');
+    gsap.to(amts, { y:-7, autoAlpha:0, duration:.18, ease:'power2.in', stagger:.025, onComplete:function(){
+      amts.forEach(function(a){ var b = +a.dataset.base; a.textContent = '$' + b.toLocaleString() + (m ? '/mo' : ''); });
+      gsap.fromTo(amts, { y:9, autoAlpha:0 }, { y:0, autoAlpha:1, duration:.4, ease:'power3.out', stagger:.035 });
+    }});
+    moveThumb(m ? month : once_);
+    gsap.to(once_, { color: m ? '#F5F0E6' : '#0B1B15', duration:.35 });
+    gsap.to(month, { color: m ? '#0B1B15' : '#F5F0E6', duration:.35 });
+  }
+  var activeGive = once_;
+  if(once_ && month){
+    moveThumb(once_, true);
+    window.addEventListener('resize', function(){ moveThumb(activeGive, true); });
+    once_.onclick = function(){ activeGive = once_; setMode(false); };
+    month.onclick = function(){ activeGive = month; setMode(true); };
+  }
 
-  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); moveThumb(activeGive, true); });
 })();
 </script>
 </body>
