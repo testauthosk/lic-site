@@ -909,12 +909,24 @@ function initFallbackMotion(){
     setTimeout(function(){ prog.style.width='62%'; }, 6000);
   }
   var once_ = document.getElementById('onceBtn'), month = document.getElementById('monthBtn'), thumb = document.getElementById('giveThumb');
-  function moveThumb(btn, instant){
+  if(thumb){ thumb.style.transition = 'none'; } /* GSAP owns the thumb in this path */
+  function moveThumb(btn){
     if(!thumb || !btn) return;
-    if(instant){ thumb.style.transition = 'none'; }
     thumb.style.left = btn.offsetLeft + 'px';
     thumb.style.width = btn.offsetWidth + 'px';
-    if(instant){ void thumb.offsetWidth; thumb.style.transition = ''; }
+  }
+  /* liquid slide: leading edge breaks away, trailing edge catches up —
+     the pill stretches across the gap and snaps onto the target */
+  function slideThumb(btn){
+    if(!thumb || !btn) return;
+    var tl = btn.offsetLeft, tr = tl + btn.offsetWidth;
+    var proxy = { l: thumb.offsetLeft, r: thumb.offsetLeft + thumb.offsetWidth };
+    var goingRight = tl > proxy.l;
+    function apply(){ thumb.style.left = proxy.l + 'px'; thumb.style.width = Math.max(0, proxy.r - proxy.l) + 'px'; }
+    gsap.killTweensOf(proxy);
+    gsap.to(proxy, { [goingRight ? 'r' : 'l']: goingRight ? tr : tl, duration:.5, ease:'power3.out', onUpdate:apply });
+    gsap.to(proxy, { [goingRight ? 'l' : 'r']: goingRight ? tl : tr, duration:.6, delay:.1, ease:'power4.out', onUpdate:apply });
+    gsap.fromTo(thumb, { scaleY:1 }, { scaleY:.88, duration:.22, yoyo:true, repeat:1, ease:'sine.inOut', transformOrigin:'50% 50%' });
   }
   function setMode(m){
     var amts = document.querySelectorAll('.amt');
@@ -922,9 +934,9 @@ function initFallbackMotion(){
       amts.forEach(function(a){ var b = +a.dataset.base; a.textContent = '$' + b.toLocaleString() + (m ? '/mo' : ''); });
       gsap.fromTo(amts, { y:9, autoAlpha:0 }, { y:0, autoAlpha:1, duration:.4, ease:'power3.out', stagger:.035 });
     }});
-    moveThumb(m ? month : once_);
-    gsap.to(once_, { color: m ? '#F5F0E6' : '#0B1B15', duration:.35 });
-    gsap.to(month, { color: m ? '#0B1B15' : '#F5F0E6', duration:.35 });
+    slideThumb(m ? month : once_);
+    gsap.to(once_, { color: m ? '#F5F0E6' : '#0B1B15', duration:.45, ease:'power2.inOut' });
+    gsap.to(month, { color: m ? '#0B1B15' : '#F5F0E6', duration:.45, ease:'power2.inOut' });
   }
   var activeGive = once_;
   if(once_ && month){
