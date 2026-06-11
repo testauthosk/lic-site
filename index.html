@@ -111,19 +111,22 @@ tailwind.config = {
   .faq-body{opacity:0;transition:opacity .4s var(--ease) .05s}
   details.isopen .faq-body{opacity:1}
 
-  /* custom select dropdown — styled to match the form, smooth open */
+  /* custom select — the control stretches downward into the options (seamless, height-animated both ways) */
   .csel{position:relative}
-  .csel-btn{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;cursor:pointer}
-  .csel-btn .chev{transition:transform .3s var(--ease)}
+  .csel-btn{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;cursor:pointer;
+    transition:border-radius .18s var(--ease),border-color .18s var(--ease),background .18s}
+  .csel-btn .chev{transition:transform .32s var(--ease)}
   .csel.open .csel-btn .chev{transform:rotate(180deg)}
-  .csel-pop{position:absolute;z-index:40;left:0;right:0;top:calc(100% + 6px);background:#0B1B15;
-    border:1px solid rgba(245,240,230,.16);border-radius:.95rem;padding:6px;list-style:none;margin:0;
-    box-shadow:0 26px 54px -26px rgba(0,0,0,.6);opacity:0;transform:translateY(-6px) scale(.99);
-    transform-origin:top;pointer-events:none;transition:opacity .24s var(--ease),transform .24s var(--ease)}
-  .csel.open .csel-pop{opacity:1;transform:none;pointer-events:auto}
-  .csel-opt{padding:10px 12px;border-radius:.62rem;cursor:pointer;color:rgba(245,240,230,.82);font-size:14.5px;transition:background .18s,color .18s}
-  .csel-opt:hover{background:rgba(174,138,67,.18);color:#F5F0E6}
-  .csel-opt[aria-selected="true"]{background:rgba(174,138,67,.26);color:#F5F0E6}
+  .csel.open .csel-btn{border-bottom-left-radius:0;border-bottom-right-radius:0;border-bottom-color:transparent;background:rgba(245,240,230,.13)}
+  .csel-pop{position:absolute;left:0;right:0;top:100%;z-index:40;
+    background:#22372e;border:1px solid transparent;border-top:none;border-radius:0 0 .8rem .8rem;
+    display:grid;grid-template-rows:0fr;transition:grid-template-rows .34s var(--ease),box-shadow .34s var(--ease),border-color .2s var(--ease);
+    box-shadow:0 0 0 rgba(0,0,0,0)}
+  .csel.open .csel-pop{grid-template-rows:1fr;border-color:rgba(245,240,230,.22);box-shadow:0 26px 50px -26px rgba(0,0,0,.55)}
+  .csel-list{overflow:hidden;min-height:0;list-style:none;margin:0;padding:6px}
+  .csel-opt{padding:10px 12px;border-radius:.55rem;cursor:pointer;color:rgba(245,240,230,.82);font-size:14.5px;transition:background .16s,color .16s}
+  .csel-opt:hover{background:rgba(174,138,67,.2);color:#F5F0E6}
+  .csel-opt[aria-selected="true"]{background:rgba(174,138,67,.28);color:#F5F0E6}
 
   .count,.num-index{font-variant-numeric:tabular-nums}
 
@@ -491,13 +494,13 @@ tailwind.config = {
             <div class="block"><span class="text-[13px] font-600 text-paper/80">Preferred language</span>
               <div class="csel mt-2">
                 <button type="button" class="csel-btn rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper outline-none focus:border-brass-soft transition" aria-haspopup="listbox" aria-expanded="false"><span class="csel-val">English</span><svg class="chev h-4 w-4 text-paper/55 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></button>
-                <ul class="csel-pop" role="listbox"><li class="csel-opt" role="option" aria-selected="true">English</li><li class="csel-opt" role="option">Español</li><li class="csel-opt" role="option">Русский</li><li class="csel-opt" role="option">Other</li></ul>
+                <div class="csel-pop"><ul class="csel-list" role="listbox"><li class="csel-opt" role="option" aria-selected="true">English</li><li class="csel-opt" role="option">Español</li><li class="csel-opt" role="option">Русский</li><li class="csel-opt" role="option">Other</li></ul></div>
               </div>
             </div>
             <div class="block"><span class="text-[13px] font-600 text-paper/80">Urgency</span>
               <div class="csel mt-2">
                 <button type="button" class="csel-btn rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper outline-none focus:border-brass-soft transition" aria-haspopup="listbox" aria-expanded="false"><span class="csel-val">General question</span><svg class="chev h-4 w-4 text-paper/55 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></button>
-                <ul class="csel-pop" role="listbox"><li class="csel-opt" role="option" aria-selected="true">General question</li><li class="csel-opt" role="option">Time-sensitive</li><li class="csel-opt" role="option">Urgent &mdash; detention / court date</li></ul>
+                <div class="csel-pop"><ul class="csel-list" role="listbox"><li class="csel-opt" role="option" aria-selected="true">General question</li><li class="csel-opt" role="option">Time-sensitive</li><li class="csel-opt" role="option">Urgent &mdash; detention / court date</li></ul></div>
               </div>
             </div>
           </div>
@@ -1028,14 +1031,14 @@ function initFallbackMotion(){
 /* custom select dropdowns */
 (function(){
   var sels = document.querySelectorAll('.csel');
-  function closeAll(except){ sels.forEach(function(s){ if(s!==except){ s.classList.remove('open'); s.querySelector('.csel-btn').setAttribute('aria-expanded','false'); } }); }
+  function closeAll(){ sels.forEach(function(s){ s.classList.remove('open'); s.querySelector('.csel-btn').setAttribute('aria-expanded','false'); }); }
   sels.forEach(function(sel){
     var btn=sel.querySelector('.csel-btn'), val=sel.querySelector('.csel-val'), opts=sel.querySelectorAll('.csel-opt');
-    btn.addEventListener('click', function(e){ e.stopPropagation(); var open=sel.classList.contains('open'); closeAll(sel); if(!open){ sel.classList.add('open'); btn.setAttribute('aria-expanded','true'); } });
-    opts.forEach(function(o){ o.addEventListener('click', function(){ val.textContent=o.textContent; opts.forEach(function(x){ x.setAttribute('aria-selected','false'); }); o.setAttribute('aria-selected','true'); sel.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }); });
+    btn.addEventListener('click', function(e){ e.stopPropagation(); var willOpen=!sel.classList.contains('open'); closeAll(); if(willOpen){ sel.classList.add('open'); btn.setAttribute('aria-expanded','true'); } });
+    opts.forEach(function(o){ o.addEventListener('click', function(e){ e.stopPropagation(); val.textContent=o.textContent; opts.forEach(function(x){ x.setAttribute('aria-selected','false'); }); o.setAttribute('aria-selected','true'); sel.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }); });
   });
-  document.addEventListener('click', function(){ closeAll(null); });
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeAll(null); });
+  document.addEventListener('click', function(){ closeAll(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeAll(); });
 })();
 
 /* FAQ smooth height accordion */
