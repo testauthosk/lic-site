@@ -7,3 +7,4 @@ video/
 _*.png
 _*
 __pycache__/
+board_src/
