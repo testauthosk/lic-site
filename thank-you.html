@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thank You | Liberty Immigration Council</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Thank you for supporting Liberty Immigration Council. Your gift helps immigrant families access trusted legal help.">
+<meta property="og:title" content="Liberty Immigration Council — Immigration Legal Help for Families">
+<meta property="og:description" content="Trusted, affordable immigration legal help. A 501(c)(3) nonprofit led by a licensed attorney.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: {
+      paper:'#F5F0E6',
+      ivory:'#ECE4D2',
+      pine: { DEFAULT:'#16352A', 800:'#10271F', 900:'#0B1B15' },
+      moss: '#2C4A3C',
+      brass:{ DEFAULT:'#AE8A43', soft:'#C9A55C', deep:'#8F6F33' },
+      inkt: '#1C2922'
+    },
+    fontFamily: {
+      display:['"Libre Caslon Display"','Georgia','serif'],
+      quote:['Newsreader','Georgia','serif'],
+      sans:['Inter','system-ui','sans-serif']
+    },
+    boxShadow: {
+      card:'0 22px 55px -28px rgba(11,27,21,.35)',
+      lift:'0 34px 70px -30px rgba(11,27,21,.5)'
+    }
+  }}
+}
+</script>
+<style>
+  :root{ --ease:cubic-bezier(.22,.61,.36,1); }
+  body{font-family:'Inter',sans-serif;color:#1C2922;background:#F5F0E6;-webkit-font-smoothing:antialiased}
+  .display{font-family:'Libre Caslon Display',Georgia,serif;letter-spacing:-.01em}
+  .quote{font-family:'Newsreader',Georgia,serif;font-style:italic}
+  .eyebrow{font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;font-weight:600}
+  @media (max-width:480px){.eyebrow{font-size:.6rem;letter-spacing:.18em}}
+
+  /* fine grain on dark bands only — opacity inline-safe */
+  .grain{position:relative}
+  .grain::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.06;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  /* ===== motion: short, crisp, no blur ===== */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .65s var(--ease),transform .7s var(--ease);will-change:opacity,transform}
+  .reveal.in{opacity:1;transform:none}
+  .reveal[data-d="1"]{transition-delay:.08s}.reveal[data-d="2"]{transition-delay:.16s}
+  .reveal[data-d="3"]{transition-delay:.24s}.reveal[data-d="4"]{transition-delay:.32s}
+
+  .stagger > *{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .65s var(--ease);transition-delay:calc(var(--i,0)*.07s)}
+  .stagger.in > *{opacity:1;transform:none}
+
+  /* headline line-mask: each line rises out of its own clip.
+     padding-bottom keeps descenders/italic overshoot inside the clip window */
+  .line{display:block;overflow:hidden;padding-bottom:.12em;margin-bottom:-.12em}
+  .line > span{display:block;transform:translateY(118%);transition:transform .85s var(--ease)}
+  .lines.in .line > span{transform:none}
+  .lines.in .line:nth-child(2) > span{transition-delay:.1s}
+  .lines.in .line:nth-child(3) > span{transition-delay:.2s}
+
+  /* image curtain reveal */
+  .mask-img{clip-path:inset(0 0 100% 0);transition:clip-path .9s var(--ease)}
+  .mask-img.in{clip-path:inset(0 0 0 0)}
+  .mask-img img{transform:scale(1.07);transition:transform 1.2s var(--ease)}
+  .mask-img.in img{transform:scale(1)}
+
+  /* duotone photo treatment — photos always sit on pine, tinted to palette */
+  .duo{background:#16352A}
+  .duo img{filter:grayscale(1) contrast(1.04) brightness(.94);mix-blend-mode:luminosity;opacity:.92}
+  .duo::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(160deg,rgba(22,53,42,.38),rgba(174,138,67,.16) 65%,rgba(11,27,21,.42))}
+
+  /* arch frame — signature shape */
+  .arch{border-radius:999px 999px 1.4rem 1.4rem}
+
+  .lift{transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+  .lift:hover{transform:translateY(-7px);box-shadow:0 34px 70px -30px rgba(11,27,21,.5)}
+
+  .ulink{position:relative}
+  .ulink::after{content:"";position:absolute;left:0;bottom:-2px;height:1.5px;width:100%;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+  .ulink:hover::after{transform:scaleX(1)}
+  .nudge svg{transition:transform .4s var(--ease)}
+  .nudge:hover svg{transform:translateX(5px)}
+
+  .btn{transition:transform .35s var(--ease),box-shadow .4s var(--ease),background-color .35s var(--ease),color .35s var(--ease)}
+  .btn:hover{transform:translateY(-2px)}
+  .btn:active{transform:translateY(0)}
+  .btn-pine{background:#16352A;color:#F5F0E6}
+  .btn-pine:hover{background:#10271F}
+  .btn-brass{background:#AE8A43;color:#0B1B15}
+  .btn-brass:hover{background:#8F6F33;color:#F5F0E6}
+
+  .rule{height:1px;background:linear-gradient(90deg,rgba(174,138,67,.55),rgba(174,138,67,0))}
+  .diamond{display:inline-block;width:5px;height:5px;transform:rotate(45deg);background:#AE8A43}
+
+  details summary::-webkit-details-marker{display:none}
+  details .faq-body{overflow:hidden}
+  details[open] summary ~ .faq-body{animation:faqIn .5s var(--ease)}
+  @keyframes faqIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+
+  .count,.num-index{font-variant-numeric:tabular-nums}
+
+  @media (prefers-reduced-motion:reduce){
+    .reveal,.stagger>*,.mask-img,.mask-img img,.line>span{transition:none!important;opacity:1!important;transform:none!important;clip-path:none!important}
+    html{scroll-behavior:auto}
+  }
+
+  /* ===== GSAP mode: CSS transitions off, GSAP owns motion ===== */
+  html.gsap-on .reveal,html.gsap-on .stagger>*,html.gsap-on .line>span,
+  html.gsap-on .mask-img,html.gsap-on .mask-img img{transition:none;opacity:1;transform:none;clip-path:none}
+  html.gsap-on .btn{transition:box-shadow .4s var(--ease),background-color .35s var(--ease),color .35s var(--ease)}
+  html.gsap-on .lift{transition:box-shadow .5s var(--ease)}
+  html.gsap-on{scroll-behavior:auto}
+  .tilt-wrap{transform-style:preserve-3d;will-change:transform}
+</style>
+</head>
+<body class="bg-paper">
+
+<!-- ===== NAV — dark text always (hero is light), ivory veil on scroll ===== -->
+<header id="nav" class="fixed top-0 inset-x-0 z-50 text-inkt transition-all duration-500">
+  <div class="mx-auto max-w-[86rem] px-5 lg:px-10">
+    <div class="flex h-[74px] items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <span class="grid h-10 w-10 place-items-center arch border border-pine/25 bg-pine text-paper display text-lg leading-none pt-0.5">L</span>
+        <span class="leading-tight">
+          <span class="block display text-[15.5px] tracking-tight">Liberty Immigration Council</span>
+          <span class="block text-[9.5px] eyebrow text-brass-deep">Justice · Dignity · Belonging</span>
+        </span>
+      </a>
+      <nav class="hidden lg:flex items-center gap-9 text-[13.5px] font-500">
+        <a href="index.html#programs" class="ulink">Programs</a>
+        <a href="index.html#stories" class="ulink">Stories</a>
+        <a href="index.html#attorney" class="ulink">Our Attorney</a>
+        <a href="index.html#foundations" class="ulink">Foundations</a>
+        <a href="index.html#faq" class="ulink">FAQ</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="index.html#help" class="hidden sm:inline-flex btn rounded-full border border-pine/30 px-5 py-2 text-[13.5px] font-600 hover:bg-pine hover:text-paper">Get Help</a>
+        <a href="index.html#donate" class="inline-flex btn btn-brass rounded-full px-5 py-2 text-[13.5px] font-600">Donate</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<!-- ===== THANK YOU ===== -->
+<section class="relative bg-pine-900 text-paper grain overflow-hidden pt-[74px]">
+  <div class="absolute -top-40 left-1/2 -translate-x-1/2 h-[44rem] w-[44rem] rounded-full opacity-[.22] pointer-events-none" style="background:radial-gradient(circle,rgba(174,138,67,.6) 0%,transparent 60%)"></div>
+  <div class="relative mx-auto max-w-[58rem] px-5 lg:px-10 py-24 lg:py-32 text-center">
+    <div class="reveal mx-auto grid place-items-center h-16 w-16 rounded-full bg-brass/15 ring-1 ring-brass/40">
+      <svg class="h-8 w-8 text-brass-soft" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+    </div>
+    <div class="reveal flex items-center justify-center gap-3 text-brass-soft mt-9" data-d="1"><span class="diamond"></span><span class="eyebrow">Thank you</span><span class="diamond"></span></div>
+    <h1 class="lines mt-5 display leading-[1.1] text-[2.2rem] sm:text-[2.9rem] lg:text-[3.4rem]">
+      <span class="line"><span>Thank you for standing</span></span>
+      <span class="line"><span>with immigrant <em class="quote text-brass-soft">families.</em></span></span>
+    </h1>
+    <p class="reveal mt-7 text-[17px] leading-relaxed text-paper/75 max-w-xl mx-auto" data-d="2">
+      Your gift helps a family understand their rights, prepare their case, and find a path forward &mdash; with dignity
+      and clarity, when it matters most.
+    </p>
+  </div>
+</section>
+
+<!-- ===== RECEIPT + NEXT STEPS ===== -->
+<section class="bg-paper">
+  <div class="mx-auto max-w-[86rem] px-5 lg:px-10 py-24 lg:py-32 grid lg:grid-cols-2 gap-12 lg:gap-16">
+    <div class="reveal" data-d="1">
+      <div class="rounded-2xl bg-ivory border border-pine/12 p-7 lg:p-9">
+        <div class="flex items-start gap-4">
+          <svg class="h-6 w-6 text-brass-deep shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4h16v16l-3-2-2 2-2-2-2 2-2-2-3 2zM8 9h8M8 13h5"/></svg>
+          <div>
+            <div class="font-600 text-pine-900">Your tax receipt</div>
+            <p class="mt-3 text-[15px] leading-relaxed text-inkt/75">
+              A receipt has been emailed to you. Liberty Immigration Council is a registered 501(c)(3) nonprofit, and your
+              donation may be tax-deductible to the extent allowed by law. Please keep the receipt for your records.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="mt-8">
+        <div class="eyebrow text-brass-deep">Share the mission</div>
+        <div class="mt-4 flex flex-wrap gap-3">
+          <a href="#" aria-label="Share on Facebook" class="btn grid place-items-center h-11 w-11 rounded-full border border-pine/20 text-pine hover:bg-pine hover:text-paper"><svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M13 10h3l.5-3H13V5.5c0-.9.3-1.5 1.6-1.5H17V1.2C16.6 1.1 15.5 1 14.3 1 11.7 1 10 2.6 10 5.2V7H7v3h3v9h3z"/></svg></a>
+          <a href="#" aria-label="Share on X" class="btn grid place-items-center h-11 w-11 rounded-full border border-pine/20 text-pine hover:bg-pine hover:text-paper"><svg class="h-4.5 w-4.5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.9 2H22l-7.3 8.3L23 22h-6.8l-5.3-6.9L4.8 22H1.7l7.8-8.9L1 2h7l4.8 6.3zm-1.2 18h1.9L7.1 4H5z"/></svg></a>
+          <a href="mailto:?subject=Liberty%20Immigration%20Council" aria-label="Share by email" class="btn grid place-items-center h-11 w-11 rounded-full border border-pine/20 text-pine hover:bg-pine hover:text-paper"><svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="reveal" data-d="2">
+      <div class="flex items-center gap-3 text-brass-deep"><span class="diamond"></span><span class="eyebrow">What happens next</span></div>
+      <ul class="mt-7 space-y-6">
+        <li class="flex items-start gap-5"><span class="num-index display text-brass-deep text-xl leading-none mt-0.5">01</span><div><div class="font-600 text-pine-900">Your gift goes to work</div><p class="text-[15px] text-inkt/65 mt-1 leading-relaxed">Funds support consultations, case preparation, and Know Your Rights education for low-income families.</p></div></li>
+        <li class="flex items-start gap-5"><span class="num-index display text-brass-deep text-xl leading-none mt-0.5">02</span><div><div class="font-600 text-pine-900">Stay connected</div><p class="text-[15px] text-inkt/65 mt-1 leading-relaxed">We email rarely &mdash; only meaningful updates on our work and your impact.</p></div></li>
+        <li class="flex items-start gap-5"><span class="num-index display text-brass-deep text-xl leading-none mt-0.5">03</span><div><div class="font-600 text-pine-900">Make it monthly</div><p class="text-[15px] text-inkt/65 mt-1 leading-relaxed">Recurring gifts give families dependable support and help us plan ahead.</p></div></li>
+      </ul>
+      <div class="mt-9 flex flex-wrap gap-4">
+        <a href="index.html" class="btn btn-pine inline-flex items-center gap-2 rounded-full px-7 py-4 font-600">Return home</a>
+        <a href="index.html#programs" class="nudge inline-flex items-center gap-2 font-600 text-pine ulink">
+          Explore our programs
+          <svg class="h-4 w-4 text-brass-deep" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="bg-pine-900 text-paper/65 border-t border-paper/10">
+  <div class="mx-auto max-w-[86rem] px-5 lg:px-10 py-16 grid md:grid-cols-12 gap-12">
+    <div class="md:col-span-5">
+      <div class="flex items-center gap-3 text-paper">
+        <span class="grid h-10 w-10 place-items-center arch border border-paper/20 text-paper display pt-0.5" style="background:rgba(245,240,230,.06)">L</span>
+        <span class="display text-lg">Liberty Immigration Council</span>
+      </div>
+      <p class="mt-5 max-w-md text-sm leading-relaxed text-paper/60">A 501(c)(3) nonprofit providing affordable immigration legal services, Know Your Rights education, and compassionate support for low-income immigrant families.</p>
+      <p class="mt-5 max-w-md text-[12px] leading-relaxed text-paper/40">Liberty Immigration Council provides services without discrimination on the basis of race, religion, national origin, sex, or other protected status. <strong class="text-paper/55">The information on this site is not legal advice.</strong></p>
+    </div>
+    <div class="md:col-span-3">
+      <div class="eyebrow text-paper/80 text-[11px]">Explore</div>
+      <ul class="mt-5 space-y-3 text-sm">
+        <li><a href="index.html#programs" class="ulink hover:text-paper">Programs</a></li>
+        <li><a href="success-stories.html" class="ulink hover:text-paper">Success Stories</a></li>
+        <li><a href="attorney.html" class="ulink hover:text-paper">Our Attorney</a></li>
+        <li><a href="foundations.html" class="ulink hover:text-paper">For Foundations</a></li>
+        <li><a href="corporate-giving.html" class="ulink hover:text-paper">Corporate Giving</a></li>
+        <li><a href="annual-report.html" class="ulink hover:text-paper">Annual Report</a></li>
+        <li><a href="index.html#donate" class="ulink hover:text-paper">Donate</a></li>
+      </ul>
+    </div>
+    <div class="md:col-span-4">
+      <div class="eyebrow text-paper/80 text-[11px]">Contact</div>
+      <ul class="mt-5 space-y-3 text-sm">
+        <li><a href="mailto:info@libertyimmigrationcouncil.org" class="ulink hover:text-paper">info@libertyimmigrationcouncil.org</a></li>
+        <li>501(c)(3) &middot; EIN: [EIN pending]</li>
+        <li class="text-paper/45">English &middot; Español &middot; Русский</li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-paper/10">
+    <div class="mx-auto max-w-[86rem] px-5 lg:px-10 py-5 text-[12px] text-paper/40 flex flex-col sm:flex-row gap-2 justify-between">
+      <span>© 2026 Liberty Immigration Council. All rights reserved.</span>
+      <span class="flex gap-4"><a href="privacy.html" class="hover:text-paper/70">Privacy Policy</a><a href="accessibility.html" class="hover:text-paper/70">Accessibility</a><a href="annual-report.html" class="hover:text-paper/70">Transparency</a></span>
+    </div>
+  </div>
+</footer>
+<script>
+function initFallbackMotion(){
+  'use strict';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  document.querySelectorAll('.stagger').forEach(function(group){
+    var kids = group.children;
+    for(var i=0;i<kids.length;i++){ kids[i].style.setProperty('--i', i); }
+  });
+
+  var revealEls = document.querySelectorAll('.reveal, .stagger, .mask-img, .lines');
+  function show(el){ el.classList.add('in'); }
+
+  if(reduce){
+    revealEls.forEach(show);
+    document.querySelectorAll('.count').forEach(function(c){ c.textContent = (+c.getAttribute('data-count')).toLocaleString(); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ show(e.target); io.unobserve(e.target); }
+      });
+    }, { threshold:.15, rootMargin:'0px 0px -6% 0px' });
+    revealEls.forEach(function(el){ io.observe(el); });
+
+    function revealInView(){
+      var vh = window.innerHeight || 880;
+      revealEls.forEach(function(el){
+        var r = el.getBoundingClientRect();
+        if(r.top < vh * 0.95) show(el);
+      });
+    }
+    revealInView();
+    window.addEventListener('load', revealInView);
+    /* safety net: nothing stays hidden, ever */
+    setTimeout(function(){ revealEls.forEach(show); }, 2000);
+  }
+
+  /* count-up */
+  function easeOutExpo(t){ return t===1 ? 1 : 1 - Math.pow(2, -10*t); }
+  function runCount(host){
+    host.querySelectorAll('.count').forEach(function(el){
+      if(el.dataset.done) return;
+      el.dataset.done = '1';
+      var target = parseFloat(el.getAttribute('data-count')) || 0;
+      var dur = 1300, start = null;
+      function step(ts){
+        if(start===null) start = ts;
+        var p = Math.min((ts - start) / dur, 1);
+        el.textContent = Math.round(easeOutExpo(p) * target).toLocaleString();
+        if(p < 1) requestAnimationFrame(step); else el.textContent = target.toLocaleString();
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  var impact = document.getElementById('impact');
+  if(impact){
+    if(reduce){ runCount(impact); }
+    else {
+      var cObs = new IntersectionObserver(function(es){
+        es.forEach(function(e){ if(e.isIntersecting){ runCount(impact); cObs.disconnect(); } });
+      }, { threshold:.3 });
+      cObs.observe(impact);
+      /* count safety net too */
+      setTimeout(function(){ runCount(impact); }, 4000);
+    }
+  }
+
+  /* nav veil on scroll — hero is light, so text stays dark; only the backdrop changes */
+  var nav = document.getElementById('nav');
+  var heroImg = document.getElementById('heroImg');
+  var ticking = false;
+  function onFrame(){
+    ticking = false;
+    var y = window.pageYOffset;
+    if(y > 50){ nav.classList.add('bg-paper/90','backdrop-blur-md','shadow-[0_10px_36px_-22px_rgba(11,27,21,.4)]'); }
+    else { nav.classList.remove('bg-paper/90','backdrop-blur-md','shadow-[0_10px_36px_-22px_rgba(11,27,21,.4)]'); }
+    if(!reduce && heroImg && y < 900){
+      heroImg.style.transform = 'translate3d(0,'+(y*0.08)+'px,0)';
+    }
+  }
+  function requestFrame(){ if(!ticking){ ticking = true; requestAnimationFrame(onFrame); } }
+  window.addEventListener('scroll', requestFrame, { passive:true });
+  onFrame();
+
+  /* donate progress */
+  var prog = document.getElementById('progress');
+  if(prog){
+    if(reduce){ prog.style.width = '62%'; }
+    else {
+      var pObs = new IntersectionObserver(function(es){
+        es.forEach(function(e){ if(e.isIntersecting){ prog.style.width = '62%'; pObs.disconnect(); } });
+      }, { threshold:.4 });
+      pObs.observe(prog);
+      setTimeout(function(){ prog.style.width = '62%'; }, 4000);
+    }
+  }
+
+  /* donate toggle (thumb slides via its inline CSS transition) */
+  var once = document.getElementById('onceBtn'), month = document.getElementById('monthBtn'), thumb = document.getElementById('giveThumb');
+  function moveThumb(btn){
+    if(!thumb || !btn) return;
+    thumb.style.left = btn.offsetLeft + 'px';
+    thumb.style.width = btn.offsetWidth + 'px';
+  }
+  function setMode(m){
+    document.querySelectorAll('.amt').forEach(function(a){
+      var b = +a.dataset.base; a.textContent = '$' + b.toLocaleString() + (m ? '/mo' : '');
+    });
+    moveThumb(m ? month : once);
+    once.style.color = m ? '#F5F0E6' : '#0B1B15';
+    month.style.color = m ? '#0B1B15' : '#F5F0E6';
+  }
+  if(once && month){
+    moveThumb(once);
+    once.onclick = function(){ setMode(false); };
+    month.onclick = function(){ setMode(true); };
+  }
+}
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.3.4/dist/lenis.min.js"></script>
+<script>
+(function(){
+  'use strict';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* no GSAP (CDN down) or reduced motion → simple IO fallback */
+  if(reduce || !window.gsap || !window.ScrollTrigger){ initFallbackMotion(); return; }
+
+  gsap.registerPlugin(ScrollTrigger);
+  document.documentElement.classList.add('gsap-on');
+
+  /* ===== Lenis smooth scroll, synced to ScrollTrigger ===== */
+  var lenis = null;
+  if(window.Lenis){
+    lenis = new Lenis({ lerp:.11, smoothWheel:true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function(t){ lenis.raf(t*1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+  /* anchor links glide instead of jump */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href');
+      if(id.length < 2) return;
+      var t = document.querySelector(id);
+      if(!t) return;
+      e.preventDefault();
+      if(lenis){ lenis.scrollTo(t, { offset:-64, duration:1.4, easing:function(x){return 1-Math.pow(1-x,4);} }); }
+      else { t.scrollIntoView({behavior:'smooth'}); }
+    });
+  });
+
+  /* ===== entrances ===== */
+  var EASE = 'expo.out';
+
+  /* headline line-masks: rise with a settle of rotation */
+  document.querySelectorAll('.lines').forEach(function(h){
+    var spans = h.querySelectorAll('.line > span');
+    gsap.set(spans, { yPercent:118, rotate:4, transformOrigin:'0% 100%' });
+    gsap.to(spans, {
+      yPercent:0, rotate:0, duration:1.15, ease:EASE, stagger:.13,
+      scrollTrigger:{ trigger:h, start:'top 88%', once:true }
+    });
+  });
+
+  /* cards & panels swing in with rotation from a bottom corner */
+  var cards = document.querySelectorAll('figure.lift, .lift, #help form, #foundations dl, .reveal.absolute');
+  var seen = new Set();
+  var i = 0;
+  cards.forEach(function(el){
+    if(seen.has(el)) return; seen.add(el);
+    el.classList.remove('reveal');
+    var left = (i++ % 2) === 0;
+    gsap.set(el, { autoAlpha:0, y:70, rotate:left?-5:5, transformOrigin:left?'0% 100%':'100% 100%' });
+    gsap.to(el, {
+      autoAlpha:1, y:0, rotate:0, duration:1.25, ease:EASE,
+      scrollTrigger:{ trigger:el, start:'top 90%', once:true }
+    });
+  });
+
+  /* photos: curtain lifts, image settles from a slight rotation+zoom */
+  document.querySelectorAll('.mask-img').forEach(function(fig){
+    var img = fig.querySelector('img');
+    gsap.set(fig, { clipPath:'inset(0% 0% 100% 0%)' });
+    if(img) gsap.set(img, { scale:1.18, rotate:2.5 });
+    var tl = gsap.timeline({ scrollTrigger:{ trigger:fig, start:'top 86%', once:true } });
+    tl.to(fig, { clipPath:'inset(0% 0% 0% 0%)', duration:1.2, ease:EASE }, 0);
+    if(img) tl.to(img, { scale:1, rotate:0, duration:1.7, ease:EASE }, 0);
+  });
+
+  /* generic reveals: soft rise */
+  document.querySelectorAll('.reveal:not(.stagger)').forEach(function(el){
+    gsap.set(el, { autoAlpha:0, y:46 });
+    gsap.to(el, {
+      autoAlpha:1, y:0, duration:1, ease:EASE, delay:(+el.getAttribute('data-d')||0)*.09,
+      scrollTrigger:{ trigger:el, start:'top 92%', once:true }
+    });
+  });
+
+  /* stagger groups: children cascade with alternating micro-rotation */
+  document.querySelectorAll('.stagger').forEach(function(group){
+    var kids = Array.prototype.slice.call(group.children);
+    kids.forEach(function(k,j){ gsap.set(k, { autoAlpha:0, y:42, rotate:(j%2?2.4:-2.4), transformOrigin:'50% 100%' }); });
+    gsap.to(kids, {
+      autoAlpha:1, y:0, rotate:0, duration:.95, ease:EASE, stagger:.09,
+      scrollTrigger:{ trigger:group, start:'top 90%', once:true }
+    });
+  });
+
+  /* parallax: hero photo drifts, brass glows wander */
+  var heroImg = document.getElementById('heroImg');
+  if(heroImg){
+    gsap.to(heroImg, { yPercent:10, ease:'none',
+      scrollTrigger:{ trigger:'#top', start:'top top', end:'bottom top', scrub:.6 } });
+  }
+
+  /* safety net: anything still hidden inside the viewport gets shown */
+  setTimeout(function(){
+    document.querySelectorAll('.reveal, .stagger > *').forEach(function(el){
+      if(getComputedStyle(el).opacity !== '0') return;
+      var r = el.getBoundingClientRect();
+      if(r.top < (window.innerHeight||880) && r.bottom > 0) gsap.to(el, { autoAlpha:1, y:0, rotate:0, duration:.6 });
+    });
+  }, 3500);
+
+  /* ===== count-up ===== */
+  function runCount(host){
+    host.querySelectorAll('.count').forEach(function(el){
+      if(el.dataset.done) return; el.dataset.done='1';
+      var target = parseFloat(el.getAttribute('data-count'))||0;
+      var o = { v:0 };
+      gsap.to(o, { v:target, duration:1.6, ease:'expo.out', onUpdate:function(){ el.textContent = Math.round(o.v).toLocaleString(); } });
+    });
+  }
+  var impact = document.getElementById('impact');
+  if(impact){
+    ScrollTrigger.create({ trigger:impact, start:'top 80%', once:true, onEnter:function(){ runCount(impact); } });
+    setTimeout(function(){ runCount(impact); }, 6000);
+  }
+
+  /* ===== nav veil ===== */
+  var nav = document.getElementById('nav');
+  function veil(y){
+    if(y > 50){ nav.classList.add('bg-paper/90','backdrop-blur-md','shadow-[0_10px_36px_-22px_rgba(11,27,21,.4)]'); }
+    else { nav.classList.remove('bg-paper/90','backdrop-blur-md','shadow-[0_10px_36px_-22px_rgba(11,27,21,.4)]'); }
+  }
+  if(lenis){ lenis.on('scroll', function(e){ veil(e.scroll); }); }
+  window.addEventListener('scroll', function(){ veil(window.pageYOffset); }, { passive:true });
+  veil(window.pageYOffset);
+
+  /* ===== magnetic buttons (fine pointers only) ===== */
+  var fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if(fine){
+    document.querySelectorAll('.btn').forEach(function(btn){
+      var strength = 0.32;
+      btn.addEventListener('mousemove', function(e){
+        var r = btn.getBoundingClientRect();
+        var dx = e.clientX - (r.left + r.width/2);
+        var dy = e.clientY - (r.top + r.height/2);
+        gsap.to(btn, { x:dx*strength, y:dy*strength, scale:1.045, duration:.4, ease:'power3.out' });
+      });
+      btn.addEventListener('mouseleave', function(){
+        gsap.to(btn, { x:0, y:0, scale:1, duration:.8, ease:'elastic.out(1,.42)' });
+      });
+    });
+
+    /* gentle 3D tilt on cards */
+    document.querySelectorAll('.lift').forEach(function(card){
+      card.classList.add('tilt-wrap');
+      card.addEventListener('mousemove', function(e){
+        var r = card.getBoundingClientRect();
+        var px = (e.clientX - r.left)/r.width - .5;
+        var py = (e.clientY - r.top)/r.height - .5;
+        gsap.to(card, { rotateY:px*7, rotateX:-py*7, y:-6, transformPerspective:800, duration:.5, ease:'power2.out' });
+      });
+      card.addEventListener('mouseleave', function(){
+        gsap.to(card, { rotateY:0, rotateX:0, y:0, duration:.9, ease:'elastic.out(1,.4)' });
+      });
+    });
+  }
+
+  /* ===== donate progress + toggle ===== */
+  var prog = document.getElementById('progress');
+  if(prog){
+    ScrollTrigger.create({ trigger:prog, start:'top 88%', once:true, onEnter:function(){ prog.style.width='62%'; } });
+    setTimeout(function(){ prog.style.width='62%'; }, 6000);
+  }
+  var once_ = document.getElementById('onceBtn'), month = document.getElementById('monthBtn'), thumb = document.getElementById('giveThumb');
+  if(thumb){ thumb.style.transition = 'none'; } /* GSAP owns the thumb in this path */
+  function moveThumb(btn){
+    if(!thumb || !btn) return;
+    thumb.style.left = btn.offsetLeft + 'px';
+    thumb.style.width = btn.offsetWidth + 'px';
+  }
+  /* liquid slide: leading edge breaks away, trailing edge catches up —
+     the pill stretches across the gap and snaps onto the target */
+  function slideThumb(btn){
+    if(!thumb || !btn) return;
+    var tl = btn.offsetLeft, tr = tl + btn.offsetWidth;
+    var proxy = { l: thumb.offsetLeft, r: thumb.offsetLeft + thumb.offsetWidth };
+    var goingRight = tl > proxy.l;
+    function apply(){ thumb.style.left = proxy.l + 'px'; thumb.style.width = Math.max(0, proxy.r - proxy.l) + 'px'; }
+    gsap.killTweensOf(proxy);
+    gsap.to(proxy, { [goingRight ? 'r' : 'l']: goingRight ? tr : tl, duration:.5, ease:'power3.out', onUpdate:apply });
+    gsap.to(proxy, { [goingRight ? 'l' : 'r']: goingRight ? tl : tr, duration:.6, delay:.1, ease:'power4.out', onUpdate:apply });
+    gsap.fromTo(thumb, { scaleY:1 }, { scaleY:.88, duration:.22, yoyo:true, repeat:1, ease:'sine.inOut', transformOrigin:'50% 50%' });
+  }
+  function setMode(m){
+    var amts = document.querySelectorAll('.amt');
+    gsap.to(amts, { y:-7, autoAlpha:0, duration:.18, ease:'power2.in', stagger:.025, onComplete:function(){
+      amts.forEach(function(a){ var b = +a.dataset.base; a.textContent = '$' + b.toLocaleString() + (m ? '/mo' : ''); });
+      gsap.fromTo(amts, { y:9, autoAlpha:0 }, { y:0, autoAlpha:1, duration:.4, ease:'power3.out', stagger:.035 });
+    }});
+    slideThumb(m ? month : once_);
+    gsap.to(once_, { color: m ? '#F5F0E6' : '#0B1B15', duration:.45, ease:'power2.inOut' });
+    gsap.to(month, { color: m ? '#0B1B15' : '#F5F0E6', duration:.45, ease:'power2.inOut' });
+  }
+  var activeGive = once_;
+  if(once_ && month){
+    moveThumb(once_, true);
+    window.addEventListener('resize', function(){ moveThumb(activeGive, true); });
+    once_.onclick = function(){ activeGive = once_; setMode(false); };
+    month.onclick = function(){ activeGive = month; setMode(true); };
+  }
+
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); moveThumb(activeGive, true); });
+})();
+</script>
+</body>
+</html>
