@@ -6,3 +6,4 @@ debug.html
 video/
 _*.png
 _*
+__pycache__/
