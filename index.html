@@ -106,9 +106,24 @@ tailwind.config = {
   .diamond{display:inline-block;width:5px;height:5px;transform:rotate(45deg);background:#AE8A43}
 
   details summary::-webkit-details-marker{display:none}
-  details .faq-body{overflow:hidden}
-  details[open] summary ~ .faq-body{animation:faqIn .5s var(--ease)}
-  @keyframes faqIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+  /* FAQ smooth height accordion (JS-driven) */
+  .faq-wrap{overflow:hidden;height:0;transition:height .42s var(--ease)}
+  .faq-body{opacity:0;transition:opacity .4s var(--ease) .05s}
+  details.isopen .faq-body{opacity:1}
+
+  /* custom select dropdown — styled to match the form, smooth open */
+  .csel{position:relative}
+  .csel-btn{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;cursor:pointer}
+  .csel-btn .chev{transition:transform .3s var(--ease)}
+  .csel.open .csel-btn .chev{transform:rotate(180deg)}
+  .csel-pop{position:absolute;z-index:40;left:0;right:0;top:calc(100% + 6px);background:#0B1B15;
+    border:1px solid rgba(245,240,230,.16);border-radius:.95rem;padding:6px;list-style:none;margin:0;
+    box-shadow:0 26px 54px -26px rgba(0,0,0,.6);opacity:0;transform:translateY(-6px) scale(.99);
+    transform-origin:top;pointer-events:none;transition:opacity .24s var(--ease),transform .24s var(--ease)}
+  .csel.open .csel-pop{opacity:1;transform:none;pointer-events:auto}
+  .csel-opt{padding:10px 12px;border-radius:.62rem;cursor:pointer;color:rgba(245,240,230,.82);font-size:14.5px;transition:background .18s,color .18s}
+  .csel-opt:hover{background:rgba(174,138,67,.18);color:#F5F0E6}
+  .csel-opt[aria-selected="true"]{background:rgba(174,138,67,.26);color:#F5F0E6}
 
   .count,.num-index{font-variant-numeric:tabular-nums}
 
@@ -473,8 +488,18 @@ tailwind.config = {
           <div class="grid sm:grid-cols-2 gap-5">
             <label class="block"><span class="text-[13px] font-600 text-paper/80">Full name</span><input required class="mt-2 w-full rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper placeholder-paper/40 outline-none focus:border-brass-soft transition" placeholder="Your name"></label>
             <label class="block"><span class="text-[13px] font-600 text-paper/80">Email</span><input required type="email" class="mt-2 w-full rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper placeholder-paper/40 outline-none focus:border-brass-soft transition" placeholder="you@email.com"></label>
-            <label class="block"><span class="text-[13px] font-600 text-paper/80">Preferred language</span><select class="mt-2 w-full rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper outline-none focus:border-brass-soft transition"><option class="text-inkt">English</option><option class="text-inkt">Español</option><option class="text-inkt">Русский</option><option class="text-inkt">Other</option></select></label>
-            <label class="block"><span class="text-[13px] font-600 text-paper/80">Urgency</span><select class="mt-2 w-full rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper outline-none focus:border-brass-soft transition"><option class="text-inkt">General question</option><option class="text-inkt">Time-sensitive</option><option class="text-inkt">Urgent — detention / court date</option></select></label>
+            <div class="block"><span class="text-[13px] font-600 text-paper/80">Preferred language</span>
+              <div class="csel mt-2">
+                <button type="button" class="csel-btn rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper outline-none focus:border-brass-soft transition" aria-haspopup="listbox" aria-expanded="false"><span class="csel-val">English</span><svg class="chev h-4 w-4 text-paper/55 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></button>
+                <ul class="csel-pop" role="listbox"><li class="csel-opt" role="option" aria-selected="true">English</li><li class="csel-opt" role="option">Español</li><li class="csel-opt" role="option">Русский</li><li class="csel-opt" role="option">Other</li></ul>
+              </div>
+            </div>
+            <div class="block"><span class="text-[13px] font-600 text-paper/80">Urgency</span>
+              <div class="csel mt-2">
+                <button type="button" class="csel-btn rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper outline-none focus:border-brass-soft transition" aria-haspopup="listbox" aria-expanded="false"><span class="csel-val">General question</span><svg class="chev h-4 w-4 text-paper/55 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></button>
+                <ul class="csel-pop" role="listbox"><li class="csel-opt" role="option" aria-selected="true">General question</li><li class="csel-opt" role="option">Time-sensitive</li><li class="csel-opt" role="option">Urgent &mdash; detention / court date</li></ul>
+              </div>
+            </div>
           </div>
           <label class="block mt-5"><span class="text-[13px] font-600 text-paper/80">Briefly, how can we help?</span><textarea rows="4" class="mt-2 w-full rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper placeholder-paper/40 outline-none focus:border-brass-soft transition" placeholder="A few sentences about your situation"></textarea></label>
           <button class="btn btn-brass mt-6 w-full rounded-full px-6 py-4 font-600">Request confidential help</button>
@@ -997,6 +1022,45 @@ function initFallbackMotion(){
   }
 
   window.addEventListener('load', function(){ ScrollTrigger.refresh(); moveThumb(activeGive, true); });
+})();
+</script>
+<script>
+/* custom select dropdowns */
+(function(){
+  var sels = document.querySelectorAll('.csel');
+  function closeAll(except){ sels.forEach(function(s){ if(s!==except){ s.classList.remove('open'); s.querySelector('.csel-btn').setAttribute('aria-expanded','false'); } }); }
+  sels.forEach(function(sel){
+    var btn=sel.querySelector('.csel-btn'), val=sel.querySelector('.csel-val'), opts=sel.querySelectorAll('.csel-opt');
+    btn.addEventListener('click', function(e){ e.stopPropagation(); var open=sel.classList.contains('open'); closeAll(sel); if(!open){ sel.classList.add('open'); btn.setAttribute('aria-expanded','true'); } });
+    opts.forEach(function(o){ o.addEventListener('click', function(){ val.textContent=o.textContent; opts.forEach(function(x){ x.setAttribute('aria-selected','false'); }); o.setAttribute('aria-selected','true'); sel.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }); });
+  });
+  document.addEventListener('click', function(){ closeAll(null); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeAll(null); });
+})();
+
+/* FAQ smooth height accordion */
+(function(){
+  var items = document.querySelectorAll('#faq details');
+  items.forEach(function(d){
+    var sum=d.querySelector('summary'), body=d.querySelector('.faq-body');
+    if(!sum||!body) return;
+    var wrap=document.createElement('div'); wrap.className='faq-wrap';
+    body.parentNode.insertBefore(wrap, body); wrap.appendChild(body);
+    sum.addEventListener('click', function(e){
+      e.preventDefault();
+      if(d.classList.contains('isopen')){
+        wrap.style.height=wrap.scrollHeight+'px';
+        requestAnimationFrame(function(){ wrap.style.height='0px'; });
+        d.classList.remove('isopen');
+        wrap.addEventListener('transitionend', function h(){ d.removeAttribute('open'); wrap.removeEventListener('transitionend',h); }, {once:true});
+      } else {
+        d.setAttribute('open',''); d.classList.add('isopen');
+        wrap.style.height='0px';
+        requestAnimationFrame(function(){ wrap.style.height=wrap.scrollHeight+'px'; });
+        wrap.addEventListener('transitionend', function h(){ if(d.classList.contains('isopen')) wrap.style.height='auto'; wrap.removeEventListener('transitionend',h); }, {once:true});
+      }
+    });
+  });
 })();
 </script>
 </body>
