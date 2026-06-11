@@ -76,6 +76,11 @@ tailwind.config = {
   .duo img{filter:grayscale(1) contrast(1.04) brightness(.94);mix-blend-mode:luminosity;opacity:.92}
   .duo::after{content:"";position:absolute;inset:0;pointer-events:none;
     background:linear-gradient(160deg,rgba(22,53,42,.38),rgba(174,138,67,.16) 65%,rgba(11,27,21,.42))}
+  /* people/portrait treatment — warm, light, faces stay alive (not the somber green duotone) */
+  .portrait{background:#EFE7D6}
+  .portrait img{filter:grayscale(.12) contrast(1.03) brightness(1.03) saturate(.96);opacity:1}
+  .portrait::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(165deg,rgba(174,138,67,.10),transparent 55%)}
 
   /* arch frame — signature shape */
   .arch{border-radius:999px 999px 1.4rem 1.4rem}
@@ -152,12 +157,12 @@ tailwind.config = {
 <main id="top">
 <!-- ===== HERO ===== -->
 <section class="relative bg-paper overflow-hidden pt-[74px]">
-  <div class="mx-auto max-w-[86rem] px-5 lg:px-10 py-20 lg:py-28">
+  <div class="mx-auto max-w-[86rem] px-5 lg:px-10 pt-10 pb-12 lg:pt-12 lg:pb-14">
     <a href="index.html" class="reveal nudge inline-flex items-center gap-2 text-[13px] font-600 text-inkt/60 hover:text-pine">
       <svg class="h-4 w-4 text-brass-deep rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg>
       Back to home
     </a>
-    <div class="mt-9 grid lg:grid-cols-12 gap-10 lg:gap-16 items-end">
+    <div class="mt-7 grid lg:grid-cols-12 gap-8 lg:gap-16 items-end">
       <div class="lg:col-span-7">
         <div class="reveal flex items-center gap-3 text-brass-deep"><span class="diamond"></span><span class="eyebrow">Leadership &amp; board</span></div>
         <h1 class="lines mt-6 display leading-[1.06] text-[2.3rem] sm:text-[3rem] lg:text-[3.5rem] text-pine-900">
@@ -177,10 +182,10 @@ tailwind.config = {
 
 <!-- ===== MEMBERS ===== -->
 <section class="bg-ivory border-y border-pine/10">
-  <div class="mx-auto max-w-[86rem] px-5 lg:px-10 py-24 lg:py-32">
+  <div class="mx-auto max-w-[86rem] px-5 lg:px-10 py-14 lg:py-20">
     <div class="grid md:grid-cols-3 gap-10 lg:gap-12">
       <article class="reveal" data-d="1">
-        <div class="mask-img duo arch relative overflow-hidden shadow-card aspect-[4/5]">
+        <div class="mask-img portrait arch relative overflow-hidden shadow-card aspect-[4/5]">
           <img src="team/ekaterina.jpg" alt="Portrait of Ekaterina Mouratova, Esq." class="h-full w-full object-cover">
         </div>
         <div class="mt-6">
@@ -190,7 +195,7 @@ tailwind.config = {
         </div>
       </article>
       <article class="reveal" data-d="2">
-        <div class="mask-img duo arch relative overflow-hidden shadow-card aspect-[4/5]">
+        <div class="mask-img portrait arch relative overflow-hidden shadow-card aspect-[4/5]">
           <img src="team/anton.jpg" alt="Portrait of Anton Abrosau" class="h-full w-full object-cover">
         </div>
         <div class="mt-6">
@@ -200,7 +205,7 @@ tailwind.config = {
         </div>
       </article>
       <article class="reveal" data-d="3">
-        <div class="mask-img duo arch relative overflow-hidden shadow-card aspect-[4/5]">
+        <div class="mask-img portrait arch relative overflow-hidden shadow-card aspect-[4/5]">
           <img src="team/dragos.jpg" alt="Portrait of Dragos Sprinceana" class="h-full w-full object-cover">
         </div>
         <div class="mt-6">

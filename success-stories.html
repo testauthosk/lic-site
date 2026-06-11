@@ -76,6 +76,11 @@ tailwind.config = {
   .duo img{filter:grayscale(1) contrast(1.04) brightness(.94);mix-blend-mode:luminosity;opacity:.92}
   .duo::after{content:"";position:absolute;inset:0;pointer-events:none;
     background:linear-gradient(160deg,rgba(22,53,42,.38),rgba(174,138,67,.16) 65%,rgba(11,27,21,.42))}
+  /* people/portrait treatment — warm, light, faces stay alive (not the somber green duotone) */
+  .portrait{background:#EFE7D6}
+  .portrait img{filter:grayscale(.12) contrast(1.03) brightness(1.03) saturate(.96);opacity:1}
+  .portrait::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(165deg,rgba(174,138,67,.10),transparent 55%)}
 
   /* arch frame — signature shape */
   .arch{border-radius:999px 999px 1.4rem 1.4rem}
