@@ -36,6 +36,16 @@ tailwind.config = {
   .prose-lic ul{list-style:disc;padding-left:1.4rem}
   .prose-lic strong{color:#0B1B15}
   .prose-lic a{color:#8F6F33;text-decoration:underline}
+
+  /* footer social icons — brass fill rises on hover, icon pops, button lifts */
+  .soc{position:relative;display:inline-grid;place-items:center;width:42px;height:42px;border-radius:50%;overflow:hidden;
+    border:1px solid rgba(245,240,230,.22);color:rgba(245,240,230,.72);
+    transition:transform .4s var(--ease),color .35s var(--ease),border-color .35s var(--ease)}
+  .soc::before{content:"";position:absolute;inset:0;background:#AE8A43;transform:translateY(101%);transition:transform .42s var(--ease)}
+  .soc svg{position:relative;width:18px;height:18px;transition:transform .42s var(--ease)}
+  .soc:hover{color:#0B1B15;border-color:#AE8A43;transform:translateY(-3px)}
+  .soc:hover::before{transform:translateY(0)}
+  .soc:hover svg{transform:scale(1.16)}
 </style>
 </head>
 <body class="bg-paper">
