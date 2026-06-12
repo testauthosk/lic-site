@@ -114,7 +114,7 @@ tailwind.config = {
   /* custom select — the control stretches downward into the options (seamless, height-animated both ways) */
   .csel{position:relative}
   .csel-btn{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;cursor:pointer;
-    transition:border-radius .16s var(--ease),border-color .16s var(--ease),background .2s var(--ease)}
+    transition:background .2s var(--ease)}
   .csel-btn .chev{transition:transform .32s var(--ease)}
   .csel.open .csel-btn .chev{transform:rotate(180deg)}
   /* corners stay square while open AND while the panel is collapsing (.closing), so they never round before the panel is gone */
@@ -1139,13 +1139,17 @@ function initFallbackMotion(){
     if(!sel.classList.contains('open')) return;
     sel.classList.remove('open'); sel.classList.add('closing');
     sel.querySelector('.csel-btn').setAttribute('aria-expanded','false');
-    if(sel._ct) clearTimeout(sel._ct);
-    sel._ct=setTimeout(function(){ sel.classList.remove('closing'); }, 360);
+    var pop=sel.querySelector('.csel-pop');
+    var done=function(){ if(sel._oe){ pop.removeEventListener('transitionend', sel._oe); sel._oe=null; } if(sel._ct){ clearTimeout(sel._ct); sel._ct=null; } if(!sel.classList.contains('open')) sel.classList.remove('closing'); };
+    // round the corners exactly when the panel's collapse animation ends
+    sel._oe=function(e){ if(e.target===pop && e.propertyName==='grid-template-rows') done(); };
+    pop.addEventListener('transitionend', sel._oe);
+    sel._ct=setTimeout(done, 480); // safety fallback if transitionend doesn't fire
   }
   function closeAll(){ sels.forEach(closeSel); }
   sels.forEach(function(sel){
     var btn=sel.querySelector('.csel-btn'), val=sel.querySelector('.csel-val'), opts=sel.querySelectorAll('.csel-opt');
-    btn.addEventListener('click', function(e){ e.stopPropagation(); var willOpen=!sel.classList.contains('open'); closeAll(); if(willOpen){ if(sel._ct) clearTimeout(sel._ct); sel.classList.remove('closing'); sel.classList.add('open'); btn.setAttribute('aria-expanded','true'); } });
+    btn.addEventListener('click', function(e){ e.stopPropagation(); var willOpen=!sel.classList.contains('open'); closeAll(); if(willOpen){ if(sel._ct){clearTimeout(sel._ct);sel._ct=null;} if(sel._oe){sel.querySelector('.csel-pop').removeEventListener('transitionend',sel._oe);sel._oe=null;} sel.classList.remove('closing'); sel.classList.add('open'); btn.setAttribute('aria-expanded','true'); } });
     opts.forEach(function(o){ o.addEventListener('click', function(e){ e.stopPropagation(); val.textContent=o.textContent; opts.forEach(function(x){ x.setAttribute('aria-selected','false'); }); o.setAttribute('aria-selected','true'); closeSel(sel); }); });
   });
   document.addEventListener('click', function(){ closeAll(); });
