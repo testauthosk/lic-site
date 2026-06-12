@@ -130,6 +130,13 @@ tailwind.config = {
   .istep.on.in{opacity:1;transform:none}
   .fld-inv{border-color:#D98C8C !important;animation:fldShake .35s var(--ease)}
   @keyframes fldShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+  /* liquid progress bar — flowing brass shimmer + water-like fill between steps */
+  #intakeBar{position:relative;border-radius:9999px;
+    background:linear-gradient(90deg,#8F6F33,#C9A55C 30%,#EAD08A 50%,#C9A55C 70%,#8F6F33);
+    background-size:220% 100%;animation:barFlow 2.6s linear infinite;
+    transition:width .85s cubic-bezier(.55,.06,.18,1)}
+  @keyframes barFlow{from{background-position:210% 0}to{background-position:0 0}}
+  @media (prefers-reduced-motion:reduce){#intakeBar{animation:none}}
   .csel-opt{padding:10px 12px;border-radius:.55rem;cursor:pointer;color:rgba(245,240,230,.82);font-size:14.5px;transition:background .16s,color .16s}
   .csel-opt:hover{background:rgba(174,138,67,.2);color:#F5F0E6}
   .csel-opt[aria-selected="true"]{background:rgba(174,138,67,.28);color:#F5F0E6}
@@ -524,7 +531,7 @@ tailwind.config = {
             <span class="eyebrow text-brass-soft text-[10px]" id="intakeLabel">Step 1 of 4 · Your contact</span>
             <span class="text-[11px] text-paper/40" id="intakePct">25%</span>
           </div>
-          <div class="h-1.5 rounded-full bg-paper/10 overflow-hidden mt-2 mb-7"><div id="intakeBar" class="h-full bg-brass-soft rounded-full transition-all duration-500" style="width:25%"></div></div>
+          <div class="h-2 rounded-full bg-paper/10 overflow-hidden mt-2 mb-7"><div id="intakeBar" class="h-full rounded-full" style="width:25%"></div></div>
 
           <!-- STEP 1 — contact -->
           <div class="istep on in" data-step="1">
