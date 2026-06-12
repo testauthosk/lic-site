@@ -602,6 +602,7 @@ tailwind.config = {
             <button type="submit" id="intakeSubmit" class="btn btn-brass rounded-full px-6 py-3.5 font-600 flex-1 hidden">Request confidential help</button>
           </div>
           <div data-ok class="hidden mt-5 rounded-xl border border-brass-soft/50 px-4 py-3 text-sm text-brass-soft" style="background:rgba(201,165,92,.12)">Thank you — we received your request and will respond within 1–2 business days.</div>
+          <div data-err class="hidden mt-5 rounded-xl px-4 py-3 text-sm text-paper" style="background:rgba(190,70,70,.18);border:1px solid rgba(190,70,70,.45)">We couldn&rsquo;t submit your request automatically. Please email <a href="mailto:intake@libertyimmigrationcouncil.org" class="underline font-600">intake@libertyimmigrationcouncil.org</a> and we&rsquo;ll help right away.</div>
         </form>
       </div>
     </div>
@@ -1243,12 +1244,39 @@ function initFallbackMotion(){
   form.addEventListener('input', function(e){ if(e.target.classList) e.target.classList.remove('fld-inv'); });
   next.addEventListener('click', function(){ if(valid(cur) && cur<total) show(cur+1); });
   back.addEventListener('click', function(){ if(cur>1) show(cur-1); });
-  form.addEventListener('submit', function(e){ e.preventDefault(); if(!valid(cur)) return;
-    /* TODO: POST to HubSpot Forms API once portal/form IDs are provided */
+  function fieldVal(nm){ var el=form.querySelector('[name="'+nm+'"]'); return el ? (el.value||'').trim() : ''; }
+  function selVal(nm){ var el=form.querySelector('.csel[data-name="'+nm+'"] .csel-val'); return el ? el.textContent.trim() : ''; }
+  function showDone(){
     steps.forEach(function(s){ s.classList.remove('on','in'); });
     document.querySelector('#intakeForm .flex.items-center.gap-4').classList.add('hidden');
     bar.style.width='100%'; pct.textContent='Done'; label.textContent='Request received';
     ok.classList.remove('hidden');
+  }
+  var HS_URL='https://api.hsforms.com/submissions/v3/integration/submit/246333289/bbbd8819-4320-47d4-adef-bb4f910fae0e';
+  form.addEventListener('submit', function(e){ e.preventDefault(); if(!valid(cur)) return;
+    var fullName=fieldVal('name'), first=fullName, last='';
+    var sp=fullName.indexOf(' '); if(sp>0){ first=fullName.slice(0,sp).trim(); last=fullName.slice(sp+1).trim(); }
+    var details=[
+      'Help needed: '+selVal('topic'),
+      'Preferred language: '+selVal('language'),
+      'Situation: '+fieldVal('situation'),
+      'Household size: '+fieldVal('household'),
+      'Annual household income: '+selVal('income'),
+      'Urgency: '+selVal('urgency'),
+      'Anyone detained: '+selVal('detained')
+    ].join('\n');
+    var payload={ fields:[
+      {name:'firstname', value:first},
+      {name:'lastname', value:last},
+      {name:'email', value:fieldVal('email')},
+      {name:'phone', value:fieldVal('phone')},
+      {name:'message', value:details}
+    ], context:{ pageUri:location.href, pageName:document.title } };
+    var errEl=form.querySelector('[data-err]'); if(errEl) errEl.classList.add('hidden');
+    submit.disabled=true; var oldTxt=submit.textContent; submit.textContent='Sending…';
+    fetch(HS_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) })
+      .then(function(r){ if(r.ok){ showDone(); } else { throw new Error('HTTP '+r.status); } })
+      .catch(function(){ submit.disabled=false; submit.textContent=oldTxt; if(errEl) errEl.classList.remove('hidden'); });
   });
   show(1);
 })();
