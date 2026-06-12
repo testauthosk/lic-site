@@ -123,6 +123,13 @@ tailwind.config = {
   .csel.open .csel-pop{grid-template-rows:1fr}
   .csel-list{overflow:hidden;min-height:0}
   .csel-menu{list-style:none;margin:0;padding:6px;background:#22372e;border:1px solid rgba(245,240,230,.22);border-top:none;border-radius:0 0 .8rem .8rem;box-shadow:0 26px 50px -26px rgba(0,0,0,.55)}
+
+  /* multi-step intake form */
+  .istep{display:none;opacity:0;transform:translateY(8px);transition:opacity .34s var(--ease),transform .34s var(--ease)}
+  .istep.on{display:block}
+  .istep.on.in{opacity:1;transform:none}
+  .fld-inv{border-color:#D98C8C !important;animation:fldShake .35s var(--ease)}
+  @keyframes fldShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
   .csel-opt{padding:10px 12px;border-radius:.55rem;cursor:pointer;color:rgba(245,240,230,.82);font-size:14.5px;transition:background .16s,color .16s}
   .csel-opt:hover{background:rgba(174,138,67,.2);color:#F5F0E6}
   .csel-opt[aria-selected="true"]{background:rgba(174,138,67,.28);color:#F5F0E6}
@@ -512,27 +519,80 @@ tailwind.config = {
         </p>
       </div>
       <div class="reveal lg:col-span-7" data-d="1">
-        <form class="rounded-[1.8rem] bg-pine-800 text-paper p-7 lg:p-10 shadow-card" onsubmit="event.preventDefault();this.querySelector('[data-ok]').classList.remove('hidden');this.reset();">
-          <div class="grid sm:grid-cols-2 gap-5">
-            <label class="block"><span class="text-[13px] font-600 text-paper/80">Full name</span><input required class="mt-2 w-full rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper placeholder-paper/40 outline-none focus:border-brass-soft transition" placeholder="Your name"></label>
-            <label class="block"><span class="text-[13px] font-600 text-paper/80">Email</span><input required type="email" class="mt-2 w-full rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper placeholder-paper/40 outline-none focus:border-brass-soft transition" placeholder="you@email.com"></label>
-            <div class="block"><span class="text-[13px] font-600 text-paper/80">Preferred language</span>
-              <div class="csel mt-2">
-                <button type="button" class="csel-btn rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper outline-none focus:border-brass-soft transition" aria-haspopup="listbox" aria-expanded="false"><span class="csel-val">English</span><svg class="chev h-4 w-4 text-paper/55 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></button>
-                <div class="csel-pop"><div class="csel-list"><ul class="csel-menu" role="listbox"><li class="csel-opt" role="option" aria-selected="true">English</li><li class="csel-opt" role="option">Español</li><li class="csel-opt" role="option">Русский</li><li class="csel-opt" role="option">Other</li></ul></div></div>
-              </div>
-            </div>
-            <div class="block"><span class="text-[13px] font-600 text-paper/80">Urgency</span>
-              <div class="csel mt-2">
-                <button type="button" class="csel-btn rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper outline-none focus:border-brass-soft transition" aria-haspopup="listbox" aria-expanded="false"><span class="csel-val">General question</span><svg class="chev h-4 w-4 text-paper/55 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></button>
-                <div class="csel-pop"><div class="csel-list"><ul class="csel-menu" role="listbox"><li class="csel-opt" role="option" aria-selected="true">General question</li><li class="csel-opt" role="option">Time-sensitive</li><li class="csel-opt" role="option">Urgent &mdash; detention / court date</li></ul></div></div>
+        <form id="intakeForm" class="rounded-[1.8rem] bg-pine-800 text-paper p-7 lg:p-10 shadow-card" novalidate>
+          <div class="flex items-center justify-between">
+            <span class="eyebrow text-brass-soft text-[10px]" id="intakeLabel">Step 1 of 4 · Your contact</span>
+            <span class="text-[11px] text-paper/40" id="intakePct">25%</span>
+          </div>
+          <div class="h-1.5 rounded-full bg-paper/10 overflow-hidden mt-2 mb-7"><div id="intakeBar" class="h-full bg-brass-soft rounded-full transition-all duration-500" style="width:25%"></div></div>
+
+          <!-- STEP 1 — contact -->
+          <div class="istep on in" data-step="1">
+            <div class="grid sm:grid-cols-2 gap-5">
+              <label class="block"><span class="text-[13px] font-600 text-paper/80">Full name</span><input required name="name" class="mt-2 w-full rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper placeholder-paper/40 outline-none focus:border-brass-soft transition" placeholder="Your name"></label>
+              <label class="block"><span class="text-[13px] font-600 text-paper/80">Email</span><input required type="email" name="email" class="mt-2 w-full rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper placeholder-paper/40 outline-none focus:border-brass-soft transition" placeholder="you@email.com"></label>
+              <label class="block"><span class="text-[13px] font-600 text-paper/80">Phone <span class="text-paper/40">(optional)</span></span><input type="tel" name="phone" class="mt-2 w-full rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper placeholder-paper/40 outline-none focus:border-brass-soft transition" placeholder="+1 …"></label>
+              <div class="block"><span class="text-[13px] font-600 text-paper/80">Preferred language</span>
+                <div class="csel mt-2" data-name="language">
+                  <button type="button" class="csel-btn rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper outline-none focus:border-brass-soft transition" aria-haspopup="listbox" aria-expanded="false"><span class="csel-val">English</span><svg class="chev h-4 w-4 text-paper/55 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></button>
+                  <div class="csel-pop"><div class="csel-list"><ul class="csel-menu" role="listbox"><li class="csel-opt" role="option" aria-selected="true">English</li><li class="csel-opt" role="option">Español</li><li class="csel-opt" role="option">Русский</li><li class="csel-opt" role="option">Other</li></ul></div></div>
+                </div>
               </div>
             </div>
           </div>
-          <label class="block mt-5"><span class="text-[13px] font-600 text-paper/80">Briefly, how can we help?</span><textarea rows="4" class="mt-2 w-full rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper placeholder-paper/40 outline-none focus:border-brass-soft transition" placeholder="A few sentences about your situation"></textarea></label>
-          <button class="btn btn-brass mt-6 w-full rounded-full px-6 py-4 font-600">Request confidential help</button>
-          <div data-ok class="hidden mt-4 rounded-xl border border-brass-soft/50 px-4 py-3 text-sm text-brass-soft" style="background:rgba(201,165,92,.12)">Thank you — we received your request and will respond within 1–2 business days.</div>
-          <p class="mt-4 text-[11.5px] text-paper/45 leading-relaxed">This form is a starting point and does not create an attorney–client relationship. The information on this site is not legal advice.</p>
+
+          <!-- STEP 2 — immigration situation -->
+          <div class="istep" data-step="2">
+            <div class="block"><span class="text-[13px] font-600 text-paper/80">What do you need help with?</span>
+              <div class="csel mt-2" data-name="topic">
+                <button type="button" class="csel-btn rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper outline-none focus:border-brass-soft transition" aria-haspopup="listbox" aria-expanded="false"><span class="csel-val">Family immigration</span><svg class="chev h-4 w-4 text-paper/55 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></button>
+                <div class="csel-pop"><div class="csel-list"><ul class="csel-menu" role="listbox"><li class="csel-opt" role="option" aria-selected="true">Family immigration</li><li class="csel-opt" role="option">Green card / adjustment of status</li><li class="csel-opt" role="option">Citizenship &amp; naturalization</li><li class="csel-opt" role="option">Deportation defense</li><li class="csel-opt" role="option">DACA</li><li class="csel-opt" role="option">Asylum or humanitarian relief</li><li class="csel-opt" role="option">Something else</li></ul></div></div>
+              </div>
+            </div>
+            <label class="block mt-5"><span class="text-[13px] font-600 text-paper/80">Briefly describe your situation</span><textarea required rows="4" name="situation" class="mt-2 w-full rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper placeholder-paper/40 outline-none focus:border-brass-soft transition" placeholder="A few sentences — no case numbers or documents yet"></textarea></label>
+          </div>
+
+          <!-- STEP 3 — household & income -->
+          <div class="istep" data-step="3">
+            <div class="grid sm:grid-cols-2 gap-5">
+              <label class="block"><span class="text-[13px] font-600 text-paper/80">People in your household <span class="text-paper/40">(optional)</span></span><input type="number" min="1" name="household" class="mt-2 w-full rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper placeholder-paper/40 outline-none focus:border-brass-soft transition" placeholder="e.g. 4"></label>
+              <div class="block"><span class="text-[13px] font-600 text-paper/80">Approximate annual household income</span>
+                <div class="csel mt-2" data-name="income">
+                  <button type="button" class="csel-btn rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper outline-none focus:border-brass-soft transition" aria-haspopup="listbox" aria-expanded="false"><span class="csel-val">Prefer not to say</span><svg class="chev h-4 w-4 text-paper/55 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></button>
+                  <div class="csel-pop"><div class="csel-list"><ul class="csel-menu" role="listbox"><li class="csel-opt" role="option" aria-selected="true">Prefer not to say</li><li class="csel-opt" role="option">Under $25,000</li><li class="csel-opt" role="option">$25,000 – $50,000</li><li class="csel-opt" role="option">$50,000 – $75,000</li><li class="csel-opt" role="option">Over $75,000</li></ul></div></div>
+                </div>
+              </div>
+            </div>
+            <p class="mt-5 rounded-xl bg-paper/5 border border-paper/12 px-4 py-3 text-[13px] text-paper/55 leading-relaxed">As a nonprofit, we use this only to assess affordable, sliding-scale, or pro bono options. It never affects whether we help you.</p>
+          </div>
+
+          <!-- STEP 4 — urgency -->
+          <div class="istep" data-step="4">
+            <div class="grid sm:grid-cols-2 gap-5">
+              <div class="block"><span class="text-[13px] font-600 text-paper/80">How urgent is your situation?</span>
+                <div class="csel mt-2" data-name="urgency">
+                  <button type="button" class="csel-btn rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper outline-none focus:border-brass-soft transition" aria-haspopup="listbox" aria-expanded="false"><span class="csel-val">General question</span><svg class="chev h-4 w-4 text-paper/55 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></button>
+                  <div class="csel-pop"><div class="csel-list"><ul class="csel-menu" role="listbox"><li class="csel-opt" role="option" aria-selected="true">General question</li><li class="csel-opt" role="option">Time-sensitive</li><li class="csel-opt" role="option">Urgent &mdash; detention / court date</li></ul></div></div>
+                </div>
+              </div>
+              <div class="block"><span class="text-[13px] font-600 text-paper/80">Is anyone currently detained?</span>
+                <div class="csel mt-2" data-name="detained">
+                  <button type="button" class="csel-btn rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper outline-none focus:border-brass-soft transition" aria-haspopup="listbox" aria-expanded="false"><span class="csel-val">No</span><svg class="chev h-4 w-4 text-paper/55 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></button>
+                  <div class="csel-pop"><div class="csel-list"><ul class="csel-menu" role="listbox"><li class="csel-opt" role="option" aria-selected="true">No</li><li class="csel-opt" role="option">Yes — please prioritize</li></ul></div></div>
+                </div>
+              </div>
+            </div>
+            <p class="mt-5 text-[12px] text-paper/45 leading-relaxed">By submitting, you confirm the information is accurate. This form is a starting point and does not create an attorney–client relationship. The information on this site is not legal advice.</p>
+          </div>
+
+          <!-- nav -->
+          <div class="flex items-center gap-4 mt-7">
+            <button type="button" id="intakeBack" class="btn rounded-full border border-paper/30 px-6 py-3.5 font-600 hover:bg-paper hover:text-pine-900 hidden">Back</button>
+            <button type="button" id="intakeNext" class="btn btn-brass rounded-full px-6 py-3.5 font-600 flex-1 inline-flex items-center justify-center gap-2">Continue
+              <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+            <button type="submit" id="intakeSubmit" class="btn btn-brass rounded-full px-6 py-3.5 font-600 flex-1 hidden">Request confidential help</button>
+          </div>
+          <div data-ok class="hidden mt-5 rounded-xl border border-brass-soft/50 px-4 py-3 text-sm text-brass-soft" style="background:rgba(201,165,92,.12)">Thank you — we received your request and will respond within 1–2 business days.</div>
         </form>
       </div>
     </div>
@@ -1099,6 +1159,46 @@ function initFallbackMotion(){
       }
     });
   });
+})();
+
+/* multi-step intake form */
+(function(){
+  var form=document.getElementById('intakeForm'); if(!form) return;
+  var steps=[].slice.call(form.querySelectorAll('.istep'));
+  var bar=document.getElementById('intakeBar'), label=document.getElementById('intakeLabel'), pct=document.getElementById('intakePct');
+  var back=document.getElementById('intakeBack'), next=document.getElementById('intakeNext'), submit=document.getElementById('intakeSubmit');
+  var ok=form.querySelector('[data-ok]');
+  var titles=['Your contact','Your situation','Household','Urgency'];
+  var cur=1, total=steps.length;
+  function show(n){
+    steps.forEach(function(s){ var on=(+s.getAttribute('data-step')===n); if(on){ s.classList.add('on'); requestAnimationFrame(function(){ s.classList.add('in'); }); } else { s.classList.remove('on','in'); } });
+    var p=Math.round(n/total*100);
+    bar.style.width=p+'%'; pct.textContent=p+'%'; label.textContent='Step '+n+' of '+total+'  ·  '+titles[n-1];
+    back.classList.toggle('hidden', n===1);
+    next.classList.toggle('hidden', n===total);
+    submit.classList.toggle('hidden', n!==total);
+    cur=n;
+  }
+  function valid(n){
+    var s=steps[n-1], bad=null;
+    s.querySelectorAll('input[required],textarea[required]').forEach(function(el){
+      var v=(el.value||'').trim(), invalid = !v || (el.type==='email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v));
+      if(invalid){ el.classList.add('fld-inv'); if(!bad) bad=el; } else { el.classList.remove('fld-inv'); }
+    });
+    if(bad){ bad.focus(); }
+    return !bad;
+  }
+  form.addEventListener('input', function(e){ if(e.target.classList) e.target.classList.remove('fld-inv'); });
+  next.addEventListener('click', function(){ if(valid(cur) && cur<total) show(cur+1); });
+  back.addEventListener('click', function(){ if(cur>1) show(cur-1); });
+  form.addEventListener('submit', function(e){ e.preventDefault(); if(!valid(cur)) return;
+    /* TODO: POST to HubSpot Forms API once portal/form IDs are provided */
+    steps.forEach(function(s){ s.classList.remove('on','in'); });
+    document.querySelector('#intakeForm .flex.items-center.gap-4').classList.add('hidden');
+    bar.style.width='100%'; pct.textContent='Done'; label.textContent='Request received';
+    ok.classList.remove('hidden');
+  });
+  show(1);
 })();
 </script>
 </body>
