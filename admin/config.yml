@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: testauthosk/lic-site   # <-- CHANGE to ANTON_GH_USER/REPO_NAME after transfer (see SETUP.md)
+  repo: antonaipower/lic-site   # set for Anton's account; if the repo is renamed during transfer, update this
   branch: main
   # base_url: https://sveltia-cms-auth.<subdomain>.workers.dev   # <-- uncomment + set for the 'Sign in with GitHub' button (SETUP.md C)
 site_url: https://libertyimmigrationcouncil.org
