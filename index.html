@@ -130,6 +130,21 @@ tailwind.config = {
 
   .count,.num-index{font-variant-numeric:tabular-nums}
 
+  /* blog article prose */
+  .prose{color:#2b3a32;font-size:17px;line-height:1.75}
+  .prose > * + *{margin-top:1.15em}
+  .prose h2{font-family:'Libre Caslon Display',Georgia,serif;font-size:1.6rem;line-height:1.2;color:#16352A;margin-top:1.8em}
+  .prose h3{font-family:'Libre Caslon Display',Georgia,serif;font-size:1.28rem;color:#16352A;margin-top:1.5em}
+  .prose p{color:#3a4a42}
+  .prose a{color:#8F6F33;text-decoration:underline;text-underline-offset:2px}
+  .prose strong{color:#16352A;font-weight:600}
+  .prose ul{list-style:none;padding:0}
+  .prose ul > li{position:relative;padding-left:1.4em}
+  .prose ul > li + li{margin-top:.55em}
+  .prose ul > li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:#AE8A43}
+  .prose blockquote{border-left:3px solid #AE8A43;padding-left:1.1em;font-family:'Newsreader',Georgia,serif;font-style:italic;color:#2b3a32}
+  .prose em{font-family:'Newsreader',Georgia,serif;font-style:italic}
+
   @media (prefers-reduced-motion:reduce){
     .reveal,.stagger>*,.mask-img,.mask-img img,.line>span{transition:none!important;opacity:1!important;transform:none!important;clip-path:none!important}
     html{scroll-behavior:auto}
@@ -162,6 +177,7 @@ tailwind.config = {
         <a href="#stories" class="ulink">Stories</a>
         <a href="#attorney" class="ulink">Our Attorney</a>
         <a href="#foundations" class="ulink">Foundations</a>
+        <a href="blog.html" class="ulink">Blog</a>
         <a href="#faq" class="ulink">FAQ</a>
       </nav>
       <div class="flex items-center gap-3">
@@ -676,6 +692,7 @@ tailwind.config = {
         <li><a href="foundations.html" class="ulink hover:text-paper">For Foundations</a></li>
         <li><a href="corporate-giving.html" class="ulink hover:text-paper">Corporate Giving</a></li>
         <li><a href="annual-report.html" class="ulink hover:text-paper">Annual Report</a></li>
+        <li><a href="blog.html" class="ulink hover:text-paper">Blog</a></li>
         <li><a href="#donate" class="ulink hover:text-paper">Donate</a></li>
       </ul>
     </div>

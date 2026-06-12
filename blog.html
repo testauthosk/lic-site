@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Corporate Sponsorship | Liberty Immigration Council</title>
-<meta name="description" content="Partner with Liberty Immigration Council through corporate sponsorship, employee matching gifts, and pro bono support. Expand access to justice for immigrant families.">
+<title>Blog &amp; Resources | Liberty Immigration Council</title>
+<meta name="description" content="Plain-language articles on immigration, your rights, and resources for families from Liberty Immigration Council.">
 <meta property="og:title" content="Liberty Immigration Council — Immigration Legal Help for Families">
 <meta property="og:description" content="Trusted, affordable immigration legal help. A 501(c)(3) nonprofit led by a licensed attorney.">
 <meta property="og:type" content="website">
@@ -106,11 +106,44 @@ tailwind.config = {
   .diamond{display:inline-block;width:5px;height:5px;transform:rotate(45deg);background:#AE8A43}
 
   details summary::-webkit-details-marker{display:none}
-  details .faq-body{overflow:hidden}
-  details[open] summary ~ .faq-body{animation:faqIn .5s var(--ease)}
-  @keyframes faqIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+  /* FAQ smooth height accordion (JS-driven) */
+  .faq-wrap{overflow:hidden;height:0;transition:height .42s var(--ease)}
+  .faq-body{opacity:0;transition:opacity .4s var(--ease) .05s}
+  details.isopen .faq-body{opacity:1}
+
+  /* custom select — the control stretches downward into the options (seamless, height-animated both ways) */
+  .csel{position:relative}
+  .csel-btn{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;cursor:pointer;
+    transition:border-radius .18s var(--ease),border-color .18s var(--ease),background .18s}
+  .csel-btn .chev{transition:transform .32s var(--ease)}
+  .csel.open .csel-btn .chev{transform:rotate(180deg)}
+  .csel.open .csel-btn{border-bottom-left-radius:0;border-bottom-right-radius:0;border-bottom-color:transparent;background:rgba(245,240,230,.13)}
+  .csel-pop{position:absolute;left:0;right:0;top:100%;z-index:40;
+    background:#22372e;border:1px solid transparent;border-top:none;border-radius:0 0 .8rem .8rem;
+    display:grid;grid-template-rows:0fr;transition:grid-template-rows .34s var(--ease),box-shadow .34s var(--ease),border-color .2s var(--ease);
+    box-shadow:0 0 0 rgba(0,0,0,0)}
+  .csel.open .csel-pop{grid-template-rows:1fr;border-color:rgba(245,240,230,.22);box-shadow:0 26px 50px -26px rgba(0,0,0,.55)}
+  .csel-list{overflow:hidden;min-height:0;list-style:none;margin:0;padding:6px}
+  .csel-opt{padding:10px 12px;border-radius:.55rem;cursor:pointer;color:rgba(245,240,230,.82);font-size:14.5px;transition:background .16s,color .16s}
+  .csel-opt:hover{background:rgba(174,138,67,.2);color:#F5F0E6}
+  .csel-opt[aria-selected="true"]{background:rgba(174,138,67,.28);color:#F5F0E6}
 
   .count,.num-index{font-variant-numeric:tabular-nums}
+
+  /* blog article prose */
+  .prose{color:#2b3a32;font-size:17px;line-height:1.75}
+  .prose > * + *{margin-top:1.15em}
+  .prose h2{font-family:'Libre Caslon Display',Georgia,serif;font-size:1.6rem;line-height:1.2;color:#16352A;margin-top:1.8em}
+  .prose h3{font-family:'Libre Caslon Display',Georgia,serif;font-size:1.28rem;color:#16352A;margin-top:1.5em}
+  .prose p{color:#3a4a42}
+  .prose a{color:#8F6F33;text-decoration:underline;text-underline-offset:2px}
+  .prose strong{color:#16352A;font-weight:600}
+  .prose ul{list-style:none;padding:0}
+  .prose ul > li{position:relative;padding-left:1.4em}
+  .prose ul > li + li{margin-top:.55em}
+  .prose ul > li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:#AE8A43}
+  .prose blockquote{border-left:3px solid #AE8A43;padding-left:1.1em;font-family:'Newsreader',Georgia,serif;font-style:italic;color:#2b3a32}
+  .prose em{font-family:'Newsreader',Georgia,serif;font-style:italic}
 
   @media (prefers-reduced-motion:reduce){
     .reveal,.stagger>*,.mask-img,.mask-img img,.line>span{transition:none!important;opacity:1!important;transform:none!important;clip-path:none!important}
@@ -144,6 +177,7 @@ tailwind.config = {
         <a href="index.html#stories" class="ulink">Stories</a>
         <a href="index.html#attorney" class="ulink">Our Attorney</a>
         <a href="index.html#foundations" class="ulink">Foundations</a>
+        <a href="blog.html" class="ulink">Blog</a>
         <a href="index.html#faq" class="ulink">FAQ</a>
       </nav>
       <div class="flex items-center gap-3">
@@ -155,130 +189,49 @@ tailwind.config = {
 </header>
 
 <main id="top">
-<!-- ===== HERO ===== -->
 <section class="relative bg-paper overflow-hidden pt-[74px]">
   <div class="mx-auto max-w-[86rem] px-5 lg:px-10 pt-9 pb-14 lg:pt-10 lg:pb-16">
     <a href="index.html" class="reveal nudge inline-flex items-center gap-2 text-[13px] font-600 text-inkt/60 hover:text-pine">
       <svg class="h-4 w-4 text-brass-deep rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg>
       Back to home
     </a>
-    <div class="mt-9 grid lg:grid-cols-12 gap-10 lg:gap-16 items-end">
+    <div class="mt-7 grid lg:grid-cols-12 gap-8 lg:gap-16 items-end">
       <div class="lg:col-span-7">
-        <div class="reveal flex items-center gap-3 text-brass-deep"><span class="diamond"></span><span class="eyebrow">Corporate giving</span></div>
+        <div class="reveal flex items-center gap-3 text-brass-deep"><span class="diamond"></span><span class="eyebrow">Resources &amp; updates</span></div>
         <h1 class="lines mt-6 display leading-[1.06] text-[2.3rem] sm:text-[3rem] lg:text-[3.5rem] text-pine-900">
-          <span class="line"><span>Invest in immigrant</span></span>
-          <span class="line"><span>communities. <em class="quote text-brass-deep font-500">Strengthen your brand.</em></span></span>
+          <span class="line"><span>Know Your Rights.</span></span>
+          <span class="line"><span>Stay <em class="quote text-brass-deep font-500">informed.</em></span></span>
         </h1>
       </div>
       <div class="lg:col-span-5 lg:pb-2">
         <p class="reveal text-[17px] leading-relaxed text-inkt/75" data-d="1">
-          Corporate partnership with Liberty Immigration Council connects your organization to tangible social impact,
-          meaningful employee engagement, and public recognition.
+          Plain-language articles on immigration, your rights, and the resources available to you and your family.
         </p>
       </div>
     </div>
   </div>
 </section>
-
-<!-- ===== SPONSORSHIP TIERS ===== -->
 <section class="bg-ivory border-y border-pine/10">
-  <div class="mx-auto max-w-[86rem] px-5 lg:px-10 py-24 lg:py-32">
-    <div class="reveal flex items-center gap-3 text-brass-deep"><span class="diamond"></span><span class="eyebrow">Sponsorship levels</span></div>
-    <h2 class="reveal display text-[2rem] lg:text-[2.8rem] leading-[1.08] text-pine-900 mt-5 max-w-2xl" data-d="1">Ways to partner</h2>
-
-    <div class="mt-14 grid md:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-7">
-      <div class="reveal lift rounded-2xl bg-paper ring-1 ring-pine/12 p-7 flex flex-col" data-d="1">
-        <div class="eyebrow text-brass-deep">Community Defender</div>
-        <div class="display text-[2rem] text-pine-900 mt-3 leading-none">$1,000<span class="text-[15px] text-inkt/50 font-400">/yr</span></div>
-        <ul class="mt-6 space-y-3 text-[14.5px] text-inkt/70 flex-1">
-          <li class="flex gap-2.5"><span class="text-brass-deep">&bull;</span>Website mention</li>
-          <li class="flex gap-2.5"><span class="text-brass-deep">&bull;</span>Social media mention</li>
-          <li class="flex gap-2.5"><span class="text-brass-deep">&bull;</span>Invitation to the annual event</li>
-        </ul>
-      </div>
-
-      <div class="reveal lift rounded-2xl bg-paper ring-1 ring-pine/12 p-7 flex flex-col" data-d="2">
-        <div class="eyebrow text-brass-deep">Access to Justice Partner</div>
-        <div class="display text-[2rem] text-pine-900 mt-3 leading-none">$5,000<span class="text-[15px] text-inkt/50 font-400">/yr</span></div>
-        <ul class="mt-6 space-y-3 text-[14.5px] text-inkt/70 flex-1">
-          <li class="flex gap-2.5"><span class="text-brass-deep">&bull;</span>Everything in Community Defender</li>
-          <li class="flex gap-2.5"><span class="text-brass-deep">&bull;</span>Logo on printed materials</li>
-          <li class="flex gap-2.5"><span class="text-brass-deep">&bull;</span>Partner spotlight</li>
-          <li class="flex gap-2.5"><span class="text-brass-deep">&bull;</span>Employee volunteer day</li>
-        </ul>
-      </div>
-
-      <div class="reveal lift rounded-2xl bg-pine-900 text-paper p-7 flex flex-col relative overflow-hidden grain" data-d="3">
-        <div class="absolute -top-16 -right-12 h-52 w-52 rounded-full opacity-25 pointer-events-none" style="background:radial-gradient(circle,rgba(174,138,67,.6) 0%,transparent 62%)"></div>
-        <div class="relative eyebrow text-brass-soft">Liberty Partner &middot; Most popular</div>
-        <div class="relative display text-[2rem] mt-3 leading-none">$10,000<span class="text-[15px] text-paper/50 font-400">/yr</span></div>
-        <ul class="relative mt-6 space-y-3 text-[14.5px] text-paper/80 flex-1">
-          <li class="flex gap-2.5"><span class="text-brass-soft">&bull;</span>Everything in Access to Justice</li>
-          <li class="flex gap-2.5"><span class="text-brass-soft">&bull;</span>Named program sponsorship</li>
-          <li class="flex gap-2.5"><span class="text-brass-soft">&bull;</span>Speaking at community events</li>
-          <li class="flex gap-2.5"><span class="text-brass-soft">&bull;</span>Impact report for ESG reporting</li>
-        </ul>
-      </div>
-
-      <div class="reveal lift rounded-2xl bg-paper ring-1 ring-brass/40 p-7 flex flex-col" data-d="4">
-        <div class="eyebrow text-brass-deep">Liberty Founder</div>
-        <div class="display text-[2rem] text-pine-900 mt-3 leading-none">$25,000<span class="text-[15px] text-inkt/50 font-400">+/yr</span></div>
-        <ul class="mt-6 space-y-3 text-[14.5px] text-inkt/70 flex-1">
-          <li class="flex gap-2.5"><span class="text-brass-deep">&bull;</span>Everything in Liberty Partner</li>
-          <li class="flex gap-2.5"><span class="text-brass-deep">&bull;</span>Advisory board seat (non-voting)</li>
-          <li class="flex gap-2.5"><span class="text-brass-deep">&bull;</span>Co-branded community initiative</li>
-          <li class="flex gap-2.5"><span class="text-brass-deep">&bull;</span>Right of first renewal</li>
-          <li class="flex gap-2.5"><span class="text-brass-deep">&bull;</span>Custom stakeholder storytelling</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== MATCHING + PRO BONO ===== -->
-<section class="bg-paper">
-  <div class="mx-auto max-w-[86rem] px-5 lg:px-10 py-24 lg:py-32 grid lg:grid-cols-2 gap-12 lg:gap-16">
-    <div class="reveal" data-d="1">
-      <div class="flex items-center gap-3 text-brass-deep"><span class="diamond"></span><span class="eyebrow">Employee matching gifts</span></div>
-      <h2 class="display text-[1.7rem] lg:text-[2.1rem] leading-[1.15] text-pine-900 mt-5">Double your team&rsquo;s impact</h2>
-      <p class="mt-5 text-[16px] leading-relaxed text-inkt/70">
-        Many corporations match employee donations. Liberty Immigration Council is a registered 501(c)(3)
-        <span class="text-inkt/50">(EIN: 41-5367566)</span> and is eligible for most corporate matching programs.
-        To confirm your company&rsquo;s eligibility, contact your HR or benefits coordinator.
-      </p>
-      <a href="mailto:grants@libertyimmigrationcouncil.org?subject=Matching%20gift" class="nudge inline-flex items-center gap-2 mt-6 font-600 text-pine ulink">
-        Apply for matching
-        <svg class="h-4 w-4 text-brass-deep" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg>
+  <div class="mx-auto max-w-[86rem] px-5 lg:px-10 py-16 lg:py-20">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
+      <a href="blog-know-your-rights.html" class="reveal lift block rounded-2xl bg-ivory border border-pine/10 p-7 lg:p-8" data-d="1">
+        <div class="eyebrow text-brass-deep">June 11, 2026</div>
+        <h2 class="display text-[1.4rem] lg:text-[1.55rem] text-pine-900 mt-3 leading-tight">Know Your Rights: If Immigration Officers Come to Your Door</h2>
+        <p class="mt-3 text-[15px] leading-relaxed text-inkt/65">A calm, practical overview of the rights everyone in the United States has — and simple steps to take if immigration officers arrive at your home.</p>
+        <span class="nudge inline-flex items-center gap-2 mt-5 font-600 text-pine text-[14px]">Read article
+          <svg class="h-4 w-4 text-brass-deep" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
       </a>
-    </div>
-    <div class="reveal" data-d="2">
-      <div class="flex items-center gap-3 text-brass-deep"><span class="diamond"></span><span class="eyebrow">Pro bono partnership</span></div>
-      <h2 class="display text-[1.7rem] lg:text-[2.1rem] leading-[1.15] text-pine-900 mt-5">Lend your legal talent</h2>
-      <p class="mt-5 text-[16px] leading-relaxed text-inkt/70">
-        Law firms and corporate legal departments can partner with Liberty Immigration Council to provide pro bono hours,
-        mentorship for staff, or co-counseling on cases &mdash; extending access to justice for the families we serve.
-      </p>
-      <a href="mailto:grants@libertyimmigrationcouncil.org?subject=Pro%20bono%20partnership" class="nudge inline-flex items-center gap-2 mt-6 font-600 text-pine ulink">
-        Discuss pro bono partnership
-        <svg class="h-4 w-4 text-brass-deep" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg>
+      <a href="blog-daca-2026.html" class="reveal lift block rounded-2xl bg-ivory border border-pine/10 p-7 lg:p-8" data-d="2">
+        <div class="eyebrow text-brass-deep">June 10, 2026</div>
+        <h2 class="display text-[1.4rem] lg:text-[1.55rem] text-pine-900 mt-3 leading-tight">DACA in 2026: What Current Recipients Should Know</h2>
+        <p class="mt-3 text-[15px] leading-relaxed text-inkt/65">Deferred Action for Childhood Arrivals continues to change. Here is a plain-language overview for current recipients and families.</p>
+        <span class="nudge inline-flex items-center gap-2 mt-5 font-600 text-pine text-[14px]">Read article
+          <svg class="h-4 w-4 text-brass-deep" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
       </a>
-    </div>
-  </div>
-</section>
-
-<!-- ===== CTA BAND ===== -->
-<section class="relative bg-pine-900 text-paper grain overflow-hidden">
-  <div class="absolute -top-32 -right-28 h-[34rem] w-[34rem] rounded-full opacity-20 pointer-events-none" style="background:radial-gradient(circle,rgba(174,138,67,.55) 0%,transparent 62%)"></div>
-  <div class="relative mx-auto max-w-[86rem] px-5 lg:px-10 py-20 lg:py-24 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-    <h2 class="reveal display text-[2rem] lg:text-[2.7rem] leading-[1.1] max-w-2xl">Build a partnership<br>that means something.</h2>
-    <div class="reveal flex flex-wrap gap-4" data-d="2">
-      <a href="mailto:grants@libertyimmigrationcouncil.org?subject=Corporate%20sponsorship" class="btn btn-brass inline-flex items-center gap-2 rounded-full px-7 py-4 font-600">Become a corporate sponsor</a>
-      <a href="foundations.html" class="btn inline-flex items-center gap-2 rounded-full border border-paper/30 px-7 py-4 font-600 hover:bg-paper hover:text-pine-900">Foundation grants</a>
     </div>
   </div>
 </section>
 </main>
-
 <!-- ===== FOOTER ===== -->
 <footer class="bg-pine-900 text-paper/65 border-t border-paper/10">
   <div class="mx-auto max-w-[86rem] px-5 lg:px-10 py-16 grid md:grid-cols-12 gap-12">
@@ -649,6 +602,45 @@ function initFallbackMotion(){
   }
 
   window.addEventListener('load', function(){ ScrollTrigger.refresh(); moveThumb(activeGive, true); });
+})();
+</script>
+<script>
+/* custom select dropdowns */
+(function(){
+  var sels = document.querySelectorAll('.csel');
+  function closeAll(){ sels.forEach(function(s){ s.classList.remove('open'); s.querySelector('.csel-btn').setAttribute('aria-expanded','false'); }); }
+  sels.forEach(function(sel){
+    var btn=sel.querySelector('.csel-btn'), val=sel.querySelector('.csel-val'), opts=sel.querySelectorAll('.csel-opt');
+    btn.addEventListener('click', function(e){ e.stopPropagation(); var willOpen=!sel.classList.contains('open'); closeAll(); if(willOpen){ sel.classList.add('open'); btn.setAttribute('aria-expanded','true'); } });
+    opts.forEach(function(o){ o.addEventListener('click', function(e){ e.stopPropagation(); val.textContent=o.textContent; opts.forEach(function(x){ x.setAttribute('aria-selected','false'); }); o.setAttribute('aria-selected','true'); sel.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }); });
+  });
+  document.addEventListener('click', function(){ closeAll(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeAll(); });
+})();
+
+/* FAQ smooth height accordion */
+(function(){
+  var items = document.querySelectorAll('#faq details');
+  items.forEach(function(d){
+    var sum=d.querySelector('summary'), body=d.querySelector('.faq-body');
+    if(!sum||!body) return;
+    var wrap=document.createElement('div'); wrap.className='faq-wrap';
+    body.parentNode.insertBefore(wrap, body); wrap.appendChild(body);
+    sum.addEventListener('click', function(e){
+      e.preventDefault();
+      if(d.classList.contains('isopen')){
+        wrap.style.height=wrap.scrollHeight+'px';
+        requestAnimationFrame(function(){ wrap.style.height='0px'; });
+        d.classList.remove('isopen');
+        wrap.addEventListener('transitionend', function h(){ d.removeAttribute('open'); wrap.removeEventListener('transitionend',h); }, {once:true});
+      } else {
+        d.setAttribute('open',''); d.classList.add('isopen');
+        wrap.style.height='0px';
+        requestAnimationFrame(function(){ wrap.style.height=wrap.scrollHeight+'px'; });
+        wrap.addEventListener('transitionend', function h(){ if(d.classList.contains('isopen')) wrap.style.height='auto'; wrap.removeEventListener('transitionend',h); }, {once:true});
+      }
+    });
+  });
 })();
 </script>
 </body>

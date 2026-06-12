@@ -8,3 +8,5 @@ _*.png
 _*
 __pycache__/
 board_src/
+!_build_page.py
+!_gen_blog.py

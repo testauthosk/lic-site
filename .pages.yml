@@ -1,0 +1,19 @@
+content:
+  - name: blog
+    label: Blog posts
+    type: collection
+    path: content/blog
+    format: yaml-frontmatter
+    filename: "{fields.title|slugify}.md"
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: date, label: Date, type: date, required: true, options: { format: yyyy-MM-dd } }
+      - { name: author, label: Author, type: string, default: "Liberty Immigration Council" }
+      - { name: excerpt, label: Short summary, type: text }
+      - { name: cover, label: Cover image (optional), type: image, required: false }
+      - { name: body, label: Article, type: rich-text }
+media:
+  - name: blog-images
+    label: Blog images
+    input: content/blog/images
+    output: /content/blog/images
