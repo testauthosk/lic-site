@@ -63,7 +63,7 @@ for po in posts:
 </section>
 <section class="relative bg-pine-900 text-paper grain overflow-hidden">
   <div class="absolute -top-32 -right-28 h-[34rem] w-[34rem] rounded-full opacity-20 pointer-events-none" style="background:radial-gradient(circle,rgba(174,138,67,.55) 0%,transparent 62%)"></div>
-  <div class="relative mx-auto max-w-[86rem] px-5 lg:px-10 py-20 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+  <div class="relative mx-auto max-w-[86rem] px-5 lg:px-10 py-14 lg:py-16 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
     <h2 class="reveal display text-[1.9rem] lg:text-[2.5rem] leading-[1.1] max-w-2xl">Have a question about<br>your situation?</h2>
     <div class="reveal flex flex-wrap gap-4" data-d="2">
       <a href="index.html#help" class="btn btn-brass inline-flex items-center gap-2 rounded-full px-7 py-4 font-600">Get help</a>
