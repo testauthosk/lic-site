@@ -646,7 +646,7 @@ tailwind.config = {
     </div>
 
     <div class="reveal mt-9 flex flex-wrap items-center gap-5" data-d="1">
-      <a href="https://givebutter.com/support-liberty-immigration-council-1tj4xa" target="_blank" rel="noopener" class="btn btn-brass rounded-full px-8 py-4 font-700">Donate securely</a>
+      <a href="https://givebutter.com/support-liberty-immigration-council-1tj4xa/donate" target="_blank" rel="noopener" class="btn btn-brass rounded-full px-8 py-4 font-700">Donate securely</a>
       <a href="https://app.candid.org/profile/16597859/liberty-immigration-council-41-5367566/?pkId=858140d5-535c-47ad-a449-7f641e78fb0d" target="_blank" rel="noopener" aria-label="Liberty Immigration Council — 2026 Bronze Transparency Seal by Candid" class="shrink-0 inline-block rounded-xl bg-paper p-2.5">
         <img src="https://widgets.guidestar.org/prod/v1/pdp/transparency-seal/16597859/svg" alt="2026 Bronze Transparency Seal by Candid" width="96" height="96" loading="lazy" class="block h-auto w-[96px]">
       </a>
@@ -1137,6 +1137,23 @@ function initFallbackMotion(){
     once_.onclick = function(){ activeGive = once_; setMode(false); };
     month.onclick = function(){ activeGive = month; setMode(true); };
   }
+
+  /* clickable donation tiers -> Givebutter checkout with amount + frequency prefilled */
+  var GB_DONATE = 'https://givebutter.com/support-liberty-immigration-council-1tj4xa/donate';
+  document.querySelectorAll('#donate .amt[data-base]').forEach(function(amtEl){
+    var card = amtEl.closest('.lift'); if(!card) return;
+    card.style.cursor = 'pointer';
+    card.setAttribute('role', 'link');
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('aria-label', 'Donate $' + (+amtEl.dataset.base).toLocaleString());
+    function go(){
+      var amount = +amtEl.dataset.base;
+      var freq = amtEl.textContent.indexOf('/mo') > -1 ? 'monthly' : 'once';
+      window.open(GB_DONATE + '?amount=' + amount + '&frequency=' + freq, '_blank', 'noopener');
+    }
+    card.addEventListener('click', go);
+    card.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); } });
+  });
 
   window.addEventListener('load', function(){ ScrollTrigger.refresh(); moveThumb(activeGive, true); });
 })();
