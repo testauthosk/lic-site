@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600;700&display=swap");
+html,body{background:#F5F0E6}
+.pv{max-width:46rem;margin:0 auto;padding:40px 28px 64px;font-family:'Inter',system-ui,sans-serif}
+.pv-meta{font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:#8F6F33;display:flex;align-items:center;gap:9px}
+.pv-meta::before{content:"";width:5px;height:5px;transform:rotate(45deg);background:#AE8A43;display:inline-block}
+.pv-title{font-family:'Libre Caslon Display',Georgia,serif;font-size:2.4rem;line-height:1.12;color:#0B1B15;letter-spacing:-.01em;margin:18px 0 26px}
+.prose{color:#3a4a42;font-size:17px;line-height:1.75}
+.prose > * + *{margin-top:1.15em}
+.prose h2{font-family:'Libre Caslon Display',Georgia,serif;font-size:1.6rem;line-height:1.2;color:#16352A;margin-top:1.8em}
+.prose h3{font-family:'Libre Caslon Display',Georgia,serif;font-size:1.28rem;color:#16352A;margin-top:1.5em}
+.prose a{color:#8F6F33;text-decoration:underline;text-underline-offset:2px}
+.prose strong{color:#16352A;font-weight:600}
+.prose ul{list-style:none;padding:0}
+.prose ul>li{position:relative;padding-left:1.4em}
+.prose ul>li+li{margin-top:.55em}
+.prose ul>li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:#AE8A43}
+.prose blockquote{border-left:3px solid #AE8A43;padding-left:1.1em;font-family:'Newsreader',Georgia,serif;font-style:italic}
+.prose em{font-family:'Newsreader',Georgia,serif;font-style:italic}

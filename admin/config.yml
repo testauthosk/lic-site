@@ -1,0 +1,24 @@
+backend:
+  name: github
+  repo: testauthosk/lic-site
+  branch: main
+site_url: https://libertyimmigrationcouncil.org
+display_url: https://libertyimmigrationcouncil.org
+media_folder: content/blog/images
+public_folder: /content/blog/images
+collections:
+  - name: blog
+    label: Blog posts
+    label_singular: Blog post
+    folder: content/blog
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}  —  {{date}}"
+    sortable_fields: [date, title]
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: datetime, date_format: YYYY-MM-DD, time_format: false, picker_utc: true }
+      - { label: Author, name: author, widget: string, default: "Liberty Immigration Council" }
+      - { label: Short summary, name: excerpt, widget: text, hint: "1-2 sentences shown on the blog index card." }
+      - { label: Cover image (optional), name: cover, widget: image, required: false }
+      - { label: Article, name: body, widget: markdown }

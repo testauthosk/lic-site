@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Liberty Immigration Council — Content</title>
+</head>
+<body>
+<script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+<script>
+(function(){
+  function setup(){
+    if(!window.CMS){ return setTimeout(setup, 60); }
+    try{ CMS.registerPreviewStyle('/admin/preview.css'); }catch(e){}
+    try{
+      CMS.registerPreviewTemplate('blog', window.createClass({
+        render: function(){
+          var e=this.props.entry, d=e.get('data');
+          var title=d.get('title')||'Untitled';
+          var date=d.get('date'); date=date?String(date).slice(0,10):'';
+          var author=d.get('author')||'Liberty Immigration Council';
+          return window.h('div',{className:'pv'},
+            window.h('div',{className:'pv-meta'}, (author?author+'  ·  ':'')+date),
+            window.h('h1',{className:'pv-title'}, title),
+            window.h('div',{className:'prose'}, this.props.widgetFor('body'))
+          );
+        }
+      }));
+    }catch(e){}
+  }
+  setup();
+})();
+</script>
+</body>
+</html>
