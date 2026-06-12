@@ -119,11 +119,10 @@ tailwind.config = {
   .csel.open .csel-btn .chev{transform:rotate(180deg)}
   .csel.open .csel-btn{border-bottom-left-radius:0;border-bottom-right-radius:0;border-bottom-color:transparent;background:rgba(245,240,230,.13)}
   .csel-pop{position:absolute;left:0;right:0;top:100%;z-index:40;
-    background:#22372e;border:1px solid transparent;border-top:none;border-radius:0 0 .8rem .8rem;
-    display:grid;grid-template-rows:0fr;transition:grid-template-rows .34s var(--ease),box-shadow .34s var(--ease),border-color .2s var(--ease);
-    box-shadow:0 0 0 rgba(0,0,0,0)}
-  .csel.open .csel-pop{grid-template-rows:1fr;border-color:rgba(245,240,230,.22);box-shadow:0 26px 50px -26px rgba(0,0,0,.55)}
-  .csel-list{overflow:hidden;min-height:0;list-style:none;margin:0;padding:6px}
+    display:grid;grid-template-rows:0fr;transition:grid-template-rows .34s var(--ease)}
+  .csel.open .csel-pop{grid-template-rows:1fr}
+  .csel-list{overflow:hidden;min-height:0}
+  .csel-menu{list-style:none;margin:0;padding:6px;background:#22372e;border:1px solid rgba(245,240,230,.22);border-top:none;border-radius:0 0 .8rem .8rem;box-shadow:0 26px 50px -26px rgba(0,0,0,.55)}
   .csel-opt{padding:10px 12px;border-radius:.55rem;cursor:pointer;color:rgba(245,240,230,.82);font-size:14.5px;transition:background .16s,color .16s}
   .csel-opt:hover{background:rgba(174,138,67,.2);color:#F5F0E6}
   .csel-opt[aria-selected="true"]{background:rgba(174,138,67,.28);color:#F5F0E6}
@@ -520,13 +519,13 @@ tailwind.config = {
             <div class="block"><span class="text-[13px] font-600 text-paper/80">Preferred language</span>
               <div class="csel mt-2">
                 <button type="button" class="csel-btn rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper outline-none focus:border-brass-soft transition" aria-haspopup="listbox" aria-expanded="false"><span class="csel-val">English</span><svg class="chev h-4 w-4 text-paper/55 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></button>
-                <div class="csel-pop"><ul class="csel-list" role="listbox"><li class="csel-opt" role="option" aria-selected="true">English</li><li class="csel-opt" role="option">Español</li><li class="csel-opt" role="option">Русский</li><li class="csel-opt" role="option">Other</li></ul></div>
+                <div class="csel-pop"><div class="csel-list"><ul class="csel-menu" role="listbox"><li class="csel-opt" role="option" aria-selected="true">English</li><li class="csel-opt" role="option">Español</li><li class="csel-opt" role="option">Русский</li><li class="csel-opt" role="option">Other</li></ul></div></div>
               </div>
             </div>
             <div class="block"><span class="text-[13px] font-600 text-paper/80">Urgency</span>
               <div class="csel mt-2">
                 <button type="button" class="csel-btn rounded-xl bg-paper/10 border border-paper/25 px-4 py-3 text-paper outline-none focus:border-brass-soft transition" aria-haspopup="listbox" aria-expanded="false"><span class="csel-val">General question</span><svg class="chev h-4 w-4 text-paper/55 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></button>
-                <div class="csel-pop"><ul class="csel-list" role="listbox"><li class="csel-opt" role="option" aria-selected="true">General question</li><li class="csel-opt" role="option">Time-sensitive</li><li class="csel-opt" role="option">Urgent &mdash; detention / court date</li></ul></div>
+                <div class="csel-pop"><div class="csel-list"><ul class="csel-menu" role="listbox"><li class="csel-opt" role="option" aria-selected="true">General question</li><li class="csel-opt" role="option">Time-sensitive</li><li class="csel-opt" role="option">Urgent &mdash; detention / court date</li></ul></div></div>
               </div>
             </div>
           </div>
