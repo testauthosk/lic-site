@@ -1140,16 +1140,21 @@ function initFallbackMotion(){
     sel.classList.remove('open'); sel.classList.add('closing');
     sel.querySelector('.csel-btn').setAttribute('aria-expanded','false');
     var pop=sel.querySelector('.csel-pop');
-    var done=function(){ if(sel._oe){ pop.removeEventListener('transitionend', sel._oe); sel._oe=null; } if(sel._ct){ clearTimeout(sel._ct); sel._ct=null; } if(!sel.classList.contains('open')) sel.classList.remove('closing'); };
-    // round the corners exactly when the panel's collapse animation ends
-    sel._oe=function(e){ if(e.target===pop && e.propertyName==='grid-template-rows') done(); };
-    pop.addEventListener('transitionend', sel._oe);
-    sel._ct=setTimeout(done, 480); // safety fallback if transitionend doesn't fire
+    // round the corners the moment the panel is visually gone — measured from its real height each frame
+    // (ties to what the eye sees, not the math end of the easing, so it's never early/hole nor late/lag)
+    function tick(){
+      if(!sel.classList.contains('closing')) return;        // reopened — stop
+      if(pop.offsetHeight<=6){ sel.classList.remove('closing'); if(sel._ct){clearTimeout(sel._ct);sel._ct=null;} return; }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+    if(sel._ct) clearTimeout(sel._ct);
+    sel._ct=setTimeout(function(){ if(!sel.classList.contains('open')) sel.classList.remove('closing'); sel._ct=null; }, 600); // safety
   }
   function closeAll(){ sels.forEach(closeSel); }
   sels.forEach(function(sel){
     var btn=sel.querySelector('.csel-btn'), val=sel.querySelector('.csel-val'), opts=sel.querySelectorAll('.csel-opt');
-    btn.addEventListener('click', function(e){ e.stopPropagation(); var willOpen=!sel.classList.contains('open'); closeAll(); if(willOpen){ if(sel._ct){clearTimeout(sel._ct);sel._ct=null;} if(sel._oe){sel.querySelector('.csel-pop').removeEventListener('transitionend',sel._oe);sel._oe=null;} sel.classList.remove('closing'); sel.classList.add('open'); btn.setAttribute('aria-expanded','true'); } });
+    btn.addEventListener('click', function(e){ e.stopPropagation(); var willOpen=!sel.classList.contains('open'); closeAll(); if(willOpen){ if(sel._ct){clearTimeout(sel._ct);sel._ct=null;} sel.classList.remove('closing'); sel.classList.add('open'); btn.setAttribute('aria-expanded','true'); } });
     opts.forEach(function(o){ o.addEventListener('click', function(e){ e.stopPropagation(); val.textContent=o.textContent; opts.forEach(function(x){ x.setAttribute('aria-selected','false'); }); o.setAttribute('aria-selected','true'); closeSel(sel); }); });
   });
   document.addEventListener('click', function(){ closeAll(); });
