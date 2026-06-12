@@ -131,6 +131,10 @@ tailwind.config = {
   .istep.on{display:block}
   .istep.on.in{opacity:1;transform:none}
   .fld-inv{border-color:#D98C8C !important;animation:fldShake .35s var(--ease)}
+  /* hide native number-input spinners (match custom design) */
+  #intakeForm input[type=number]::-webkit-inner-spin-button,
+  #intakeForm input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+  #intakeForm input[type=number]{-moz-appearance:textfield;appearance:textfield}
   @keyframes fldShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
   /* liquid progress bar — flowing brass shimmer + water-like fill between steps */
   #intakeBar{position:relative;border-radius:9999px;
